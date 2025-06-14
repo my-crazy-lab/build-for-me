@@ -1,0 +1,141 @@
+{
+  "name": "instatus-clone",
+  "version": "1.0.0",
+  "description": "A comprehensive status page system clone inspired by Instatus",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "monitoring",
+    "notifications",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" \"npm run dev:monitoring\" \"npm run dev:notifications\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:monitoring": "cd monitoring && npm run dev",
+    "dev:notifications": "cd notifications && npm run dev",
+    
+    "build": "npm run build:shared && npm run build:backend && npm run build:frontend && npm run build:monitoring && npm run build:notifications",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "build:monitoring": "cd monitoring && npm run build",
+    "build:notifications": "cd notifications && npm run build",
+    "build:shared": "cd shared && npm run build",
+    
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\" \"npm run start:monitoring\" \"npm run start:notifications\"",
+    "start:frontend": "cd frontend && npm start",
+    "start:backend": "cd backend && npm start",
+    "start:monitoring": "cd monitoring && npm start",
+    "start:notifications": "cd notifications && npm start",
+    
+    "install:all": "npm install && npm run install:frontend && npm run install:backend && npm run install:monitoring && npm run install:notifications",
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd backend && npm install",
+    "install:monitoring": "cd monitoring && npm install",
+    "install:notifications": "cd notifications && npm install",
+    
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:frontend": "cd frontend && npm test",
+    "test:backend": "cd backend && npm test",
+    "test:monitoring": "cd monitoring && npm test",
+    "test:notifications": "cd notifications && npm test",
+    
+    "lint": "npm run lint:frontend && npm run lint:backend",
+    "lint:frontend": "cd frontend && npm run lint",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:monitoring": "cd monitoring && npm run lint",
+    "lint:notifications": "cd notifications && npm run lint",
+    
+    "lint:fix": "npm run lint:fix:frontend && npm run lint:fix:backend",
+    "lint:fix:frontend": "cd frontend && npm run lint:fix",
+    "lint:fix:backend": "cd backend && npm run lint:fix",
+    
+    "type-check": "npm run type-check:frontend && npm run type-check:backend",
+    "type-check:frontend": "cd frontend && npm run type-check",
+    "type-check:backend": "cd backend && npm run type-check",
+    
+    "clean": "npm run clean:frontend && npm run clean:backend && npm run clean:monitoring && npm run clean:notifications",
+    "clean:frontend": "cd frontend && rm -rf .next node_modules",
+    "clean:backend": "cd backend && rm -rf dist node_modules",
+    "clean:monitoring": "cd monitoring && rm -rf dist node_modules",
+    "clean:notifications": "cd notifications && rm -rf dist node_modules",
+    
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:restart": "docker-compose restart",
+    
+    "docker:prod": "docker-compose -f docker-compose.prod.yml up -d",
+    "docker:prod:build": "docker-compose -f docker-compose.prod.yml build",
+    "docker:prod:down": "docker-compose -f docker-compose.prod.yml down",
+    
+    "db:setup": "docker-compose up -d postgres redis",
+    "db:migrate": "cd backend && npm run db:migrate",
+    "db:seed": "cd backend && npm run db:seed",
+    "db:reset": "cd backend && npm run db:reset",
+    "test:api": "./test-api.sh",
+    "health": "curl -f http://localhost:3001/api/health",
+    "setup": "npm run install:all && npm run db:setup && sleep 10 && npm run db:migrate && npm run db:seed && echo '✅ Setup complete! Run npm run dev to start all services.'",
+    
+    "tools:up": "docker-compose --profile tools up -d",
+    "tools:down": "docker-compose --profile tools down",
+    
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md,yml,yaml}\"",
+    
+    "prepare": "husky install",
+    "postinstall": "npm run install:all"
+  },
+  "keywords": [
+    "status-page",
+    "monitoring",
+    "uptime",
+    "incidents",
+    "notifications",
+    "instatus",
+    "clone",
+    "nextjs",
+    "nodejs",
+    "express",
+    "postgresql",
+    "redis",
+    "typescript"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/instatus-clone.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/instatus-clone/issues"
+  },
+  "homepage": "https://github.com/yourusername/instatus-clone#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "prettier": "^3.0.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "commitlint": {
+    "extends": ["@commitlint/config-conventional"]
+  }
+}

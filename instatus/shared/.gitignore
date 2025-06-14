@@ -1,0 +1,168 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+build/
+lib/
+*.tgz
+
+# TypeScript
+*.tsbuildinfo
+*.d.ts.map
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Cache
+.cache/
+.tmp/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# Lock files (keep package-lock.json but ignore others)
+yarn.lock
+pnpm-lock.yaml
+
+# ESLint cache
+.eslintcache
+
+# Prettier cache
+.prettiercache
+
+# Jest cache
+.jest/
+
+# Babel cache
+.babel-cache/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache
+.cache
+.parcel-cache
+
+# TernJS port file
+.tern-port
+
+# Generated files
+generated/
+auto-generated/
+
+# Documentation build
+docs/build/
+docs/dist/
+
+# Type definitions (if auto-generated)
+types/generated/
+
+# Schema files (if auto-generated)
+schemas/generated/
+
+# Validation files (if auto-generated)
+validators/generated/
+
+# Constants (if auto-generated)
+constants/generated/
+
+# Utilities (if auto-generated)
+utils/generated/
+
+# Backup files
+*.backup
+*.bak
+
+# Archive files
+*.zip
+*.tar.gz
+*.rar
+
+# Temporary files
+*.tmp
+*.temp
+
+# Editor files
+*.orig
+*.patch
+*.diff
+
+# Test artifacts
+test-results/
+test-reports/
+
+# Benchmark results
+benchmarks/
+performance/
+
+# API documentation
+api-docs/
+swagger-docs/
+
+# OpenAPI specs (if generated)
+openapi/generated/
+
+# GraphQL schemas (if generated)
+graphql/generated/
+
+# Protocol buffers (if generated)
+protobuf/generated/
+
+# JSON schemas (if generated)
+json-schemas/generated/
+
+# Internationalization
+i18n/generated/
+locales/generated/
+
+# Configuration templates
+config-templates/generated/
+
+# Migration files (if auto-generated)
+migrations/generated/
+
+# Seed files (if auto-generated)
+seeds/generated/
+
+# Mock data (if auto-generated)
+mocks/generated/
+
+# Fixtures (if auto-generated)
+fixtures/generated/
+
+# Stubs (if auto-generated)
+stubs/generated/
+
+# Examples (if auto-generated)
+examples/generated/
+
+# Samples (if auto-generated)
+samples/generated/
