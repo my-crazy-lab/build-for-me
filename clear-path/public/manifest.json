@@ -1,0 +1,58 @@
+{
+  "name": "Personal Focus Dashboard",
+  "short_name": "Focus Dashboard",
+  "description": "A dashboard to visualize, track, and manage time across personal goals",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["productivity", "lifestyle", "utilities"],
+
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View your goal progress dashboard",
+      "url": "/?page=dashboard",
+      "icons": [
+        {
+          "src": "/vite.svg",
+          "sizes": "any"
+        }
+      ]
+    },
+    {
+      "name": "Add Goal",
+      "short_name": "New Goal",
+      "description": "Create a new goal",
+      "url": "/?page=goals&action=new",
+      "icons": [
+        {
+          "src": "/vite.svg",
+          "sizes": "any"
+        }
+      ]
+    },
+    {
+      "name": "Time Tracking",
+      "short_name": "Timer",
+      "description": "Start time tracking",
+      "url": "/?page=time",
+      "icons": [
+        {
+          "src": "/vite.svg",
+          "sizes": "any"
+        }
+      ]
+    }
+  ]
+}
