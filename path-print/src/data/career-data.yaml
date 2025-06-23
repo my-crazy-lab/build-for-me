@@ -1,0 +1,331 @@
+# Career Path Visualization - Sample Data
+# 
+# This YAML file contains sample career data for demonstration purposes.
+# Replace this with your actual career information.
+# 
+# MAINTAINER NOTES:
+# - Follow the exact structure defined in the TypeScript types
+# - All dates should be in YYYY-MM-DD format
+# - Use null for end dates of current positions
+# - Skill levels range from 1 (Beginner) to 5 (Master)
+# - Icons should reference available icon identifiers
+
+profile:
+  name: "Alex Johnson"
+  title: "Senior Full Stack Developer"
+  bio: "Passionate software engineer with 8+ years of experience building scalable web applications and leading development teams. Specialized in React, Node.js, and cloud architecture."
+  avatar: "/images/avatar.jpg"
+  contact:
+    email: "alex.johnson@example.com"
+    linkedin: "https://linkedin.com/in/alexjohnson"
+    github: "https://github.com/alexjohnson"
+    website: "https://alexjohnson.dev"
+
+milestones:
+  - id: "milestone-1"
+    type: "education"
+    title: "Bachelor of Science in Computer Science"
+    organization: "University of Technology"
+    dateRange:
+      start: "2012-09-01"
+      end: "2016-05-15"
+      duration: "4 years"
+    description: "Comprehensive computer science education with focus on software engineering, algorithms, and system design."
+    highlights:
+      - "Graduated Magna Cum Laude with 3.8 GPA"
+      - "President of Computer Science Student Association"
+      - "Led team project developing campus event management system"
+      - "Completed internship at local tech startup"
+    skills:
+      - id: "java"
+        name: "Java"
+        level: 3
+        category: "Programming"
+        description: "Object-oriented programming and enterprise development"
+      - id: "algorithms"
+        name: "Algorithms & Data Structures"
+        level: 4
+        category: "Computer Science"
+        description: "Algorithm design and complexity analysis"
+    icon: "graduation-cap"
+    location: "San Francisco, CA"
+
+  - id: "milestone-2"
+    type: "job"
+    title: "Junior Software Developer"
+    organization: "TechStart Inc."
+    dateRange:
+      start: "2016-06-01"
+      end: "2018-03-31"
+      duration: "1 year 10 months"
+    description: "First professional role developing web applications using modern JavaScript frameworks and agile methodologies."
+    highlights:
+      - "Developed 5+ customer-facing web applications"
+      - "Reduced page load times by 40% through optimization"
+      - "Mentored 2 junior developers and interns"
+      - "Implemented automated testing increasing code coverage to 85%"
+    skills:
+      - id: "javascript"
+        name: "JavaScript"
+        level: 3
+        category: "Programming"
+        description: "Modern ES6+ JavaScript development"
+      - id: "react"
+        name: "React"
+        level: 2
+        category: "Frontend"
+        description: "Component-based UI development"
+      - id: "nodejs"
+        name: "Node.js"
+        level: 2
+        category: "Backend"
+        description: "Server-side JavaScript development"
+    icon: "code"
+    location: "San Francisco, CA"
+    compensation:
+      amount: 75000
+      currency: "USD"
+      type: "salary"
+
+  - id: "milestone-3"
+    type: "promotion"
+    title: "Software Developer"
+    organization: "TechStart Inc."
+    dateRange:
+      start: "2018-04-01"
+      end: "2020-01-31"
+      duration: "1 year 10 months"
+    description: "Promoted to lead frontend development initiatives and architect scalable solutions for growing user base."
+    highlights:
+      - "Led migration from legacy jQuery to React ecosystem"
+      - "Architected microservices infrastructure serving 100K+ users"
+      - "Established code review processes and development standards"
+      - "Reduced deployment time from 2 hours to 15 minutes"
+    skills:
+      - id: "react"
+        name: "React"
+        level: 4
+        category: "Frontend"
+        description: "Advanced React patterns and ecosystem"
+      - id: "aws"
+        name: "AWS"
+        level: 3
+        category: "Cloud"
+        description: "Cloud infrastructure and services"
+      - id: "docker"
+        name: "Docker"
+        level: 3
+        category: "DevOps"
+        description: "Containerization and deployment"
+    icon: "trending-up"
+    location: "San Francisco, CA"
+    compensation:
+      amount: 95000
+      currency: "USD"
+      type: "salary"
+
+  - id: "milestone-4"
+    type: "job"
+    title: "Senior Full Stack Developer"
+    organization: "InnovateCorp"
+    dateRange:
+      start: "2020-02-01"
+      end: "2022-08-31"
+      duration: "2 years 7 months"
+    description: "Senior role focusing on full-stack development, team leadership, and technical architecture decisions."
+    highlights:
+      - "Built real-time collaboration platform used by 50K+ users"
+      - "Led team of 6 developers across multiple projects"
+      - "Implemented GraphQL API reducing data transfer by 60%"
+      - "Established CI/CD pipeline reducing bugs in production by 75%"
+    skills:
+      - id: "typescript"
+        name: "TypeScript"
+        level: 4
+        category: "Programming"
+        description: "Type-safe JavaScript development"
+      - id: "graphql"
+        name: "GraphQL"
+        level: 4
+        category: "API"
+        description: "Query language and runtime"
+      - id: "leadership"
+        name: "Technical Leadership"
+        level: 3
+        category: "Leadership"
+        description: "Team leadership and mentoring"
+    icon: "users"
+    location: "Remote"
+    compensation:
+      amount: 130000
+      currency: "USD"
+      type: "salary"
+
+  - id: "milestone-5"
+    type: "side_project"
+    title: "Open Source Contributor - React Performance Tools"
+    organization: "Open Source Community"
+    dateRange:
+      start: "2021-01-01"
+      end: null
+      duration: "3+ years"
+    description: "Contributing to open source React performance monitoring and optimization tools used by thousands of developers."
+    highlights:
+      - "Contributed to 10+ open source projects"
+      - "Created React performance monitoring library with 5K+ GitHub stars"
+      - "Spoke at 3 tech conferences about React optimization"
+      - "Mentored 20+ developers through open source contributions"
+    skills:
+      - id: "open-source"
+        name: "Open Source Development"
+        level: 4
+        category: "Community"
+        description: "Contributing to and maintaining open source projects"
+      - id: "performance"
+        name: "Performance Optimization"
+        level: 4
+        category: "Technical"
+        description: "Web application performance tuning"
+    icon: "github"
+    location: "Global"
+    links:
+      - title: "React Performance Tools"
+        url: "https://github.com/alexjohnson/react-perf-tools"
+        type: "portfolio"
+
+  - id: "milestone-6"
+    type: "job"
+    title: "Senior Full Stack Developer"
+    organization: "ScaleUp Technologies"
+    dateRange:
+      start: "2022-09-01"
+      end: null
+      duration: "1+ years"
+    description: "Current role leading development of next-generation SaaS platform with focus on scalability and user experience."
+    highlights:
+      - "Architecting microservices platform handling 1M+ requests/day"
+      - "Leading frontend architecture migration to Next.js"
+      - "Implementing real-time features using WebSocket and Server-Sent Events"
+      - "Mentoring team of 8 developers across frontend and backend"
+    skills:
+      - id: "nextjs"
+        name: "Next.js"
+        level: 4
+        category: "Frontend"
+        description: "Full-stack React framework"
+      - id: "microservices"
+        name: "Microservices Architecture"
+        level: 4
+        category: "Architecture"
+        description: "Distributed system design and implementation"
+      - id: "mentoring"
+        name: "Mentoring"
+        level: 4
+        category: "Leadership"
+        description: "Developer mentoring and career guidance"
+    icon: "rocket"
+    location: "Remote"
+    compensation:
+      amount: 160000
+      currency: "USD"
+      type: "salary"
+
+skills:
+  - id: "javascript"
+    name: "JavaScript"
+    level: 5
+    category: "Programming"
+    description: "Expert-level modern JavaScript development"
+    tags: ["ES6+", "Async/Await", "Functional Programming"]
+  
+  - id: "typescript"
+    name: "TypeScript"
+    level: 4
+    category: "Programming"
+    description: "Advanced TypeScript for large-scale applications"
+    tags: ["Type Safety", "Generics", "Advanced Types"]
+  
+  - id: "react"
+    name: "React"
+    level: 5
+    category: "Frontend"
+    description: "Expert React development with modern patterns"
+    tags: ["Hooks", "Context", "Performance", "Testing"]
+  
+  - id: "nodejs"
+    name: "Node.js"
+    level: 4
+    category: "Backend"
+    description: "Server-side JavaScript and API development"
+    tags: ["Express", "Fastify", "Microservices"]
+  
+  - id: "aws"
+    name: "AWS"
+    level: 4
+    category: "Cloud"
+    description: "Amazon Web Services cloud platform"
+    tags: ["EC2", "Lambda", "RDS", "S3", "CloudFormation"]
+
+goals:
+  - id: "goal-1"
+    title: "Master System Design and Architecture"
+    description: "Deepen expertise in large-scale system design, distributed systems, and architectural patterns to lead major technical initiatives."
+    targetDate: "2024-12-31"
+    progress: 65
+    priority: "high"
+    requiredSkills: ["System Design", "Distributed Systems", "Architecture Patterns"]
+    resources:
+      - title: "Designing Data-Intensive Applications"
+        url: "https://dataintensive.net/"
+        type: "book"
+      - title: "System Design Interview Course"
+        url: "https://systemdesign.com"
+        type: "course"
+    steps:
+      - id: "step-1"
+        title: "Complete system design course"
+        completed: true
+        dueDate: "2024-03-31"
+      - id: "step-2"
+        title: "Design and implement distributed cache system"
+        completed: false
+        dueDate: "2024-06-30"
+
+  - id: "goal-2"
+    title: "Transition to Engineering Management"
+    description: "Develop leadership and management skills to transition into an engineering management role while maintaining technical expertise."
+    targetDate: "2025-06-30"
+    progress: 30
+    priority: "medium"
+    requiredSkills: ["Leadership", "Team Management", "Strategic Planning"]
+    resources:
+      - title: "The Manager's Path"
+        url: "https://www.oreilly.com/library/view/the-managers-path/9781491973882/"
+        type: "book"
+      - title: "Engineering Management Mentorship"
+        url: "https://mentorship.com"
+        type: "mentor"
+
+preferences:
+  defaultView: "timeline"
+  timelineConfig:
+    orientation: "horizontal"
+    showDates: true
+    enableAnimations: true
+    colorScheme: "auto"
+    zoomLevel: 1.0
+  mapConfig:
+    enableInteractions: true
+    showConnections: true
+    animationSpeed: "medium"
+    layout: "force"
+  radarConfig:
+    maxValue: 5
+    showLabels: true
+    enableHover: true
+    colorPalette: ["#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#8B5CF6"]
+
+metadata:
+  version: "1.0.0"
+  lastUpdated: "2024-01-15"
+  dataSource: "yaml"

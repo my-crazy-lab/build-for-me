@@ -1,0 +1,226 @@
+{
+  "profile": {
+    "name": "Alex Johnson",
+    "title": "Senior Full Stack Developer",
+    "bio": "Passionate software engineer with 8+ years of experience building scalable web applications and leading development teams. Specialized in React, Node.js, and cloud architecture.",
+    "contact": {
+      "email": "alex.johnson@example.com",
+      "linkedin": "https://linkedin.com/in/alexjohnson",
+      "github": "https://github.com/alexjohnson",
+      "website": "https://alexjohnson.dev"
+    }
+  },
+  "milestones": [
+    {
+      "id": "milestone-1",
+      "type": "education",
+      "title": "Bachelor of Science in Computer Science",
+      "organization": "University of Technology",
+      "dateRange": {
+        "start": "2012-09-01",
+        "end": "2016-05-15",
+        "duration": "4 years"
+      },
+      "description": "Comprehensive computer science education with focus on software engineering, algorithms, and system design.",
+      "highlights": [
+        "Graduated Magna Cum Laude with 3.8 GPA",
+        "President of Computer Science Student Association",
+        "Led team project developing campus event management system",
+        "Completed internship at local tech startup"
+      ],
+      "skills": [
+        {
+          "id": "java",
+          "name": "Java",
+          "level": 3,
+          "category": "Programming",
+          "description": "Object-oriented programming and enterprise development"
+        },
+        {
+          "id": "algorithms",
+          "name": "Algorithms & Data Structures",
+          "level": 4,
+          "category": "Computer Science",
+          "description": "Algorithm design and complexity analysis"
+        }
+      ],
+      "icon": "graduation-cap",
+      "location": "San Francisco, CA"
+    },
+    {
+      "id": "milestone-2",
+      "type": "job",
+      "title": "Junior Software Developer",
+      "organization": "TechStart Inc.",
+      "dateRange": {
+        "start": "2016-06-01",
+        "end": "2018-03-31",
+        "duration": "1 year 10 months"
+      },
+      "description": "First professional role developing web applications using modern JavaScript frameworks and agile methodologies.",
+      "highlights": [
+        "Developed 5+ customer-facing web applications",
+        "Reduced page load times by 40% through optimization",
+        "Mentored 2 junior developers and interns",
+        "Implemented automated testing increasing code coverage to 85%"
+      ],
+      "skills": [
+        {
+          "id": "javascript",
+          "name": "JavaScript",
+          "level": 3,
+          "category": "Programming",
+          "description": "Modern ES6+ JavaScript development"
+        },
+        {
+          "id": "react",
+          "name": "React",
+          "level": 2,
+          "category": "Frontend",
+          "description": "Component-based UI development"
+        }
+      ],
+      "icon": "code",
+      "location": "San Francisco, CA",
+      "compensation": {
+        "amount": 75000,
+        "currency": "USD",
+        "type": "salary"
+      }
+    },
+    {
+      "id": "milestone-3",
+      "type": "job",
+      "title": "Senior Full Stack Developer",
+      "organization": "ScaleUp Technologies",
+      "dateRange": {
+        "start": "2022-09-01",
+        "end": null,
+        "duration": "1+ years"
+      },
+      "description": "Current role leading development of next-generation SaaS platform with focus on scalability and user experience.",
+      "highlights": [
+        "Architecting microservices platform handling 1M+ requests/day",
+        "Leading frontend architecture migration to Next.js",
+        "Implementing real-time features using WebSocket and Server-Sent Events",
+        "Mentoring team of 8 developers across frontend and backend"
+      ],
+      "skills": [
+        {
+          "id": "nextjs",
+          "name": "Next.js",
+          "level": 4,
+          "category": "Frontend",
+          "description": "Full-stack React framework"
+        },
+        {
+          "id": "microservices",
+          "name": "Microservices Architecture",
+          "level": 4,
+          "category": "Architecture",
+          "description": "Distributed system design and implementation"
+        }
+      ],
+      "icon": "rocket",
+      "location": "Remote",
+      "compensation": {
+        "amount": 160000,
+        "currency": "USD",
+        "type": "salary"
+      }
+    }
+  ],
+  "skills": [
+    {
+      "id": "javascript",
+      "name": "JavaScript",
+      "level": 5,
+      "category": "Programming",
+      "description": "Expert-level modern JavaScript development",
+      "tags": ["ES6+", "Async/Await", "Functional Programming"]
+    },
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "level": 4,
+      "category": "Programming",
+      "description": "Advanced TypeScript for large-scale applications",
+      "tags": ["Type Safety", "Generics", "Advanced Types"]
+    },
+    {
+      "id": "react",
+      "name": "React",
+      "level": 5,
+      "category": "Frontend",
+      "description": "Expert React development with modern patterns",
+      "tags": ["Hooks", "Context", "Performance", "Testing"]
+    },
+    {
+      "id": "nodejs",
+      "name": "Node.js",
+      "level": 4,
+      "category": "Backend",
+      "description": "Server-side JavaScript and API development",
+      "tags": ["Express", "Fastify", "Microservices"]
+    }
+  ],
+  "goals": [
+    {
+      "id": "goal-1",
+      "title": "Master System Design and Architecture",
+      "description": "Deepen expertise in large-scale system design, distributed systems, and architectural patterns to lead major technical initiatives.",
+      "targetDate": "2024-12-31",
+      "progress": 65,
+      "priority": "high",
+      "requiredSkills": ["System Design", "Distributed Systems", "Architecture Patterns"],
+      "resources": [
+        {
+          "title": "Designing Data-Intensive Applications",
+          "url": "https://dataintensive.net/",
+          "type": "book"
+        }
+      ],
+      "steps": [
+        {
+          "id": "step-1",
+          "title": "Complete system design course",
+          "completed": true,
+          "dueDate": "2024-03-31"
+        },
+        {
+          "id": "step-2",
+          "title": "Design and implement distributed cache system",
+          "completed": false,
+          "dueDate": "2024-06-30"
+        }
+      ]
+    }
+  ],
+  "preferences": {
+    "defaultView": "timeline",
+    "timelineConfig": {
+      "orientation": "horizontal",
+      "showDates": true,
+      "enableAnimations": true,
+      "colorScheme": "auto",
+      "zoomLevel": 1.0
+    },
+    "mapConfig": {
+      "enableInteractions": true,
+      "showConnections": true,
+      "animationSpeed": "medium",
+      "layout": "force"
+    },
+    "radarConfig": {
+      "maxValue": 5,
+      "showLabels": true,
+      "enableHover": true,
+      "colorPalette": ["#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#8B5CF6"]
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2024-01-15",
+    "dataSource": "json"
+  }
+}
