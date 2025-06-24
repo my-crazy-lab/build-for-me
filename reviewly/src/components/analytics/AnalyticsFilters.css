@@ -1,0 +1,212 @@
+/**
+ * Analytics Filters Styles for Reviewly Application
+ * 
+ * Styling for analytics filter controls with responsive design.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.analytics-filters {
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem;
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+
+.filters-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 150px;
+}
+
+.filters-section h3 {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Time Range Buttons */
+.time-range-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.time-range-btn {
+  padding: 0.5rem 0.75rem;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.time-range-btn:hover {
+  background: var(--color-surface);
+  border-color: var(--color-primary);
+}
+
+.time-range-btn.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+/* Checkboxes */
+.metrics-checkboxes,
+.skill-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  padding: 0.25rem 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  transform: scale(1.1);
+}
+
+.checkbox-label span {
+  user-select: none;
+}
+
+/* Select */
+.comparison-select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  background: var(--color-background);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.comparison-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .analytics-filters {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  .filters-section {
+    min-width: auto;
+  }
+
+  .time-range-buttons {
+    justify-content: center;
+  }
+
+  .time-range-btn {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .analytics-filters {
+    padding: 0.75rem;
+    gap: 1rem;
+  }
+
+  .filters-section h3 {
+    font-size: 0.8125rem;
+  }
+
+  .time-range-buttons {
+    gap: 0.25rem;
+  }
+
+  .time-range-btn {
+    padding: 0.375rem 0.5rem;
+    font-size: 0.6875rem;
+  }
+
+  .checkbox-label {
+    font-size: 0.8125rem;
+  }
+
+  .comparison-select {
+    padding: 0.375rem 0.5rem;
+    font-size: 0.8125rem;
+  }
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .analytics-filters {
+  background: var(--color-surface);
+}
+
+[data-theme="dark"] .time-range-btn {
+  background: var(--color-background);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .time-range-btn:hover {
+  background: var(--color-surface);
+}
+
+[data-theme="dark"] .comparison-select {
+  background: var(--color-background);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .analytics-filters {
+    border: 2px solid var(--color-border);
+  }
+
+  .time-range-btn,
+  .comparison-select {
+    border-width: 2px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .time-range-btn,
+  .comparison-select {
+    transition: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .analytics-filters {
+    display: none;
+  }
+}

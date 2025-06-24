@@ -1,0 +1,60 @@
+{
+  "common": {
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "create": "Erstellen",
+    "update": "Aktualisieren",
+    "submit": "Senden",
+    "close": "Schließen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Vorherige",
+    "search": "Suchen",
+    "filter": "Filter",
+    "clear": "Löschen",
+    "all": "Alle",
+    "none": "Keine",
+    "yes": "Ja",
+    "no": "Nein",
+    "required": "Erforderlich",
+    "optional": "Optional",
+    "active": "Aktiv",
+    "inactive": "Inaktiv"
+  },
+  "auth": {
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "loginButton": "Anmelden",
+    "loginWithGoogle": "Mit Google anmelden"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "selfReview": "Selbstbewertung",
+    "goals": "Ziele",
+    "feedback": "Feedback",
+    "templates": "Vorlagen"
+  },
+  "language": {
+    "title": "Spracheinstellungen",
+    "current": "Aktuelle Sprache",
+    "change": "Sprache ändern",
+    "languages": {
+      "en": "Englisch",
+      "es": "Spanisch",
+      "fr": "Französisch",
+      "de": "Deutsch",
+      "pt": "Portugiesisch",
+      "it": "Italienisch",
+      "ja": "Japanisch",
+      "ko": "Koreanisch",
+      "zh": "Chinesisch"
+    }
+  }
+}

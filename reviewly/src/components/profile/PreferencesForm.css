@@ -1,0 +1,16 @@
+/**
+ * Preferences Form Styles for Reviewly Application
+ * 
+ * Additional styling specific to preferences form components.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+@import './ProfileForm.css';
+
+/* Preferences specific styles can be added here */
+.preferences-form {
+  /* Inherits from ProfileForm.css */
+}

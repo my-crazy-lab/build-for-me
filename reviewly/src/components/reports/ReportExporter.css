@@ -1,0 +1,585 @@
+/**
+ * Report Exporter Styles for Reviewly Application
+ * 
+ * Styling for report export interface with template selection,
+ * options configuration, and preview functionality.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.report-exporter {
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  position: relative;
+}
+
+/* Header */
+.exporter-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.exporter-header h2 {
+  color: var(--color-text);
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 0.5rem 0;
+}
+
+.exporter-header p {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* Content Layout */
+.exporter-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.export-options {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Options Sections */
+.options-section {
+  padding: 1.5rem;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+}
+
+.options-section h3 {
+  color: var(--color-text);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 1.5rem 0;
+}
+
+/* Template Options */
+.template-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.template-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.template-option:hover {
+  border-color: var(--color-primary);
+  background: var(--color-background);
+}
+
+.template-option input[type="radio"] {
+  margin-top: 0.25rem;
+  accent-color: var(--color-primary);
+}
+
+.template-info {
+  flex: 1;
+}
+
+.template-name {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-bold);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.template-description {
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+/* Option Controls */
+.option-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: var(--border-radius-sm);
+  transition: background-color 0.2s ease;
+}
+
+.checkbox-option:hover {
+  background: var(--color-surface);
+}
+
+.checkbox-option input[type="checkbox"] {
+  accent-color: var(--color-primary);
+}
+
+.checkbox-option span {
+  color: var(--color-text);
+  font-size: 0.875rem;
+}
+
+.text-option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.text-option label {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.text-option input {
+  padding: 0.75rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease;
+}
+
+.text-option input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.text-option input::placeholder {
+  color: var(--color-text-secondary);
+}
+
+/* Export Buttons */
+.export-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.export-buttons .btn {
+  flex: 1;
+  min-width: 150px;
+}
+
+/* Preview Section */
+.preview-section {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+}
+
+.preview-header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.preview-header-controls h3 {
+  color: var(--color-text);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+/* Report Preview */
+.report-preview {
+  padding: 2rem;
+  background: white;
+  color: #333;
+  font-family: 'Times New Roman', serif;
+  line-height: 1.6;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.preview-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #333;
+}
+
+.preview-header h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.preview-header h3 {
+  font-size: 1.125rem;
+  font-weight: normal;
+  margin: 0;
+  color: #666;
+}
+
+.preview-employee-info {
+  margin-bottom: 2rem;
+}
+
+.preview-employee-info h4 {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.info-item {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.info-item .label {
+  font-weight: bold;
+  color: #333;
+  min-width: 100px;
+}
+
+.info-item .value {
+  color: #666;
+}
+
+.preview-sections {
+  margin-bottom: 2rem;
+}
+
+.preview-section {
+  margin-bottom: 1.5rem;
+}
+
+.preview-section h4 {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin: 0 0 1rem 0;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.5rem;
+}
+
+.section-content {
+  margin-left: 1rem;
+}
+
+.content-paragraph p {
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.content-bullet {
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.content-bullet::before {
+  content: '• ';
+  font-weight: bold;
+}
+
+.rating-display {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.75rem 0;
+}
+
+.rating-value {
+  font-weight: bold;
+  color: #333;
+}
+
+.rating-bar {
+  flex: 1;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 200px;
+}
+
+.rating-fill {
+  height: 100%;
+  background: #4caf50;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.preview-summary {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+.preview-summary h4 {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.summary-content {
+  margin-left: 1rem;
+}
+
+.overall-rating {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.strengths,
+.improvements {
+  margin-bottom: 1rem;
+}
+
+.strengths h5,
+.improvements h5 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.strengths ul,
+.improvements ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.strengths li,
+.improvements li {
+  margin-bottom: 0.25rem;
+  color: #333;
+}
+
+.preview-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  font-size: 2rem;
+  color: rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Export Progress */
+.export-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-lg);
+  z-index: 10;
+}
+
+.progress-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  padding: 2rem;
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--color-border);
+}
+
+.progress-spinner {
+  font-size: 3rem;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.progress-text h4 {
+  color: var(--color-text);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 0.5rem 0;
+}
+
+.progress-text p {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .report-exporter {
+    padding: 1rem;
+  }
+
+  .export-buttons {
+    flex-direction: column;
+  }
+
+  .export-buttons .btn {
+    min-width: auto;
+  }
+
+  .template-option {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rating-display {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .rating-bar {
+    width: 100%;
+    max-width: none;
+  }
+
+  .report-preview {
+    padding: 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .report-exporter {
+    padding: 0.75rem;
+  }
+
+  .options-section {
+    padding: 1rem;
+  }
+
+  .preview-header-controls {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .report-preview {
+    max-height: 400px;
+  }
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .report-exporter {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .options-section,
+[data-theme="dark"] .preview-section {
+  background: var(--color-background);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .template-option {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .text-option input {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .progress-content {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .report-exporter,
+  .options-section,
+  .template-option {
+    border-width: 2px;
+  }
+
+  .rating-bar {
+    border: 1px solid #333;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .template-option,
+  .checkbox-option,
+  .text-option input,
+  .rating-fill,
+  .progress-spinner {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .report-exporter {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .export-buttons,
+  .preview-header-controls {
+    display: none;
+  }
+
+  .report-preview {
+    max-height: none;
+    overflow: visible;
+    background: white;
+    color: black;
+  }
+}

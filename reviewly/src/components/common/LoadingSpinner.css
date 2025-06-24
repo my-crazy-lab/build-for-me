@@ -1,0 +1,408 @@
+/**
+ * Loading Spinner Styles for Reviewly Application
+ * 
+ * This file contains the CSS styles for all loading components including
+ * spinners, skeletons, progress bars, and other loading indicators.
+ * The styles feature smooth animations and responsive design.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+/* Loading Spinner Container */
+.loading-spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Spinner Sizes */
+.spinner-small .spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-width: 2px;
+}
+
+.spinner-medium .spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-width: 3px;
+}
+
+.spinner-large .spinner {
+  width: 4rem;
+  height: 4rem;
+  border-width: 4px;
+}
+
+/* Spinner Animation */
+.spinner {
+  border: 3px solid rgba(102, 126, 234, 0.2);
+  border-top: 3px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Loading Message */
+.loading-message {
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+  max-width: 200px;
+}
+
+.spinner-small .loading-message {
+  font-size: 0.75rem;
+}
+
+.spinner-large .loading-message {
+  font-size: 1rem;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Loading Skeleton */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.25rem;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Utility classes for skeleton spacing */
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 0.75rem; }
+
+/* Loading Card */
+.loading-card {
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading Table */
+.loading-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.loading-table-header,
+.loading-table-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.loading-table-header {
+  background: #f9fafb;
+  font-weight: 600;
+}
+
+/* Loading Dots */
+.loading-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.loading-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #667eea;
+}
+
+/* Loading Progress */
+.loading-progress-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.loading-progress-track {
+  width: 100%;
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loading-progress-bar {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: progressShine 2s infinite;
+}
+
+@keyframes progressShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.loading-progress-text {
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Pulse Animation for Interactive Elements */
+.loading-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Loading States for Buttons */
+.button-loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.button-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Loading Grid for Dashboard Cards */
+.loading-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.loading-grid-item {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading List */
+.loading-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.loading-list-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background: white;
+}
+
+.loading-list-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.loading-list-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Loading Chart Placeholder */
+.loading-chart {
+  width: 100%;
+  height: 300px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-chart::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: chartShimmer 2s infinite;
+}
+
+@keyframes chartShimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .loading-overlay {
+    background: rgba(17, 24, 39, 0.9);
+  }
+
+  .loading-skeleton {
+    background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+  }
+
+  .loading-card,
+  .loading-grid-item,
+  .loading-list-item {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .loading-table-header {
+    background: #374151;
+  }
+
+  .loading-table-row {
+    border-color: #374151;
+  }
+
+  .loading-message {
+    color: #9ca3af;
+  }
+
+  .loading-progress-text {
+    color: #9ca3af;
+  }
+
+  .loading-chart {
+    background: #1f2937;
+    border-color: #374151;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .loading-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .loading-table-header,
+  .loading-table-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .loading-list-item {
+    padding: 0.75rem;
+  }
+
+  .loading-card,
+  .loading-grid-item {
+    padding: 1rem;
+  }
+
+  .spinner-large .spinner {
+    width: 3rem;
+    height: 3rem;
+    border-width: 3px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .spinner,
+  .loading-skeleton,
+  .loading-dots,
+  .loading-progress-bar::after,
+  .loading-chart::before {
+    animation: none;
+  }
+
+  .loading-pulse {
+    animation: none;
+    opacity: 0.7;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .loading-skeleton {
+    background: #000;
+  }
+
+  .spinner {
+    border-color: #000;
+    border-top-color: #fff;
+  }
+
+  .loading-progress-bar {
+    background: #000;
+  }
+}

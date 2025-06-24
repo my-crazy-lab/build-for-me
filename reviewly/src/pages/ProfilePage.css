@@ -1,0 +1,379 @@
+/**
+ * Profile Page Styles for Reviewly Application
+ * 
+ * Comprehensive styling for the user profile management interface
+ * with responsive design and interactive elements.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.profile-page {
+  min-height: 100vh;
+  background: var(--color-background);
+  padding: 1rem;
+}
+
+.profile-page.loading,
+.profile-page.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Loading State */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem;
+}
+
+.spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 4px solid var(--color-border);
+  border-top: 4px solid var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner p {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Error State */
+.error-message {
+  text-align: center;
+  padding: 4rem;
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+}
+
+.error-message h2 {
+  color: var(--color-danger);
+  font-size: 1.5rem;
+  margin: 0 0 1rem 0;
+}
+
+.error-message p {
+  color: var(--color-text-secondary);
+  margin: 0 0 2rem 0;
+}
+
+/* Page Header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  margin-bottom: 2rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-info {
+  text-align: center;
+  flex: 1;
+}
+
+.header-info h1 {
+  color: var(--color-primary);
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 0.5rem 0;
+}
+
+.header-info p {
+  color: var(--color-text-secondary);
+  margin: 0;
+  font-size: 1rem;
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.saving-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+.saving-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--color-border);
+  border-top: 2px solid var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Profile Summary */
+.profile-summary {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  margin-bottom: 2rem;
+}
+
+.profile-avatar {
+  flex-shrink: 0;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-info h2 {
+  color: var(--color-text);
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 0.5rem 0;
+}
+
+.profile-title {
+  color: var(--color-primary);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-medium);
+  margin: 0 0 0.25rem 0;
+}
+
+.profile-department {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  margin: 0 0 1.5rem 0;
+}
+
+.profile-stats {
+  display: flex;
+  gap: 2rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-label {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
+/* Profile Tabs */
+.profile-tabs {
+  display: flex;
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  padding: 0.5rem;
+  margin-bottom: 2rem;
+  gap: 0.5rem;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.tab-button:hover {
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+.tab-button.active {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Tab Content */
+.tab-content {
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  padding: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 0.5rem;
+  }
+
+  .page-header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .header-info {
+    order: -1;
+  }
+
+  .header-info h1 {
+    font-size: 1.75rem;
+  }
+
+  .profile-summary {
+    padding: 1.5rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .profile-stats {
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .profile-tabs {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .tab-button {
+    padding: 0.75rem 1rem;
+  }
+
+  .tab-content {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header {
+    padding: 0.75rem;
+  }
+
+  .header-info h1 {
+    font-size: 1.5rem;
+  }
+
+  .header-info p {
+    font-size: 0.875rem;
+  }
+
+  .profile-summary {
+    padding: 1rem;
+  }
+
+  .profile-info h2 {
+    font-size: 1.5rem;
+  }
+
+  .profile-title {
+    font-size: 1rem;
+  }
+
+  .profile-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tab-content {
+    padding: 1rem;
+  }
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .profile-page {
+  background: var(--color-background);
+}
+
+[data-theme="dark"] .page-header,
+[data-theme="dark"] .profile-summary,
+[data-theme="dark"] .profile-tabs,
+[data-theme="dark"] .tab-content,
+[data-theme="dark"] .error-message {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .page-header,
+  .profile-summary,
+  .profile-tabs,
+  .tab-content,
+  .error-message {
+    border: 2px solid var(--color-border);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .tab-button {
+    transition: none;
+  }
+
+  .spinner,
+  .saving-spinner {
+    animation: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .profile-page {
+    background: white;
+    padding: 0;
+  }
+
+  .page-header,
+  .profile-summary,
+  .profile-tabs,
+  .tab-content {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .header-actions,
+  .profile-tabs {
+    display: none;
+  }
+}

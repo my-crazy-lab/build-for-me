@@ -1,0 +1,343 @@
+/**
+ * Search Page Styles for Reviewly Application
+ * 
+ * Comprehensive styling for the advanced search interface with
+ * responsive design and interactive elements.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.search-page {
+  min-height: 100vh;
+  background: var(--color-background);
+  padding: 1rem;
+}
+
+/* Page Header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  margin-bottom: 2rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-info {
+  text-align: center;
+  flex: 1;
+}
+
+.header-info h1 {
+  color: var(--color-primary);
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 0.5rem 0;
+}
+
+.header-info p {
+  color: var(--color-text-secondary);
+  margin: 0;
+  font-size: 1rem;
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Search Bar Container */
+.search-bar-container {
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.search-bar {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.search-field {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  background: var(--color-background);
+  color: var(--color-text);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  box-shadow: var(--neu-shadow-light);
+}
+
+.search-field:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.clear-search {
+  position: absolute;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: var(--border-radius-sm);
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.clear-search:hover {
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+.search-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.type-selector {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  background: var(--color-background);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.type-selector:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.btn.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+/* Search Stats */
+.search-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.results-count {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.type-breakdown {
+  display: flex;
+  gap: 1rem;
+}
+
+.type-count {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  background: var(--color-background);
+  border-radius: var(--border-radius-sm);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-page {
+    padding: 0.5rem;
+  }
+
+  .page-header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .header-info {
+    order: -1;
+  }
+
+  .header-info h1 {
+    font-size: 1.75rem;
+  }
+
+  .search-bar-container {
+    padding: 1rem;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .search-input {
+    order: -1;
+  }
+
+  .search-controls {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .type-selector {
+    flex: 1;
+  }
+
+  .search-stats {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .type-breakdown {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header {
+    padding: 0.75rem;
+  }
+
+  .header-info h1 {
+    font-size: 1.5rem;
+  }
+
+  .header-info p {
+    font-size: 0.875rem;
+  }
+
+  .search-bar-container {
+    padding: 0.75rem;
+  }
+
+  .search-field {
+    padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+    font-size: 0.875rem;
+  }
+
+  .search-icon {
+    left: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .clear-search {
+    right: 0.75rem;
+    padding: 0.375rem;
+  }
+
+  .search-controls {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .type-selector {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .search-page {
+  background: var(--color-background);
+}
+
+[data-theme="dark"] .page-header,
+[data-theme="dark"] .search-bar-container {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .search-field,
+[data-theme="dark"] .type-selector {
+  background: var(--color-background);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .type-count {
+  background: var(--color-background);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .page-header,
+  .search-bar-container {
+    border: 2px solid var(--color-border);
+  }
+
+  .search-field,
+  .type-selector {
+    border-width: 2px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .search-field,
+  .type-selector,
+  .clear-search {
+    transition: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .search-page {
+    background: white;
+    padding: 0;
+  }
+
+  .page-header,
+  .search-bar-container {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .header-actions,
+  .search-controls {
+    display: none;
+  }
+}

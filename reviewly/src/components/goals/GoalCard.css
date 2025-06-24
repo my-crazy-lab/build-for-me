@@ -1,0 +1,498 @@
+/**
+ * Goal Card Styles for Reviewly Application
+ * 
+ * Styling for individual goal cards with progress indicators,
+ * status badges, and interactive elements.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.goal-card {
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  border: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.goal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.goal-card.overdue {
+  border-left: 4px solid var(--color-danger);
+}
+
+.goal-card.success {
+  border-left: 4px solid var(--color-success);
+}
+
+.goal-card.primary {
+  border-left: 4px solid var(--color-primary);
+}
+
+.goal-card.warning {
+  border-left: 4px solid var(--color-warning);
+}
+
+/* Card Header */
+.goal-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.goal-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.goal-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--border-radius-md);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  text-transform: capitalize;
+  background: var(--color-background);
+  color: var(--color-text);
+  box-shadow: var(--neu-shadow-light);
+}
+
+.goal-priority {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--border-radius-md);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  text-transform: capitalize;
+}
+
+.goal-priority.danger {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--color-danger);
+}
+
+.goal-priority.warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--color-warning);
+}
+
+.goal-priority.primary {
+  background: rgba(102, 126, 234, 0.1);
+  color: var(--color-primary);
+}
+
+.goal-priority.secondary {
+  background: rgba(107, 114, 128, 0.1);
+  color: var(--color-text-secondary);
+}
+
+.goal-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.goal-actions .btn {
+  padding: 0.5rem;
+  min-width: auto;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Goal Content */
+.goal-content {
+  margin-bottom: 1.5rem;
+}
+
+.goal-title {
+  color: var(--color-text);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.3;
+}
+
+.goal-description {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+}
+
+.goal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.goal-tag {
+  background: var(--color-background);
+  color: var(--color-primary);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  box-shadow: var(--neu-shadow-light);
+}
+
+/* Progress Section */
+.goal-progress-section {
+  margin-bottom: 1.5rem;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.progress-label {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.progress-value {
+  color: var(--color-primary);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--color-background);
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  box-shadow: var(--neu-shadow-light);
+  margin-bottom: 1rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  border-radius: var(--border-radius-sm);
+  transition: width 0.3s ease;
+}
+
+.progress-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.quick-progress {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.quick-progress .btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  min-width: auto;
+}
+
+.progress-update {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.progress-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: var(--border-radius-sm);
+  background: var(--color-background);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.progress-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+
+.progress-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  border: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.progress-update-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+/* Status Section */
+.goal-status-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--color-background);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--neu-shadow-light);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-md);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.status-badge.success {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--color-success);
+}
+
+.status-badge.primary {
+  background: rgba(102, 126, 234, 0.1);
+  color: var(--color-primary);
+}
+
+.status-badge.warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--color-warning);
+}
+
+.status-badge.danger {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--color-danger);
+}
+
+.status-badge.secondary {
+  background: rgba(107, 114, 128, 0.1);
+  color: var(--color-text-secondary);
+}
+
+.goal-timeline {
+  text-align: right;
+}
+
+.timeline-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-label {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.timeline-value {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.timeline-value.overdue {
+  color: var(--color-danger);
+}
+
+/* Milestones */
+.goal-milestones {
+  margin-bottom: 1.5rem;
+}
+
+.milestones-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.milestones-header span {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.milestones-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.milestone-item {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--color-background);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--neu-shadow-light);
+}
+
+.milestone-item.completed {
+  opacity: 0.7;
+}
+
+.milestone-checkbox {
+  font-size: 1rem;
+  min-width: 1.5rem;
+}
+
+.milestone-content {
+  flex: 1;
+}
+
+.milestone-title {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  margin: 0 0 0.25rem 0;
+}
+
+.milestone-description {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.4;
+}
+
+.milestone-date {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+}
+
+/* SMART Criteria */
+.smart-criteria {
+  background: var(--color-background);
+  border-radius: var(--border-radius-md);
+  padding: 1rem;
+  box-shadow: var(--neu-shadow-light);
+}
+
+.smart-criteria h4 {
+  color: var(--color-primary);
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 0.75rem 0;
+}
+
+.smart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.smart-item {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.smart-item strong {
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .goal-card {
+    padding: 1rem;
+  }
+
+  .goal-card-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .goal-meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .goal-actions {
+    align-self: flex-end;
+  }
+
+  .goal-status-section {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .goal-timeline {
+    text-align: center;
+  }
+
+  .timeline-item {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .progress-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .quick-progress {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .goal-card {
+    padding: 0.75rem;
+  }
+
+  .goal-title {
+    font-size: 1.125rem;
+  }
+
+  .goal-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .milestone-item {
+    padding: 0.5rem;
+  }
+
+  .smart-criteria {
+    padding: 0.75rem;
+  }
+}

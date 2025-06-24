@@ -1,0 +1,13 @@
+/**
+ * Avatar Upload Styles for Reviewly Application
+ * 
+ * Additional styling specific to avatar upload component.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+@import './ProfileForm.css';
+
+/* Avatar upload specific styles are already in ProfileForm.css */

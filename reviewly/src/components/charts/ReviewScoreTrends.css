@@ -1,0 +1,289 @@
+/**
+ * Review Score Trends Styles for Reviewly Application
+ * 
+ * Styling for review score trend charts with metric toggles.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.review-score-trends {
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.chart-title h3 {
+  color: var(--color-text);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 0.5rem 0;
+}
+
+.chart-title p {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.metric-toggles {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.metric-toggle {
+  padding: 0.5rem 0.75rem;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.metric-toggle:hover {
+  background: var(--color-surface);
+  border-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+.metric-toggle.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.metric-toggle.comparison {
+  border-style: dashed;
+}
+
+.metric-toggle.comparison.active {
+  background: var(--color-danger);
+  border-color: var(--color-danger);
+  border-style: solid;
+}
+
+.chart-container {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+/* Score Summary */
+.score-summary h4 {
+  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 1rem 0;
+}
+
+.scores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.score-item {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.score-item:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.score-item.overall {
+  border-left: 4px solid var(--color-primary);
+}
+
+.score-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.score-label {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.score-change {
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius-sm);
+}
+
+.score-change.positive {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--color-success);
+}
+
+.score-change.negative {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--color-danger);
+}
+
+.score-value {
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 0.75rem;
+}
+
+.score-bar {
+  height: 6px;
+  background: var(--color-border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.score-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.score-fill.self {
+  background: var(--color-primary);
+}
+
+.score-fill.peer {
+  background: var(--color-success);
+}
+
+.score-fill.manager {
+  background: var(--color-warning);
+}
+
+.score-fill.overall {
+  background: var(--color-info);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .review-score-trends {
+    padding: 1rem;
+  }
+
+  .chart-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .metric-toggles {
+    gap: 0.25rem;
+  }
+
+  .metric-toggle {
+    padding: 0.375rem 0.5rem;
+    font-size: 0.6875rem;
+  }
+
+  .scores-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .review-score-trends {
+    padding: 0.75rem;
+  }
+
+  .chart-title h3 {
+    font-size: 1.125rem;
+  }
+
+  .score-item {
+    padding: 0.75rem;
+  }
+
+  .score-value {
+    font-size: 1.25rem;
+  }
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .review-score-trends {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .metric-toggle {
+  background: var(--color-background);
+  border-color: var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .metric-toggle:hover {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .score-item {
+  background: var(--color-background);
+  border-color: var(--color-border);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .review-score-trends,
+  .score-item {
+    border-width: 2px;
+  }
+
+  .metric-toggle {
+    border-width: 2px;
+  }
+
+  .score-change {
+    border: 1px solid currentColor;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .metric-toggle,
+  .score-item,
+  .score-fill {
+    transition: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .review-score-trends {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .score-item {
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+
+  .metric-toggles {
+    display: none;
+  }
+}

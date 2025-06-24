@@ -1,0 +1,196 @@
+/**
+ * Metrics Card Styles for Reviewly Application
+ * 
+ * Styling for metrics cards with trend indicators and animations.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.metrics-card {
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  border: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.metrics-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.metrics-card.up {
+  border-left: 4px solid var(--color-success);
+}
+
+.metrics-card.down {
+  border-left: 4px solid var(--color-danger);
+}
+
+.metrics-card.stable {
+  border-left: 4px solid var(--color-info);
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.card-icon {
+  font-size: 2rem;
+  opacity: 0.8;
+}
+
+.trend-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.trend-indicator.success {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--color-success);
+}
+
+.trend-indicator.danger {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--color-danger);
+}
+
+.trend-indicator.neutral {
+  background: rgba(107, 114, 128, 0.1);
+  color: var(--color-text-secondary);
+}
+
+.trend-icon {
+  font-size: 0.875rem;
+}
+
+.trend-text {
+  font-size: 0.75rem;
+}
+
+/* Card Content */
+.card-content {
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-value {
+  color: var(--color-primary);
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.card-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Card Footer */
+.card-footer {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.previous-value {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .metrics-card {
+    padding: 1rem;
+  }
+
+  .card-value {
+    font-size: 1.75rem;
+  }
+
+  .card-icon {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .metrics-card {
+    padding: 0.75rem;
+  }
+
+  .card-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .card-value {
+    font-size: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .metrics-card {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .metrics-card {
+    border-width: 2px;
+  }
+
+  .trend-indicator {
+    border: 1px solid currentColor;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .metrics-card {
+    transition: none;
+  }
+
+  .metrics-card:hover {
+    transform: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .metrics-card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "common": {
+    "loading": "Caricamento...",
+    "error": "Errore",
+    "success": "Successo",
+    "cancel": "Annulla",
+    "save": "Salva",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "create": "Crea",
+    "update": "Aggiorna",
+    "submit": "Invia",
+    "close": "Chiudi",
+    "back": "Indietro",
+    "next": "Avanti",
+    "previous": "Precedente",
+    "search": "Cerca",
+    "filter": "Filtra",
+    "clear": "Cancella",
+    "all": "Tutti",
+    "none": "Nessuno",
+    "yes": "Sì",
+    "no": "No",
+    "required": "Obbligatorio",
+    "optional": "Opzionale",
+    "active": "Attivo",
+    "inactive": "Inattivo"
+  },
+  "auth": {
+    "login": "Accedi",
+    "logout": "Esci",
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Accedi",
+    "loginWithGoogle": "Accedi con Google"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "selfReview": "Autovalutazione",
+    "goals": "Obiettivi",
+    "feedback": "Feedback",
+    "templates": "Modelli"
+  },
+  "language": {
+    "title": "Impostazioni Lingua",
+    "current": "Lingua Attuale",
+    "change": "Cambia Lingua",
+    "languages": {
+      "en": "Inglese",
+      "es": "Spagnolo",
+      "fr": "Francese",
+      "de": "Tedesco",
+      "pt": "Portoghese",
+      "it": "Italiano",
+      "ja": "Giapponese",
+      "ko": "Coreano",
+      "zh": "Cinese"
+    }
+  }
+}

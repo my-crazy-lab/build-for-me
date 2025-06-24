@@ -1,0 +1,258 @@
+/**
+ * Saved Searches Styles for Reviewly Application
+ * 
+ * Styling for saved searches panel with management controls.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.saved-searches-panel {
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--color-border);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.panel-header h3 {
+  color: var(--color-text);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+/* Empty State */
+.empty-saved-searches {
+  text-align: center;
+  padding: 2rem;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-saved-searches h4 {
+  color: var(--color-text);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 0.5rem 0;
+}
+
+.empty-saved-searches p {
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Saved Searches List */
+.saved-searches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.saved-search-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.saved-search-item:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.search-info {
+  flex: 1;
+  cursor: pointer;
+}
+
+.search-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.search-name {
+  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.search-stats {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.use-count {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  background: var(--color-surface);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius-sm);
+}
+
+.search-summary {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin: 0 0 0.75rem 0;
+}
+
+.search-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.created-date,
+.last-used {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.search-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search-actions .btn {
+  padding: 0.5rem;
+  min-width: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .saved-searches-panel {
+    padding: 1rem;
+  }
+
+  .saved-search-item {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .search-info {
+    width: 100%;
+  }
+
+  .search-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .search-meta {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .search-actions {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .saved-searches-panel {
+    padding: 0.75rem;
+  }
+
+  .panel-header h3 {
+    font-size: 1rem;
+  }
+
+  .saved-search-item {
+    padding: 0.75rem;
+  }
+
+  .search-name {
+    font-size: 0.875rem;
+  }
+
+  .search-summary {
+    font-size: 0.8125rem;
+  }
+
+  .empty-saved-searches {
+    padding: 1.5rem;
+  }
+
+  .empty-icon {
+    font-size: 2.5rem;
+  }
+
+  .empty-saved-searches h4 {
+    font-size: 1rem;
+  }
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .saved-searches-panel {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .saved-search-item {
+  background: var(--color-background);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .use-count {
+  background: var(--color-surface);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .saved-searches-panel,
+  .saved-search-item {
+    border-width: 2px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .saved-search-item {
+    transition: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .saved-searches-panel {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .saved-search-item {
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+
+  .search-actions {
+    display: none;
+  }
+}

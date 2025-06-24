@@ -1,0 +1,418 @@
+/**
+ * Unauthorized Page Styles for Reviewly Application
+ * 
+ * This file contains the CSS styles for the unauthorized access page.
+ * The design features a clean, professional layout with clear messaging
+ * and helpful action buttons.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.unauthorized-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  position: relative;
+}
+
+.unauthorized-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(245, 101, 101, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.unauthorized-container {
+  background: white;
+  border-radius: 24px;
+  padding: 3rem;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  position: relative;
+  z-index: 1;
+}
+
+/* Error Icon */
+.unauthorized-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 4px rgba(239, 68, 68, 0.2));
+}
+
+/* Title */
+.unauthorized-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.02em;
+}
+
+/* Message */
+.unauthorized-message {
+  font-size: 1.125rem;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0 0 2rem 0;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Requirements Info */
+.requirements-info {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.requirement-item {
+  margin-bottom: 1rem;
+}
+
+.requirement-item:last-child {
+  margin-bottom: 0;
+}
+
+.requirement-item strong {
+  display: block;
+  color: #374151;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.requirement-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.requirement-tag {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.role-tag {
+  background: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+.permission-tag {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.current-role-tag {
+  background: #f3e8ff;
+  color: #7c3aed;
+  border: 1px solid #e9d5ff;
+}
+
+/* Action Buttons */
+.unauthorized-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: 2px solid transparent;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.action-button.primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.action-button.primary:hover {
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  transform: translateY(-1px);
+}
+
+.action-button.secondary {
+  background: #f8fafc;
+  color: #374151;
+  border-color: #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.action-button.secondary:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.action-button.outline {
+  background: transparent;
+  color: #667eea;
+  border-color: #667eea;
+}
+
+.action-button.outline:hover {
+  background: #667eea;
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  transform: translateY(-1px);
+}
+
+.button-icon {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Help Text */
+.unauthorized-help {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.unauthorized-help p {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .unauthorized-page {
+    padding: 1rem;
+  }
+
+  .unauthorized-container {
+    padding: 2rem;
+    border-radius: 20px;
+  }
+
+  .unauthorized-title {
+    font-size: 2rem;
+  }
+
+  .unauthorized-message {
+    font-size: 1rem;
+  }
+
+  .unauthorized-icon {
+    font-size: 3rem;
+  }
+
+  .unauthorized-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .action-button {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .requirements-info {
+    padding: 1rem;
+  }
+
+  .requirement-tags {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .unauthorized-container {
+    padding: 1.5rem;
+  }
+
+  .unauthorized-title {
+    font-size: 1.75rem;
+  }
+
+  .unauthorized-message {
+    font-size: 0.9375rem;
+  }
+
+  .action-button {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9375rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .unauthorized-page {
+    background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  }
+
+  .unauthorized-container {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .unauthorized-title {
+    color: #f9fafb;
+  }
+
+  .unauthorized-message {
+    color: #d1d5db;
+  }
+
+  .requirements-info {
+    background: #111827;
+    border-color: #374151;
+  }
+
+  .requirement-item strong {
+    color: #e5e7eb;
+  }
+
+  .role-tag {
+    background: #1e3a8a;
+    color: #bfdbfe;
+    border-color: #1e40af;
+  }
+
+  .permission-tag {
+    background: #78350f;
+    color: #fde68a;
+    border-color: #92400e;
+  }
+
+  .current-role-tag {
+    background: #581c87;
+    color: #e9d5ff;
+    border-color: #7c3aed;
+  }
+
+  .action-button.secondary {
+    background: #374151;
+    color: #e5e7eb;
+    border-color: #4b5563;
+  }
+
+  .action-button.secondary:hover {
+    background: #4b5563;
+    border-color: #6b7280;
+  }
+
+  .unauthorized-help {
+    border-color: #374151;
+  }
+
+  .unauthorized-help p {
+    color: #9ca3af;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .unauthorized-container {
+    border: 2px solid #000;
+  }
+
+  .action-button {
+    border-width: 2px;
+  }
+
+  .action-button.primary {
+    background: #000;
+    color: #fff;
+  }
+
+  .action-button.secondary {
+    background: #fff;
+    color: #000;
+    border-color: #000;
+  }
+
+  .action-button.outline {
+    border-color: #000;
+    color: #000;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .action-button {
+    transition: none;
+  }
+
+  .action-button:hover {
+    transform: none;
+  }
+}
+
+/* Focus Styles for Accessibility */
+.action-button:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+.action-button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Print Styles */
+@media print {
+  .unauthorized-page {
+    background: white;
+    color: black;
+  }
+
+  .unauthorized-container {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+
+  .action-button {
+    display: none;
+  }
+}

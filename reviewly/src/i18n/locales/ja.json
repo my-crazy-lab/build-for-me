@@ -1,0 +1,60 @@
+{
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "delete": "削除",
+    "edit": "編集",
+    "create": "作成",
+    "update": "更新",
+    "submit": "送信",
+    "close": "閉じる",
+    "back": "戻る",
+    "next": "次へ",
+    "previous": "前へ",
+    "search": "検索",
+    "filter": "フィルター",
+    "clear": "クリア",
+    "all": "すべて",
+    "none": "なし",
+    "yes": "はい",
+    "no": "いいえ",
+    "required": "必須",
+    "optional": "任意",
+    "active": "アクティブ",
+    "inactive": "非アクティブ"
+  },
+  "auth": {
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "email": "メール",
+    "password": "パスワード",
+    "loginButton": "ログイン",
+    "loginWithGoogle": "Googleでログイン"
+  },
+  "navigation": {
+    "dashboard": "ダッシュボード",
+    "selfReview": "自己評価",
+    "goals": "目標",
+    "feedback": "フィードバック",
+    "templates": "テンプレート"
+  },
+  "language": {
+    "title": "言語設定",
+    "current": "現在の言語",
+    "change": "言語を変更",
+    "languages": {
+      "en": "英語",
+      "es": "スペイン語",
+      "fr": "フランス語",
+      "de": "ドイツ語",
+      "pt": "ポルトガル語",
+      "it": "イタリア語",
+      "ja": "日本語",
+      "ko": "韓国語",
+      "zh": "中国語"
+    }
+  }
+}

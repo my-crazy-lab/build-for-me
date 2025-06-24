@@ -1,0 +1,310 @@
+/**
+ * Peer Feedback Visualization Styles for Reviewly Application
+ * 
+ * Styling for peer feedback charts with multiple view modes.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.peer-feedback-visualization {
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.chart-title h3 {
+  color: var(--color-text);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 0.5rem 0;
+}
+
+.chart-title p {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.view-toggles {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.view-toggle {
+  padding: 0.5rem 0.75rem;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.view-toggle:hover {
+  background: var(--color-surface);
+  border-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+.view-toggle.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.chart-container {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+/* Feedback Summary */
+.feedback-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  transition: all 0.2s ease;
+}
+
+.stat-item:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-value {
+  color: var(--color-primary);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Insights */
+.insights h4 {
+  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 1rem 0;
+}
+
+.insights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.insight-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  transition: all 0.2s ease;
+}
+
+.insight-item:hover {
+  border-color: var(--color-primary);
+  background: var(--color-surface);
+}
+
+.insight-icon {
+  font-size: 1.125rem;
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+.insight-text {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .peer-feedback-visualization {
+    padding: 1rem;
+  }
+
+  .chart-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .view-toggles {
+    gap: 0.25rem;
+    width: 100%;
+  }
+
+  .view-toggle {
+    flex: 1;
+    justify-content: center;
+    padding: 0.375rem 0.5rem;
+    font-size: 0.6875rem;
+  }
+
+  .summary-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .insight-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .peer-feedback-visualization {
+    padding: 0.75rem;
+  }
+
+  .chart-title h3 {
+    font-size: 1.125rem;
+  }
+
+  .view-toggles {
+    flex-direction: column;
+  }
+
+  .view-toggle {
+    justify-content: flex-start;
+  }
+
+  .summary-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-item {
+    padding: 0.75rem;
+  }
+
+  .stat-value {
+    font-size: 1.125rem;
+  }
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .peer-feedback-visualization {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .view-toggle {
+  background: var(--color-background);
+  border-color: var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .view-toggle:hover {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .stat-item,
+[data-theme="dark"] .insight-item {
+  background: var(--color-background);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .insight-item:hover {
+  background: var(--color-surface);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .peer-feedback-visualization,
+  .stat-item,
+  .insight-item {
+    border-width: 2px;
+  }
+
+  .view-toggle {
+    border-width: 2px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .view-toggle,
+  .stat-item,
+  .insight-item {
+    transition: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .peer-feedback-visualization {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .stat-item,
+  .insight-item {
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+
+  .view-toggles {
+    display: none;
+  }
+}

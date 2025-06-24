@@ -1,0 +1,217 @@
+/**
+ * Goals Progress Chart Styles for Reviewly Application
+ * 
+ * Styling for donut charts and category breakdowns.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.goals-progress-chart {
+  width: 100%;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.chart-header h3 {
+  color: var(--color-text);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.completion-rate {
+  color: var(--color-primary);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.donut-chart {
+  position: relative;
+}
+
+.chart-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.legend-color.completed {
+  background: var(--color-success);
+}
+
+.legend-color.in-progress {
+  background: var(--color-info);
+}
+
+.legend-color.overdue {
+  background: var(--color-danger);
+}
+
+.category-breakdown {
+  width: 100%;
+}
+
+.category-breakdown h4 {
+  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  margin: 0 0 1rem 0;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: var(--color-background);
+  border-radius: var(--border-radius-md);
+  margin-bottom: 0.5rem;
+}
+
+.category-item:last-child {
+  margin-bottom: 0;
+}
+
+.category-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 150px;
+}
+
+.category-name {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.category-ratio {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.category-progress {
+  flex: 1;
+  height: 6px;
+  background: var(--color-border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.category-progress .progress-bar {
+  height: 100%;
+  background: var(--color-success);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .chart-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .chart-container {
+    flex-direction: column;
+  }
+
+  .category-item {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .category-info {
+    width: 100%;
+  }
+
+  .category-progress {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-header h3 {
+    font-size: 1rem;
+  }
+
+  .completion-rate {
+    font-size: 1rem;
+  }
+
+  .category-item {
+    padding: 0.5rem;
+  }
+
+  .category-name {
+    font-size: 0.8125rem;
+  }
+
+  .category-ratio {
+    font-size: 0.6875rem;
+  }
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .category-item {
+  background: var(--color-background);
+}
+
+[data-theme="dark"] .category-progress {
+  background: var(--color-border);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .category-item {
+    border: 1px solid var(--color-border);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .category-progress .progress-bar {
+    transition: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .category-item {
+    border: 1px solid #ccc;
+  }
+}

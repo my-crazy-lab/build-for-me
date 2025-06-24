@@ -1,0 +1,229 @@
+/**
+ * Performance Chart Styles for Reviewly Application
+ * 
+ * Styling for performance trend charts with SVG elements and tooltips.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.performance-chart {
+  width: 100%;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.chart-header h3 {
+  color: var(--color-text);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.chart-legend {
+  display: flex;
+  gap: 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.legend-color.performance {
+  background: var(--color-primary);
+}
+
+.legend-color.team {
+  background: var(--color-warning);
+}
+
+.chart-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.chart-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.data-point {
+  transition: all 0.2s ease;
+}
+
+.data-point:hover {
+  r: 6;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.hover-area {
+  cursor: pointer;
+}
+
+.hover-area:hover + .data-point {
+  r: 6;
+}
+
+.chart-info {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  background: var(--color-background);
+  border-radius: var(--border-radius-md);
+  margin-top: 1rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.info-label {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.info-value {
+  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.chart-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.summary-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--color-background);
+  border-radius: var(--border-radius-md);
+}
+
+.summary-icon {
+  font-size: 1.25rem;
+  min-width: 1.5rem;
+}
+
+.summary-content h4 {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  margin: 0 0 0.25rem 0;
+}
+
+.summary-content p {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .chart-header {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .chart-legend {
+    gap: 0.75rem;
+  }
+
+  .chart-info {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .info-item {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .chart-summary {
+    gap: 0.75rem;
+  }
+
+  .summary-item {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-header h3 {
+    font-size: 1rem;
+  }
+
+  .legend-item {
+    font-size: 0.8125rem;
+  }
+
+  .chart-info {
+    padding: 0.75rem;
+  }
+
+  .summary-content h4 {
+    font-size: 0.8125rem;
+  }
+
+  .summary-content p {
+    font-size: 0.6875rem;
+  }
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .chart-info,
+[data-theme="dark"] .summary-item {
+  background: var(--color-background);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .chart-info,
+  .summary-item {
+    border: 1px solid var(--color-border);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .data-point {
+    transition: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .chart-info,
+  .summary-item {
+    border: 1px solid #ccc;
+  }
+}

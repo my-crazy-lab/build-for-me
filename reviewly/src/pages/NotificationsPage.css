@@ -1,0 +1,243 @@
+/**
+ * Notifications Page Styles for Reviewly Application
+ * 
+ * Comprehensive styling for the notifications management interface
+ * with responsive design and interactive elements.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.notifications-page {
+  min-height: 100vh;
+  background: var(--color-background);
+  padding: 1rem;
+}
+
+/* Page Header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  margin-bottom: 2rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-info {
+  text-align: center;
+  flex: 1;
+}
+
+.header-info h1 {
+  color: var(--color-primary);
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 0.5rem 0;
+}
+
+.header-info p {
+  color: var(--color-text-secondary);
+  margin: 0;
+  font-size: 1rem;
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Statistics Cards */
+.notifications-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-card.urgent {
+  border-left: 4px solid var(--color-danger);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  opacity: 0.8;
+}
+
+.stat-content h3 {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  margin: 0 0 0.25rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.stat-card.urgent .stat-value {
+  color: var(--color-danger);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .notifications-page {
+    padding: 0.5rem;
+  }
+
+  .page-header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .header-info {
+    order: -1;
+  }
+
+  .header-info h1 {
+    font-size: 1.75rem;
+  }
+
+  .notifications-stats {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .stat-icon {
+    font-size: 1.5rem;
+  }
+
+  .stat-value {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header {
+    padding: 0.75rem;
+  }
+
+  .header-info h1 {
+    font-size: 1.5rem;
+  }
+
+  .header-info p {
+    font-size: 0.875rem;
+  }
+
+  .notifications-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-card {
+    padding: 0.75rem;
+  }
+
+  .stat-content h3 {
+    font-size: 0.8125rem;
+  }
+
+  .stat-value {
+    font-size: 1.125rem;
+  }
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .notifications-page {
+  background: var(--color-background);
+}
+
+[data-theme="dark"] .page-header,
+[data-theme="dark"] .stat-card {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .stat-card.urgent {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .page-header,
+  .stat-card {
+    border: 2px solid var(--color-border);
+  }
+
+  .stat-card.urgent {
+    border-left-width: 6px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .stat-card {
+    transition: none;
+  }
+
+  .stat-card:hover {
+    transform: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .notifications-page {
+    background: white;
+    padding: 0;
+  }
+
+  .page-header,
+  .stat-card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .header-actions {
+    display: none;
+  }
+
+  .notifications-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

@@ -1,0 +1,220 @@
+/**
+ * Skills Radar Chart Styles for Reviewly Application
+ * 
+ * Styling for radar/spider charts with SVG elements and skill summaries.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.skills-radar-chart {
+  width: 100%;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.chart-header h3 {
+  color: var(--color-text);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.chart-legend {
+  display: flex;
+  gap: 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.legend-color.current {
+  background: var(--color-primary);
+}
+
+.legend-color.target {
+  background: var(--color-warning);
+}
+
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.radar-svg {
+  width: 100%;
+  height: auto;
+  max-width: 300px;
+}
+
+.skills-summary {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: var(--color-background);
+  border-radius: var(--border-radius-md);
+  margin-bottom: 0.5rem;
+}
+
+.skill-item:last-child {
+  margin-bottom: 0;
+}
+
+.skill-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 120px;
+}
+
+.skill-name {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.skill-level {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.skill-progress {
+  flex: 1;
+  height: 6px;
+  background: var(--color-border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 0 1rem;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.skill-trend {
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+.trend-up {
+  color: var(--color-success);
+}
+
+.trend-down {
+  color: var(--color-danger);
+}
+
+.trend-stable {
+  color: var(--color-text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .chart-header {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .chart-legend {
+    gap: 0.75rem;
+  }
+
+  .skill-item {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .skill-info {
+    width: 100%;
+  }
+
+  .skill-progress {
+    margin: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-header h3 {
+    font-size: 1rem;
+  }
+
+  .legend-item {
+    font-size: 0.8125rem;
+  }
+
+  .skill-item {
+    padding: 0.5rem;
+  }
+
+  .skill-name {
+    font-size: 0.8125rem;
+  }
+
+  .skill-level {
+    font-size: 0.6875rem;
+  }
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .skill-item {
+  background: var(--color-background);
+}
+
+[data-theme="dark"] .skill-progress {
+  background: var(--color-border);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .skill-item {
+    border: 1px solid var(--color-border);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .progress-bar {
+    transition: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .skill-item {
+    border: 1px solid #ccc;
+  }
+}

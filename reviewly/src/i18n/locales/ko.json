@@ -1,0 +1,60 @@
+{
+  "common": {
+    "loading": "로딩 중...",
+    "error": "오류",
+    "success": "성공",
+    "cancel": "취소",
+    "save": "저장",
+    "delete": "삭제",
+    "edit": "편집",
+    "create": "생성",
+    "update": "업데이트",
+    "submit": "제출",
+    "close": "닫기",
+    "back": "뒤로",
+    "next": "다음",
+    "previous": "이전",
+    "search": "검색",
+    "filter": "필터",
+    "clear": "지우기",
+    "all": "모두",
+    "none": "없음",
+    "yes": "예",
+    "no": "아니오",
+    "required": "필수",
+    "optional": "선택사항",
+    "active": "활성",
+    "inactive": "비활성"
+  },
+  "auth": {
+    "login": "로그인",
+    "logout": "로그아웃",
+    "email": "이메일",
+    "password": "비밀번호",
+    "loginButton": "로그인",
+    "loginWithGoogle": "Google로 로그인"
+  },
+  "navigation": {
+    "dashboard": "대시보드",
+    "selfReview": "자기평가",
+    "goals": "목표",
+    "feedback": "피드백",
+    "templates": "템플릿"
+  },
+  "language": {
+    "title": "언어 설정",
+    "current": "현재 언어",
+    "change": "언어 변경",
+    "languages": {
+      "en": "영어",
+      "es": "스페인어",
+      "fr": "프랑스어",
+      "de": "독일어",
+      "pt": "포르투갈어",
+      "it": "이탈리아어",
+      "ja": "일본어",
+      "ko": "한국어",
+      "zh": "중국어"
+    }
+  }
+}

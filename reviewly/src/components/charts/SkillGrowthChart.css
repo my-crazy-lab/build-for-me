@@ -1,0 +1,341 @@
+/**
+ * Skill Growth Chart Styles for Reviewly Application
+ * 
+ * Styling for interactive skill development charts with animations.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.skill-growth-chart {
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.chart-title h3 {
+  color: var(--color-text);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 0.5rem 0;
+}
+
+.chart-title p {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.chart-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.time-range-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.range-label {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.range-value {
+  color: var(--color-primary);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.chart-container {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+/* Skill Summary */
+.skill-summary {
+  margin-bottom: 2rem;
+}
+
+.skill-summary h4 {
+  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 1rem 0;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.skill-stat {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.skill-stat:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.skill-name {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.skill-trend {
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius-sm);
+}
+
+.skill-trend.up {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--color-success);
+}
+
+.skill-trend.down {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--color-danger);
+}
+
+.skill-trend.stable {
+  background: rgba(107, 114, 128, 0.1);
+  color: var(--color-text-secondary);
+}
+
+.skill-level {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.current-level {
+  color: var(--color-primary);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.level-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--color-border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 0 1rem;
+}
+
+.level-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.skill-growth {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.growth-label {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.growth-value {
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.growth-value.positive {
+  color: var(--color-success);
+}
+
+.growth-value.negative {
+  color: var(--color-danger);
+}
+
+/* Trend Analysis */
+.trend-analysis h4 {
+  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 1rem 0;
+}
+
+.trends-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.trend-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+}
+
+.trend-skill {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  min-width: 120px;
+}
+
+.trend-description {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  flex: 1;
+}
+
+.trend-indicator {
+  font-size: 1.25rem;
+  min-width: 2rem;
+  text-align: center;
+}
+
+.trend-indicator.excellent {
+  filter: hue-rotate(120deg);
+}
+
+.trend-indicator.good {
+  filter: hue-rotate(60deg);
+}
+
+.trend-indicator.warning {
+  filter: hue-rotate(-60deg);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .skill-growth-chart {
+    padding: 1rem;
+  }
+
+  .chart-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trend-item {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .trend-skill {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .skill-growth-chart {
+    padding: 0.75rem;
+  }
+
+  .chart-title h3 {
+    font-size: 1.125rem;
+  }
+
+  .skill-stat {
+    padding: 0.75rem;
+  }
+
+  .skill-level {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .level-bar {
+    margin: 0;
+    width: 100%;
+  }
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .skill-growth-chart {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .skill-stat,
+[data-theme="dark"] .trend-item {
+  background: var(--color-background);
+  border-color: var(--color-border);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .skill-growth-chart,
+  .skill-stat,
+  .trend-item {
+    border-width: 2px;
+  }
+
+  .skill-trend {
+    border: 1px solid currentColor;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .skill-stat,
+  .level-fill {
+    transition: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .skill-growth-chart {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .skill-stat,
+  .trend-item {
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+}
