@@ -1,0 +1,290 @@
+/**
+ * Features Section Styles for ShipFast Landing Page
+ * 
+ * Professional feature showcase with engaging cards,
+ * hover effects, and conversion-focused design.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: ShipFast Development Team
+ */
+
+.features {
+  background: var(--color-surface);
+  position: relative;
+}
+
+.features::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 80% 20%, rgba(106, 123, 83, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(165, 123, 91, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.section-header {
+  margin-bottom: var(--spacing-4xl);
+  position: relative;
+  z-index: 1;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-md);
+}
+
+.section-description {
+  font-size: 1.25rem;
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-2xl);
+  margin-bottom: var(--spacing-4xl);
+  position: relative;
+  z-index: 1;
+}
+
+.feature-card {
+  background: linear-gradient(135deg, var(--color-background) 0%, var(--color-surface-hover) 100%);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-2xl);
+  text-align: center;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.feature-card:hover {
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-surface-hover) 0%, var(--color-background) 100%);
+}
+
+.feature-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--spacing-lg);
+  color: var(--color-text-inverse);
+  transition: all var(--transition-normal);
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.feature-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.3;
+}
+
+.feature-description {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-lg);
+}
+
+.feature-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-primary);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+}
+
+.feature-link:hover {
+  color: var(--color-primary-dark);
+}
+
+.feature-link svg {
+  transition: transform var(--transition-fast);
+}
+
+.feature-link:hover svg {
+  transform: translateX(4px);
+}
+
+/* Features CTA */
+.features-cta {
+  background: linear-gradient(135deg, var(--color-primary-alpha) 0%, rgba(106, 123, 83, 0.05) 100%);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-3xl);
+  position: relative;
+  z-index: 1;
+}
+
+.cta-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-md);
+}
+
+.cta-description {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xl);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.features-cta .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.features-cta .btn svg {
+  transition: transform var(--transition-fast);
+}
+
+.features-cta .btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-xl);
+  }
+
+  .section-title {
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .section-description {
+    font-size: 1.125rem;
+  }
+
+  .feature-card {
+    padding: var(--spacing-xl);
+  }
+
+  .feature-icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .feature-title {
+    font-size: 1.375rem;
+  }
+
+  .cta-title {
+    font-size: 1.75rem;
+  }
+
+  .features-cta {
+    padding: var(--spacing-2xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .section-header {
+    margin-bottom: var(--spacing-3xl);
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .section-description {
+    font-size: 1rem;
+  }
+
+  .feature-card {
+    padding: var(--spacing-lg);
+  }
+
+  .feature-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .feature-title {
+    font-size: 1.25rem;
+  }
+
+  .feature-description {
+    font-size: 0.875rem;
+  }
+
+  .cta-title {
+    font-size: 1.5rem;
+  }
+
+  .cta-description {
+    font-size: 1rem;
+  }
+
+  .features-cta {
+    padding: var(--spacing-xl);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .feature-card,
+  .feature-icon,
+  .feature-link svg {
+    transition: none;
+  }
+
+  .feature-card:hover .feature-icon {
+    transform: none;
+  }
+
+  .feature-link:hover svg {
+    transform: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .feature-card {
+    border-width: 3px;
+  }
+
+  .features-cta {
+    border-width: 3px;
+  }
+
+  .feature-icon {
+    border: 2px solid var(--color-text-inverse);
+  }
+}

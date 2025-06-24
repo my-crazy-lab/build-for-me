@@ -1,0 +1,129 @@
+/**
+ * How It Works Section Styles for ShipFast Landing Page
+ * 
+ * Step-by-step process visualization with professional design
+ * and engaging animations.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: ShipFast Development Team
+ */
+
+.how-it-works {
+  background: var(--color-background);
+  position: relative;
+}
+
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-2xl);
+  margin-bottom: var(--spacing-4xl);
+  position: relative;
+}
+
+.step-item {
+  text-align: center;
+  position: relative;
+}
+
+.step-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.step-content {
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-2xl);
+  transition: all var(--transition-normal);
+}
+
+.step-content:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-5px);
+}
+
+.step-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--spacing-lg);
+  color: var(--color-text-inverse);
+}
+
+.step-title {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-md);
+}
+
+.step-description {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.step-connector {
+  display: none;
+}
+
+.how-it-works-cta {
+  background: linear-gradient(135deg, var(--color-secondary-alpha) 0%, rgba(165, 123, 91, 0.05) 100%);
+  border: 2px solid var(--color-secondary);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-3xl);
+}
+
+.cta-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-md);
+}
+
+.cta-description {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .steps-container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+
+  .step-content {
+    padding: var(--spacing-xl);
+  }
+
+  .step-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .step-title {
+    font-size: 1.25rem;
+  }
+
+  .cta-title {
+    font-size: 1.75rem;
+  }
+
+  .how-it-works-cta {
+    padding: var(--spacing-2xl);
+  }
+}
