@@ -32,7 +32,6 @@ import NotificationBell from './components/notifications/NotificationBell';
 import { NotificationProvider } from './contexts/NotificationContext';
 import { initResponsiveUtils } from './utils/responsive';
 import './i18n'; // Initialize i18n
-import './styles/globals.css';
 import './App.css';
 
 function App() {

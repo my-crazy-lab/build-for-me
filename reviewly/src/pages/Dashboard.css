@@ -1,11 +1,11 @@
 /**
  * Dashboard Styles for Reviewly Application
- * 
+ *
  * This file contains the CSS styles for the dashboard page with
- * neumorphism design, responsive layout, and beautiful animations.
- * 
+ * Earthy Neutrals design, warm natural tones, responsive layout, and beautiful animations.
+ *
  * Created: 2025-06-24
- * Version: 1.0.0
+ * Version: 2.0.0 - Earthy Neutrals Theme
  * Author: Reviewly Development Team
  */
 
@@ -39,8 +39,7 @@
   height: 4rem;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: var(--neu-shadow-dark);
-  border: 3px solid var(--color-surface);
+  border: 3px solid var(--color-primary);
 }
 
 .user-avatar img {
@@ -103,18 +102,18 @@
 }
 
 .stat-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
+  border: 2px solid var(--color-border);
   border-radius: var(--border-radius-lg);
   padding: 1.5rem;
-  box-shadow: var(--neu-shadow-dark);
   transition: all var(--transition-normal);
   cursor: pointer;
 }
 
 .stat-card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-surface-hover) 0%, var(--color-surface) 100%);
+  transform: translateY(-3px);
 }
 
 .stat-card .stat-icon {
@@ -150,18 +149,18 @@
 }
 
 .action-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
+  border: 2px solid var(--color-secondary);
   border-radius: var(--border-radius-lg);
   padding: 2rem;
-  box-shadow: var(--neu-shadow-dark);
   transition: all var(--transition-normal);
   text-align: center;
 }
 
 .action-card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary-alpha) 0%, var(--color-surface-hover) 100%);
+  transform: translateY(-3px);
 }
 
 .action-card .action-icon {

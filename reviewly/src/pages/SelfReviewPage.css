@@ -1,11 +1,11 @@
 /**
  * Self-Review Page Styles for Reviewly Application
- * 
+ *
  * Styling for the self-review page including header, success states,
- * and loading overlays with neumorphism design.
- * 
+ * and loading overlays with Earthy Neutrals design.
+ *
  * Created: 2025-06-24
- * Version: 1.0.0
+ * Version: 2.0.0 - Earthy Neutrals Theme
  * Author: Reviewly Development Team
  */
 
@@ -128,7 +128,7 @@
   border-radius: var(--border-radius-lg);
   padding: 1.5rem;
   margin-bottom: 2rem;
-  box-shadow: var(--neu-shadow-light);
+  box-shadow: var(--shadow-sm);
 }
 
 .detail-item {

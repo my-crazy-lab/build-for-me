@@ -1,0 +1,378 @@
+/**
+ * Simple Dashboard Styles for Reviewly Application
+ * 
+ * Styling for the main dashboard with Earthy Neutrals design,
+ * warm natural tones, and responsive layout.
+ * 
+ * Created: 2025-06-24
+ * Version: 2.0.0 - Earthy Neutrals Theme
+ * Author: Reviewly Development Team
+ */
+
+.dashboard {
+  padding: var(--spacing-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--color-background);
+  min-height: 100vh;
+}
+
+.dashboard-header {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.dashboard-title {
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dashboard-subtitle {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-normal);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.dashboard-section {
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  transition: all var(--transition-normal);
+}
+
+.dashboard-section:hover {
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-surface-hover) 0%, var(--color-surface) 100%);
+  transform: translateY(-3px);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.section-icon {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+}
+
+.section-action {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.section-action:hover {
+  background: var(--color-primary-alpha);
+  color: var(--color-primary-dark);
+}
+
+/* Stats Cards */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.stat-card {
+  text-align: center;
+  padding: var(--spacing-md);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
+  border-radius: var(--border-radius-md);
+  border: 2px solid var(--color-primary);
+  transition: all var(--transition-normal);
+}
+
+.stat-card:hover {
+  border-color: var(--color-secondary);
+  background: linear-gradient(135deg, var(--color-primary-alpha) 0%, var(--color-surface-hover) 100%);
+  transform: translateY(-2px);
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  display: block;
+  margin-bottom: var(--spacing-xs);
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Progress Bars */
+.progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.progress-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.progress-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.progress-label {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--color-border-light);
+  border-radius: var(--border-radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  border-radius: var(--border-radius-full);
+  transition: width var(--transition-normal);
+}
+
+.progress-value {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  min-width: 3rem;
+  text-align: right;
+}
+
+/* Skills Section */
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm);
+  background: linear-gradient(135deg, var(--color-surface-hover) 0%, var(--color-surface) 100%);
+  border-radius: var(--border-radius-md);
+  border: 2px solid var(--color-border);
+  transition: all var(--transition-normal);
+}
+
+.skill-item:hover {
+  border-color: var(--color-secondary);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
+}
+
+.skill-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.skill-name {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  display: block;
+  margin-bottom: var(--spacing-xs);
+}
+
+.skill-level {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.skill-bar {
+  width: 100px;
+  height: 6px;
+  background: var(--color-border-light);
+  border-radius: var(--border-radius-full);
+  overflow: hidden;
+}
+
+.skill-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+  border-radius: var(--border-radius-full);
+  transition: width var(--transition-normal);
+}
+
+.skill-trend {
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  min-width: 4rem;
+  text-align: center;
+}
+
+.skill-trend.positive {
+  background: rgba(106, 123, 83, 0.1);
+  color: var(--color-success-dark);
+}
+
+.skill-trend.stable {
+  background: rgba(197, 178, 153, 0.1);
+  color: var(--color-info-dark);
+}
+
+.skill-trend.negative {
+  background: rgba(165, 123, 91, 0.1);
+  color: var(--color-danger-dark);
+}
+
+/* Recent Activity */
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  border: 2px solid transparent;
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-fast);
+}
+
+.activity-item:hover {
+  background: linear-gradient(135deg, var(--color-surface-hover) 0%, var(--color-surface) 100%);
+  border-color: var(--color-border);
+}
+
+.activity-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.activity-icon.review {
+  background: rgba(165, 123, 91, 0.1);
+  color: var(--color-primary);
+}
+
+.activity-icon.feedback {
+  background: rgba(106, 123, 83, 0.1);
+  color: var(--color-secondary);
+}
+
+.activity-icon.goal {
+  background: rgba(141, 107, 75, 0.1);
+  color: var(--color-accent);
+}
+
+.activity-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.activity-text {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin-bottom: var(--spacing-xs);
+}
+
+.activity-time {
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: var(--spacing-md);
+  }
+  
+  .dashboard-title {
+    font-size: 2rem;
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .skill-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+  
+  .skill-bar {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    padding: var(--spacing-sm);
+  }
+  
+  .dashboard-title {
+    font-size: 1.75rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+}

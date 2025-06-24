@@ -1,11 +1,11 @@
 /**
  * Simple Theme Toggle Styles for Reviewly Application
- * 
+ *
  * CSS styles for the simplified theme toggle component with
- * neumorphism design and smooth transitions.
- * 
+ * clean flat design and smooth transitions.
+ *
  * Created: 2025-06-24
- * Version: 1.0.0
+ * Version: 2.0.0 - Clean Flat Design
  * Author: Reviewly Development Team
  */
 
@@ -21,23 +21,24 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
+  border: 2px solid var(--color-border);
   border-radius: var(--border-radius-lg);
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: var(--neu-shadow-dark);
   color: var(--color-text);
   font-weight: 500;
 }
 
 .simple-theme-toggle-button:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-1px);
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-surface-hover) 0%, var(--color-surface) 100%);
+  transform: translateY(-2px);
 }
 
 .simple-theme-toggle-button:active {
-  box-shadow: var(--neu-shadow-light);
+  border-color: var(--color-primary-dark);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
   transform: translateY(0);
 }
 
@@ -83,20 +84,20 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
+  border: 2px solid var(--color-secondary);
   border-radius: var(--border-radius-lg);
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: var(--neu-shadow-dark);
   color: var(--color-text);
   font-weight: 500;
   min-width: 120px;
 }
 
 .simple-theme-dropdown-trigger:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-1px);
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-surface-hover) 0%, var(--color-surface) 100%);
+  transform: translateY(-2px);
 }
 
 .simple-theme-dropdown-trigger.small {
@@ -147,12 +148,10 @@
   left: 0;
   right: 0;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 2px solid var(--color-primary);
   border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-xl);
   z-index: 1000;
   overflow: hidden;
-  backdrop-filter: blur(10px);
 }
 
 .theme-option {
@@ -175,7 +174,7 @@
 }
 
 .theme-option.active {
-  background: rgba(102, 126, 234, 0.1);
+  background: linear-gradient(135deg, var(--color-primary-alpha) 0%, rgba(165, 123, 91, 0.05) 100%);
   color: var(--color-primary);
 }
 
@@ -226,7 +225,7 @@
 }
 
 [data-theme="dark"] .theme-option.active {
-  background: rgba(129, 140, 248, 0.1);
+  background: linear-gradient(135deg, var(--color-primary-alpha) 0%, rgba(184, 144, 111, 0.05) 100%);
   color: var(--color-primary);
 }
 

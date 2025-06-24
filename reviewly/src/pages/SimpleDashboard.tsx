@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/SimpleAuthContext';
 import { useTheme } from '../contexts/SimpleThemeContext';
 import SimpleThemeToggle from '../components/common/SimpleThemeToggle';
+import './SimpleDashboard.css';
 import './Dashboard.css';
 
 const SimpleDashboard: React.FC = () => {

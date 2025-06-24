@@ -1,11 +1,11 @@
 /**
  * Self-Review Form Styles for Reviewly Application
- * 
- * Comprehensive styling for the self-review form with neumorphism design,
- * responsive layout, and smooth interactions.
- * 
+ *
+ * Comprehensive styling for the self-review form with Earthy Neutrals design,
+ * warm natural tones, responsive layout, and smooth interactions.
+ *
  * Created: 2025-06-24
- * Version: 1.0.0
+ * Version: 2.0.0 - Earthy Neutrals Theme
  * Author: Reviewly Development Team
  */
 
@@ -22,9 +22,9 @@
   text-align: center;
   margin-bottom: 2rem;
   padding: 2rem;
-  background: var(--color-surface);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
+  border: 2px solid var(--color-primary);
   border-radius: var(--border-radius-lg);
-  box-shadow: var(--neu-shadow-dark);
 }
 
 .form-header h1 {
@@ -49,10 +49,10 @@
 }
 
 .user-info span {
-  background: var(--color-background);
+  background: linear-gradient(135deg, var(--color-background) 0%, var(--color-surface) 100%);
+  border: 2px solid var(--color-border);
   padding: 0.5rem 1rem;
   border-radius: var(--border-radius-md);
-  box-shadow: var(--neu-shadow-light);
   font-size: 0.875rem;
   color: var(--color-text);
 }
@@ -71,9 +71,8 @@
   gap: 0.75rem;
   padding: 1rem;
   background: var(--color-surface);
-  border: 2px solid transparent;
+  border: 2px solid var(--color-border);
   border-radius: var(--border-radius-lg);
-  box-shadow: var(--neu-shadow-dark);
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: left;
@@ -82,19 +81,19 @@
 
 .section-nav-item:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
 }
 
 .section-nav-item.active {
   border-color: var(--color-primary);
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   color: white;
-  box-shadow: var(--shadow-xl);
 }
 
 .section-nav-item.completed {
   border-color: var(--color-success);
-  background: var(--color-success);
+  background: linear-gradient(135deg, var(--color-success), var(--color-success-dark));
   color: white;
 }
 
@@ -125,8 +124,8 @@
 /* Form Content */
 .review-form {
   background: var(--color-surface);
+  border: 2px solid var(--color-secondary);
   border-radius: var(--border-radius-lg);
-  box-shadow: var(--neu-shadow-dark);
   overflow: hidden;
 }
 
@@ -157,12 +156,11 @@
 .achievement-item,
 .skill-item,
 .goal-item {
-  background: var(--color-background);
+  background: linear-gradient(135deg, var(--color-background) 0%, var(--color-surface) 100%);
   border-radius: var(--border-radius-lg);
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  box-shadow: var(--neu-shadow-light);
-  border: 1px solid var(--color-border);
+  border: 2px solid var(--color-border);
 }
 
 .item-header {
@@ -205,13 +203,12 @@
 .form-group select {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid var(--color-border);
+  border: 2px solid var(--color-border);
   border-radius: var(--border-radius-md);
   background: var(--color-surface);
   color: var(--color-text);
   font-size: 0.875rem;
   transition: all 0.2s ease;
-  box-shadow: var(--neu-shadow-light);
 }
 
 .form-group input:focus,
@@ -219,7 +216,7 @@
 .form-group select:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
 }
 
 .form-group textarea {
@@ -237,11 +234,11 @@
 
 /* Review Summary */
 .review-summary {
-  background: var(--color-background);
+  background: linear-gradient(135deg, var(--color-background) 0%, var(--color-surface) 100%);
+  border: 2px solid var(--color-accent);
   border-radius: var(--border-radius-lg);
   padding: 1.5rem;
   margin-top: 2rem;
-  box-shadow: var(--neu-shadow-light);
 }
 
 .review-summary h3 {
@@ -263,8 +260,8 @@
   align-items: center;
   padding: 0.75rem;
   background: var(--color-surface);
+  border: 2px solid var(--color-border);
   border-radius: var(--border-radius-md);
-  box-shadow: var(--neu-shadow-light);
 }
 
 .stat-label {

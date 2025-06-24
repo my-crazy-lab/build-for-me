@@ -1,3 +1,121 @@
+/**
+ * Global Styles and CSS Variables for Reviewly Application
+ *
+ * Comprehensive styling system with Earthy Neutrals design palette,
+ * warm natural tones, responsive design, and accessibility features.
+ *
+ * Created: 2025-06-24
+ * Version: 2.0.0 - Earthy Neutrals Theme
+ * Author: Reviewly Development Team
+ */
+
+/* CSS Variables for Earthy Neutrals Design System */
+:root {
+  /* Primary Colors - Earthy Neutrals Palette */
+  --color-primary: #A57B5B; /* Terracotta */
+  --color-primary-light: #B8906F;
+  --color-primary-dark: #926647;
+  --color-primary-alpha: rgba(165, 123, 91, 0.1);
+
+  /* Secondary Colors */
+  --color-secondary: #6A7B53; /* Olive Green */
+  --color-secondary-light: #7E8F67;
+  --color-secondary-dark: #56673F;
+
+  /* Accent Colors - Warm Earth Tones */
+  --color-accent: #8D6B4B; /* Rich Clay */
+  --color-accent-light: #A1805F;
+  --color-accent-dark: #795637;
+
+  /* Success, Warning, Error - Earth-toned variants */
+  --color-success: #6A7B53; /* Olive Green for success */
+  --color-success-light: #7E8F67;
+  --color-success-dark: #56673F;
+
+  --color-warning: #D2BA8C; /* Warm Taupe for warnings */
+  --color-warning-light: #DCC7A0;
+  --color-warning-dark: #C8AD78;
+
+  --color-danger: #A57B5B; /* Terracotta for errors (softer) */
+  --color-danger-light: #B8906F;
+  --color-danger-dark: #926647;
+
+  --color-info: #C5B299; /* Warm Taupe for info */
+  --color-info-light: #D1BEAD;
+  --color-info-dark: #B9A685;
+
+  /* Neutral Colors - Earthy Base */
+  --color-background: #F3EDE4; /* Creamy Beige */
+  --color-surface: #E5D5C5; /* Cream Beige */
+  --color-surface-elevated: #E5D5C5;
+  --color-surface-hover: #DCC7A0;
+
+  /* Text Colors */
+  --color-text: #3C2E26; /* Dark Brown */
+  --color-text-secondary: #5D4E42; /* Medium Brown */
+  --color-text-muted: #8D7B6B; /* Light Brown */
+  --color-text-inverse: #F3EDE4; /* Light text on dark backgrounds */
+
+  /* Border Colors */
+  --color-border: #D2BA8C; /* Warm Taupe */
+  --color-border-light: #E5D5C5;
+  --color-border-dark: #C5B299;
+
+  /* Shadow Colors - Warm earth tones */
+  --shadow-color: rgba(165, 123, 91, 0.15);
+  --shadow-color-dark: rgba(140, 107, 75, 0.25);
+
+  /* Typography */
+  --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  --font-family-secondary: 'Playfair Display', Georgia, serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Spacing Scale */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+
+  /* Border Radius */
+  --border-radius-sm: 0.375rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 0.75rem;
+  --border-radius-xl: 1rem;
+  --border-radius-2xl: 1.5rem;
+  --border-radius-full: 9999px;
+
+  /* Shadows - Warm earth-toned shadows */
+  --shadow-sm: 0 1px 2px 0 var(--shadow-color);
+  --shadow-md: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -1px var(--shadow-color);
+  --shadow-lg: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -2px var(--shadow-color);
+  --shadow-xl: 0 20px 25px -5px var(--shadow-color), 0 10px 10px -5px var(--shadow-color);
+  --shadow-2xl: 0 25px 50px -12px var(--shadow-color-dark);
+
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 250ms ease-in-out;
+  --transition-slow: 350ms ease-in-out;
+
+  /* Z-index Scale */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+}
+
 /* Global Responsive Styles */
 * {
   box-sizing: border-box;
@@ -19,11 +137,12 @@ html {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-family-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.6;
 
   /* Mobile optimizations */
   -webkit-text-size-adjust: 100%;
@@ -32,8 +151,130 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: var(--font-family-mono);
+  background-color: var(--color-surface);
+  color: var(--color-accent-dark);
+  padding: 0.125rem 0.25rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.875em;
+}
+
+/* Base Button Styles - Earthy Theme */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  font-size: 0.875rem;
+  line-height: 1.25;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-decoration: none;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Primary Button - Terracotta */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: var(--color-text-inverse);
+  border-color: var(--color-primary);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+  border-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* Secondary Button - Olive Green */
+.btn-secondary {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-dark) 100%);
+  color: var(--color-text-inverse);
+  border-color: var(--color-secondary);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--color-secondary-dark) 0%, var(--color-secondary) 100%);
+  border-color: var(--color-secondary-dark);
+  transform: translateY(-1px);
+}
+
+/* Outline Button */
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.btn-outline:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: var(--color-text-inverse);
+  border-color: var(--color-primary-dark);
+}
+
+/* Text Button */
+.btn-text {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 2px solid transparent;
+}
+
+.btn-text:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--color-primary-alpha) 0%, rgba(165, 123, 91, 0.05) 100%);
+  color: var(--color-primary-dark);
+  border-color: var(--color-primary-alpha);
+}
+
+/* Button Sizes */
+.btn-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  min-height: 36px;
+}
+
+.btn-medium {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  min-height: 44px;
+}
+
+.btn-large {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  min-height: 52px;
+}
+
+/* Form Elements - Clean Earthy Theme */
+input,
+textarea,
+select {
+  font-family: var(--font-family-primary);
+  font-size: 0.875rem;
+  padding: 0.75rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: all var(--transition-normal);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
 }
 
 /* Prevent zoom on input focus on iOS */
@@ -51,19 +292,124 @@ code {
   }
 }
 
-/* Touch-friendly interactive elements */
-button,
-[role="button"],
-input[type="submit"],
-input[type="button"] {
-  min-height: 44px;
-  min-width: 44px;
-}
-
 /* Responsive images */
 img {
   max-width: 100%;
   height: auto;
+}
+
+/* Card Components - Clean Earthy Theme */
+.card {
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-border-light);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  transition: all var(--transition-normal);
+}
+
+.card:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-surface-hover);
+  transform: translateY(-1px);
+}
+
+.card-elevated {
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
+}
+
+.card-elevated:hover {
+  border-color: var(--color-primary-dark);
+  background: linear-gradient(135deg, var(--color-surface-hover) 0%, var(--color-surface) 100%);
+}
+
+/* Alert Components */
+.alert {
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  border-left: 4px solid;
+  margin-bottom: var(--spacing-md);
+}
+
+.alert-success {
+  background-color: rgba(106, 123, 83, 0.1);
+  border-left-color: var(--color-success);
+  color: var(--color-success-dark);
+}
+
+.alert-warning {
+  background-color: rgba(210, 186, 140, 0.1);
+  border-left-color: var(--color-warning);
+  color: var(--color-warning-dark);
+}
+
+.alert-danger {
+  background-color: rgba(165, 123, 91, 0.1);
+  border-left-color: var(--color-danger);
+  color: var(--color-danger-dark);
+}
+
+.alert-info {
+  background-color: rgba(197, 178, 153, 0.1);
+  border-left-color: var(--color-info);
+  color: var(--color-info-dark);
+}
+
+/* Badge Components */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.badge-primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.badge-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-text-inverse);
+}
+
+.badge-success {
+  background-color: var(--color-success);
+  color: var(--color-text-inverse);
+}
+
+.badge-warning {
+  background-color: var(--color-warning);
+  color: var(--color-text);
+}
+
+.badge-danger {
+  background-color: var(--color-danger);
+  color: var(--color-text-inverse);
+}
+
+.badge-info {
+  background-color: var(--color-info);
+  color: var(--color-text);
+}
+
+/* Loading Spinner */
+.spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--color-border);
+  border-top: 2px solid var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* Mobile-specific adjustments */
@@ -71,6 +417,14 @@ img {
   body {
     padding-top: 60px; /* Account for mobile header */
     padding-bottom: 70px; /* Account for bottom navigation */
+  }
+
+  .card {
+    padding: var(--spacing-md);
+  }
+
+  .btn {
+    min-height: 48px; /* Larger touch targets on mobile */
   }
 }
 
@@ -86,6 +440,14 @@ img {
   * {
     border-width: 2px !important;
   }
+
+  .btn {
+    border-width: 2px !important;
+  }
+
+  .card {
+    border-width: 2px !important;
+  }
 }
 
 /* Reduced motion support */
@@ -98,18 +460,105 @@ img {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  .card:hover {
+    transform: none !important;
+  }
+
+  .btn:hover {
+    transform: none !important;
+  }
+}
+
+/* Dark Mode Theme - Earthy Neutrals Dark Variant */
+[data-theme="dark"] {
+  /* Primary Colors - Darker earth tones */
+  --color-primary: #B8906F; /* Lighter terracotta for dark mode */
+  --color-primary-light: #C5A085;
+  --color-primary-dark: #A57B5B;
+  --color-primary-alpha: rgba(184, 144, 111, 0.1);
+
+  /* Secondary Colors */
+  --color-secondary: #7E8F67; /* Lighter olive green */
+  --color-secondary-light: #92A37B;
+  --color-secondary-dark: #6A7B53;
+
+  /* Accent Colors */
+  --color-accent: #A1805F; /* Lighter rich clay */
+  --color-accent-light: #B59473;
+  --color-accent-dark: #8D6B4B;
+
+  /* Status Colors - Earth-toned variants for dark mode */
+  --color-success: #7E8F67; /* Lighter olive green */
+  --color-success-light: #92A37B;
+  --color-success-dark: #6A7B53;
+
+  --color-warning: #DCC7A0; /* Lighter warm taupe */
+  --color-warning-light: #E6D1B4;
+  --color-warning-dark: #D2BA8C;
+
+  --color-danger: #B8906F; /* Lighter terracotta */
+  --color-danger-light: #C5A085;
+  --color-danger-dark: #A57B5B;
+
+  --color-info: #D1BEAD; /* Lighter warm taupe */
+  --color-info-light: #DBC8C1;
+  --color-info-dark: #C5B299;
+
+  /* Background Colors - Dark earth tones */
+  --color-background: #2C1F1A; /* Dark earth */
+  --color-surface: #3C2E26; /* Dark brown */
+  --color-surface-elevated: #4A3B32;
+  --color-surface-hover: #5D4E42;
+
+  /* Text Colors - Light on dark */
+  --color-text: #F3EDE4; /* Light cream */
+  --color-text-secondary: #D2BA8C; /* Warm taupe */
+  --color-text-muted: #C5B299; /* Light brown */
+  --color-text-inverse: #2C1F1A; /* Dark text for light backgrounds */
+
+  /* Border Colors - Medium earth tones */
+  --color-border: #5D4E42; /* Medium brown */
+  --color-border-light: #6B5A4F;
+  --color-border-dark: #4A3B32;
+
+  /* Shadow Colors - Dark earth tones */
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --shadow-color-dark: rgba(0, 0, 0, 0.6);
+}
+
+/* Auto dark mode based on system preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Apply dark mode colors when system prefers dark and no explicit theme is set */
+    --color-background: #2C1F1A;
+    --color-surface: #3C2E26;
+    --color-text: #F3EDE4;
+    --color-text-secondary: #D2BA8C;
+    --color-border: #5D4E42;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+  }
 }
 
 /* Print styles */
 @media print {
   body {
     padding: 0 !important;
+    background: white !important;
+    color: black !important;
   }
 
   .mobile-header,
   .mobile-menu,
   .bottom-navigation,
-  .app-controls {
+  .app-controls,
+  .btn,
+  .spinner {
     display: none !important;
+  }
+
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
   }
 }
