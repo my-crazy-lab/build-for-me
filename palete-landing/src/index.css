@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Default theme (Earthy Neutrals) */
+:root,
+.theme-earthy {
+  --primary-bg: #F3EDE4;
+  --secondary-bg: #E5D5C5;
+  --text-primary: #2D2D2D;
+  --text-secondary: #6A7B53;
+  --accent-color: #A57B5B;
+  --border-color: #D2BA8C;
+}
+
+.theme-light {
+  --primary-bg: #FFFFFF;
+  --secondary-bg: #F9FAFB;
+  --text-primary: #111827;
+  --text-secondary: #6B7280;
+  --accent-color: #3B82F6;
+  --border-color: #E5E7EB;
+}
+
+.theme-dark {
+  --primary-bg: #1a1a1a;
+  --secondary-bg: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --accent-color: #8C7AA9;
+  --border-color: #404040;
+}
+
+.theme-pastel {
+  --primary-bg: #FFF2E6;
+  --secondary-bg: #F3D7FF;
+  --text-primary: #2D2D2D;
+  --text-secondary: #5A4E7C;
+  --accent-color: #D6AEDD;
+  --border-color: #CCCCFF;
+}
+
+.theme-vibrant {
+  --primary-bg: #FFD6B8;
+  --secondary-bg: #B2E8C8;
+  --text-primary: #1a1a1a;
+  --text-secondary: #BF1922;
+  --accent-color: #FF6347;
+  --border-color: #FCE38A;
+}
+
+.theme-mono {
+  --primary-bg: #F9F6F0;
+  --secondary-bg: #DDD6CE;
+  --text-primary: #2D2D2D;
+  --text-secondary: #666666;
+  --accent-color: #8D6B4B;
+  --border-color: #C7BCB4;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--secondary-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
+/* Improve font rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --primary-bg: #ffffff;
+    --text-primary: #000000;
+    --accent-color: #0000ff;
+    --border-color: #000000;
+  }
+}
+
+/* Print styles */
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  /* Improve touch targets */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Prevent zoom on input focus */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  /* Optimize spacing for mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
