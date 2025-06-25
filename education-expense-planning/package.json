@@ -1,0 +1,44 @@
+{
+  "name": "education-expense-dashboard",
+  "version": "1.0.0",
+  "description": "12-Year Education Expense Planning & Tracking Dashboard",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "start": "cd backend && npm start",
+    "test": "npm run test:frontend && npm run test:backend",
+    "test:frontend": "cd frontend && npm test",
+    "test:backend": "cd backend && npm test",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "keywords": [
+    "education",
+    "expense",
+    "planning",
+    "tracking",
+    "dashboard",
+    "react",
+    "nodejs",
+    "mongodb"
+  ],
+  "author": "Education Expense Dashboard Team",
+  "license": "MIT",
+  "dependencies": {
+    "mime-db": "^1.54.0"
+  }
+}
