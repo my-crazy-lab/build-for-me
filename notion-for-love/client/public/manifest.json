@@ -1,0 +1,78 @@
+{
+  "short_name": "Love Journey",
+  "name": "Love Journey - Relationship Tracker",
+  "description": "A beautiful relationship tracking app for couples to strengthen their bond and create lasting memories together.",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable any"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#A57B5B",
+  "background_color": "#E5D5C5",
+  "orientation": "portrait-primary",
+  "categories": ["lifestyle", "productivity", "social"],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Add Memory",
+      "short_name": "Memory",
+      "description": "Quickly add a new memory",
+      "url": "/memory-vault?action=add",
+      "icons": [
+        {
+          "src": "logo192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Check-in",
+      "short_name": "Check-in",
+      "description": "Complete your relationship check-in",
+      "url": "/check-ins?action=new",
+      "icons": [
+        {
+          "src": "logo192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Plan Date",
+      "short_name": "Date",
+      "description": "Plan a new date night",
+      "url": "/date-planner?action=new",
+      "icons": [
+        {
+          "src": "logo192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
+}

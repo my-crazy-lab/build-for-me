@@ -1,4 +1,4 @@
-# UI Styles & Reference Websites for Reviewly
+# UI Styles & Reference Websites
 
 ## 1. Neumorphism (Soft UI)
 
@@ -86,10 +86,12 @@
 
 # Techstack
 
-- Client: React.js + TypeScript  
-- UI: Combination of Neumorphism and Dark Mode + Neon Accent (as per design decision)  
+- Client: React.js + JavaScript  
+- UI: Tailwind CSS + Framer Motion for animations
+- Backend: Nodejs + Expressjs
 - Database: MongoDB  
-- Authentication: Google OAuth + fake login mode with admin:123456 for demo/testing
+- Authentication: Just login with Google OAuth (don't allow register) + fake login mode with admin:123456 for demo/testing
+- `.env` file: give me `.env.example` store key to run the project. **IMPORTANT**: don't fake data, must integration client/server.
 
 ---
 
@@ -114,14 +116,7 @@
   - Include `TODO security` notes at sensitive logic areas for later audit  
   - Implement basic rate limiting or CAPTCHA where forms exist (even mock ones)  
 
-- Separate interfaces and enums into two distinct TypeScript files.  
-  - Always use `import type` when importing interfaces.  
-  - When importing, keep enums and interfaces in separate import blocks for clarity.
-
 - Include clear and thorough code comments, plus a standard header comment at the top of every file covering purpose, details, creation date, and version.  
 - Focus heavily on delivering a visually stunning UI with smooth animations and excellent UX.  
 - No backend implementation required initially; use mocked/fake data on the client side with clear `TODO backend` comments for future integration.  
 - Deployment is out of scope.
-
-
----

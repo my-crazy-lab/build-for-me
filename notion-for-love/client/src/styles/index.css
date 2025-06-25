@@ -1,0 +1,252 @@
+/**
+ * Love Journey - Global Styles
+ * 
+ * Main stylesheet that imports Tailwind CSS and defines global styles
+ * for the Love Journey application with custom CSS variables and utilities.
+ * 
+ * Created: 2025-06-25
+ * Version: 1.0.0
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Custom Properties for Theme Support */
+:root {
+  /* Light theme colors */
+  --color-primary: 165 123 91; /* #A57B5B */
+  --color-secondary: 106 123 83; /* #6A7B53 */
+  --color-neutral: 229 213 197; /* #E5D5C5 */
+  --color-accent: 229 88 15; /* #e5580f */
+  
+  /* Background colors */
+  --bg-primary: 255 255 255;
+  --bg-secondary: 249 246 243;
+  --bg-tertiary: 245 241 236;
+  
+  /* Text colors */
+  --text-primary: 41 37 36;
+  --text-secondary: 68 64 60;
+  --text-muted: 120 113 108;
+  
+  /* Border colors */
+  --border: 214 211 209;
+  --border-primary: 231 229 228;
+  --border-secondary: 214 211 209;
+  
+  /* Shadow colors */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+/* Dark theme colors */
+.dark {
+  --bg-primary: 23 23 23;
+  --bg-secondary: 38 38 38;
+  --bg-tertiary: 51 51 51;
+  
+  --text-primary: 245 245 245;
+  --text-secondary: 212 212 212;
+  --text-muted: 163 163 163;
+  
+  --border-primary: 64 64 64;
+  --border-secondary: 82 82 82;
+  
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+}
+
+/* Base styles */
+@layer base {
+  * {
+    @apply border-gray-200 dark:border-gray-700;
+  }
+  
+  body {
+    @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+    @apply font-sans antialiased;
+    @apply transition-colors duration-300;
+  }
+  
+  html {
+    @apply scroll-smooth;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-500;
+  }
+}
+
+/* Component styles */
+@layer components {
+  /* Button variants */
+  .btn-primary {
+    @apply bg-primary-500 hover:bg-primary-600 text-white font-medium px-4 py-2 rounded-lg;
+    @apply transition-all duration-200 ease-in-out;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply active:scale-95;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-500 hover:bg-secondary-600 text-white font-medium px-4 py-2 rounded-lg;
+    @apply transition-all duration-200 ease-in-out;
+    @apply focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2;
+    @apply active:scale-95;
+  }
+  
+  .btn-outline {
+    @apply border border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white;
+    @apply font-medium px-4 py-2 rounded-lg;
+    @apply transition-all duration-200 ease-in-out;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply active:scale-95;
+  }
+  
+  .btn-ghost {
+    @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100;
+    @apply dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800;
+    @apply font-medium px-4 py-2 rounded-lg;
+    @apply transition-all duration-200 ease-in-out;
+    @apply focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2;
+    @apply active:scale-95;
+  }
+  
+  /* Card styles */
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700;
+    @apply transition-all duration-200 ease-in-out;
+  }
+  
+  .card-hover {
+    @apply hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  /* Input styles */
+  .input {
+    @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600;
+    @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100;
+    @apply rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+    @apply transition-all duration-200 ease-in-out;
+    @apply placeholder-gray-500 dark:placeholder-gray-400;
+  }
+  
+  .input-error {
+    @apply border-error-500 focus:ring-error-500;
+  }
+  
+  /* Text styles */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent;
+  }
+  
+  /* Animation utilities */
+  .animate-fade-in {
+    @apply animate-fade-in;
+  }
+  
+  .animate-slide-up {
+    @apply animate-slide-up;
+  }
+  
+  .animate-heartbeat {
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+  
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-white/20 dark:border-gray-700/20;
+  }
+  
+  /* Romantic gradient backgrounds */
+  .bg-romantic {
+    @apply bg-gradient-to-br from-primary-100 via-neutral-100 to-secondary-100;
+    @apply dark:from-primary-900/20 dark:via-neutral-900/20 dark:to-secondary-900/20;
+  }
+  
+  .bg-romantic-radial {
+    background: radial-gradient(circle at center, 
+      rgb(var(--color-primary) / 0.1) 0%, 
+      rgb(var(--color-neutral) / 0.05) 50%, 
+      transparent 100%);
+  }
+}
+
+/* Utility classes */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  
+  /* Custom focus styles */
+  .focus-visible {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2;
+  }
+  
+  /* Safe area support for mobile */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-left {
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  .safe-right {
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    @apply hidden;
+  }
+  
+  .print-only {
+    @apply block;
+  }
+  
+  body {
+    @apply text-black bg-white;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

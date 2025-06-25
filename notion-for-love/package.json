@@ -1,0 +1,29 @@
+{
+  "name": "love-journey",
+  "version": "1.0.0",
+  "description": "A shared dashboard for couples to record, plan, and grow together throughout their relationship journey",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "server:dev": "cd server && npm run dev",
+    "client:dev": "cd client && npm start",
+    "server:install": "cd server && npm install",
+    "client:install": "cd client && npm install",
+    "install:all": "npm install && npm run server:install && npm run client:install",
+    "build": "cd client && npm run build",
+    "start": "cd server && npm start"
+  },
+  "keywords": [
+    "love",
+    "relationship",
+    "couples",
+    "dashboard",
+    "milestones",
+    "memories"
+  ],
+  "author": "Love Journey Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
