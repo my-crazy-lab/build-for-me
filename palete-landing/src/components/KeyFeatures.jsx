@@ -60,20 +60,20 @@ export default function KeyFeatures() {
   ];
 
   return (
-    <section id="features" className="py-20 bg-earthy-light">
+    <section id="features" className="py-20 bg-theme-secondary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-earthy-terracotta/10 text-earthy-terracotta text-sm font-medium mb-6">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-theme-accent/10 text-theme-accent text-sm font-medium mb-6">
             ✨ Powerful Features
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-earthy-brown mb-6">
+          <h2 className="text-3xl lg:text-4xl font-bold text-theme-text-primary mb-6">
             Everything you need to create
-            <span className="text-earthy-terracotta block">
+            <span className="text-theme-accent block">
               stunning themes
             </span>
           </h2>
-          <p className="text-lg text-earthy-olive max-w-3xl mx-auto">
+          <p className="text-lg text-theme-text-secondary max-w-3xl mx-auto">
             Our comprehensive suite of tools empowers designers and developers to create,
             manage, and deploy beautiful themes with unprecedented ease and efficiency.
           </p>
@@ -84,27 +84,27 @@ export default function KeyFeatures() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-earthy-sand/20 hover:border-earthy-terracotta/30"
+              className="group bg-theme-primary rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-theme-border/20 hover:border-theme-accent/30"
             >
               {/* Icon */}
-              <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-earthy-terracotta to-earthy-olive rounded-xl text-white mb-6 group-hover:scale-110 transition-transform duration-300">
+              <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-theme-accent to-theme-accent rounded-xl text-white mb-6 group-hover:scale-110 transition-transform duration-300">
                 <feature.icon className="w-7 h-7" />
               </div>
 
               {/* Content */}
-              <h3 className="text-xl font-bold text-earthy-brown mb-4 group-hover:text-earthy-terracotta transition-colors">
+              <h3 className="text-xl font-bold text-theme-text-primary mb-4 group-hover:text-theme-accent transition-colors">
                 {feature.title}
               </h3>
 
-              <p className="text-earthy-olive leading-relaxed mb-6">
+              <p className="text-theme-text-secondary leading-relaxed mb-6">
                 {feature.description}
               </p>
 
               {/* Benefits */}
               <ul className="space-y-2">
                 {feature.benefits.map((benefit, benefitIndex) => (
-                  <li key={benefitIndex} className="flex items-center text-sm text-earthy-brown">
-                    <div className="w-1.5 h-1.5 bg-earthy-terracotta rounded-full mr-3"></div>
+                  <li key={benefitIndex} className="flex items-center text-sm text-theme-text-primary">
+                    <div className="w-1.5 h-1.5 bg-theme-accent rounded-full mr-3"></div>
                     {benefit}
                   </li>
                 ))}
@@ -115,10 +115,10 @@ export default function KeyFeatures() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <p className="text-earthy-olive mb-6">
+          <p className="text-theme-text-secondary mb-6">
             Ready to experience these features yourself?
           </p>
-          <button className="inline-flex items-center px-8 py-4 bg-earthy-terracotta text-white font-semibold rounded-lg hover:bg-earthy-brown transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl">
+          <button className="inline-flex items-center px-8 py-4 bg-theme-accent text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl">
             Start Free Trial
             <Zap className="ml-2 w-5 h-5" />
           </button>

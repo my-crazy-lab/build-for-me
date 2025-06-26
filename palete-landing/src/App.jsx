@@ -46,7 +46,7 @@ function App() {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-earthy-light text-earthy-brown font-sans antialiased">
+      <div className="min-h-screen bg-theme-primary text-theme-text-primary font-sans antialiased">
         <LandingPage />
       </div>
     </ThemeProvider>

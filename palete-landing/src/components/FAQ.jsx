@@ -62,20 +62,20 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-20 bg-white">
+    <section id="faq" className="py-20 bg-theme-primary">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-6">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-theme-accent/10 text-theme-accent text-sm font-medium mb-6">
             ❓ Got Questions?
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-earthy-brown mb-6">
+          <h2 className="text-3xl lg:text-4xl font-bold text-theme-text-primary mb-6">
             Frequently Asked
-            <span className="text-earthy-terracotta block">
+            <span className="text-theme-accent block">
               Questions
             </span>
           </h2>
-          <p className="text-lg text-earthy-olive max-w-2xl mx-auto">
+          <p className="text-lg text-theme-text-secondary max-w-2xl mx-auto">
             Find answers to common questions about PaletteSaaS. Can't find what you're
             looking for? Our support team is here to help.
           </p>
@@ -86,35 +86,35 @@ export default function FAQ() {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-earthy-light/50 rounded-xl border border-earthy-sand/20 overflow-hidden transition-all duration-200 hover:shadow-md"
+              className="bg-theme-secondary/50 rounded-xl border border-theme-border/20 overflow-hidden transition-all duration-200 hover:shadow-md"
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-earthy-light/70 transition-colors"
+                className="w-full px-6 py-5 text-left flex items-center justify-between hover:bg-theme-secondary/70 transition-colors"
               >
                 <div className="flex-1">
                   <div className="flex items-center mb-1">
-                    <span className="text-xs font-medium text-earthy-terracotta bg-earthy-terracotta/10 px-2 py-1 rounded-full mr-3">
+                    <span className="text-xs font-medium text-theme-accent bg-theme-accent/10 px-2 py-1 rounded-full mr-3">
                       {faq.category}
                     </span>
                   </div>
-                  <h3 className="text-lg font-semibold text-earthy-brown pr-4">
+                  <h3 className="text-lg font-semibold text-theme-text-primary pr-4">
                     {faq.question}
                   </h3>
                 </div>
                 <div className="flex-shrink-0">
                   {openFAQ === index ? (
-                    <ChevronUp className="w-5 h-5 text-earthy-terracotta" />
+                    <ChevronUp className="w-5 h-5 text-theme-accent" />
                   ) : (
-                    <ChevronDown className="w-5 h-5 text-earthy-olive" />
+                    <ChevronDown className="w-5 h-5 text-theme-text-secondary" />
                   )}
                 </div>
               </button>
 
               {openFAQ === index && (
                 <div className="px-6 pb-5">
-                  <div className="pt-2 border-t border-earthy-sand/20">
-                    <p className="text-earthy-olive leading-relaxed">
+                  <div className="pt-2 border-t border-theme-border/20">
+                    <p className="text-theme-text-secondary leading-relaxed">
                       {faq.answer}
                     </p>
                   </div>
@@ -125,20 +125,20 @@ export default function FAQ() {
         </div>
 
         {/* Contact Support */}
-        <div className="bg-gradient-to-br from-earthy-terracotta to-earthy-olive rounded-2xl p-8 text-center text-white">
+        <div className="bg-gradient-to-br from-theme-accent to-theme-accent rounded-2xl p-8 text-center text-white">
           <HelpCircle className="w-12 h-12 mx-auto mb-4 opacity-90" />
           <h3 className="text-2xl font-bold mb-4">
             Still have questions?
           </h3>
-          <p className="text-earthy-light mb-6 max-w-md mx-auto">
+          <p className="text-white/80 mb-6 max-w-md mx-auto">
             Our friendly support team is here to help you get the most out of PaletteSaaS.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="inline-flex items-center justify-center px-6 py-3 bg-white text-earthy-terracotta font-semibold rounded-lg hover:bg-earthy-light transition-colors">
+            <button className="inline-flex items-center justify-center px-6 py-3 bg-white text-theme-accent font-semibold rounded-lg hover:bg-white/90 transition-colors">
               <MessageCircle className="w-4 h-4 mr-2" />
               Contact Support
             </button>
-            <button className="inline-flex items-center justify-center px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-earthy-terracotta transition-colors">
+            <button className="inline-flex items-center justify-center px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-theme-accent transition-colors">
               Schedule Demo
             </button>
           </div>

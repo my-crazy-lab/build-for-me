@@ -19,7 +19,7 @@ export default function FinalCTA() {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-earthy-terracotta via-earthy-olive to-earthy-brown relative overflow-hidden">
+    <section className="py-20 bg-gradient-to-br from-theme-accent via-theme-accent to-theme-accent relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full"></div>
@@ -38,13 +38,13 @@ export default function FinalCTA() {
           {/* Main Headline */}
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
             Ready to transform your
-            <span className="block text-earthy-light">
+            <span className="block text-white/90">
               design workflow?
             </span>
           </h2>
 
           {/* Supporting Text */}
-          <p className="text-xl text-earthy-light mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto leading-relaxed">
             Join thousands of designers and developers who have already revolutionized
             their theme creation process with PaletteSaaS.
           </p>
@@ -65,20 +65,20 @@ export default function FinalCTA() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <button className="inline-flex items-center justify-center px-8 py-4 bg-white text-earthy-terracotta font-bold rounded-lg hover:bg-earthy-light transition-all duration-200 transform hover:scale-105 shadow-xl hover:shadow-2xl">
+            <button className="inline-flex items-center justify-center px-8 py-4 bg-white text-theme-accent font-bold rounded-lg hover:bg-white/90 transition-all duration-200 transform hover:scale-105 shadow-xl hover:shadow-2xl">
               Start Free Trial
               <ArrowRight className="ml-2 w-5 h-5" />
             </button>
 
-            <button className="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-lg hover:bg-white hover:text-earthy-terracotta transition-all duration-200">
+            <button className="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-lg hover:bg-white hover:text-theme-accent transition-all duration-200">
               Schedule Demo
             </button>
           </div>
 
           {/* Trust Indicators */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-earthy-light text-sm">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-white/80 text-sm">
             <div className="flex items-center">
-              <div className="flex text-yellow-300 mr-2">
+              <div className="flex text-white/90 mr-2">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <Star key={star} className="w-4 h-4 fill-current" />
                 ))}
@@ -86,13 +86,13 @@ export default function FinalCTA() {
               <span>4.9/5 from 2,000+ reviews</span>
             </div>
 
-            <div className="hidden sm:block w-1 h-1 bg-earthy-light rounded-full"></div>
+            <div className="hidden sm:block w-1 h-1 bg-white/80 rounded-full"></div>
 
             <div>
               <span>Trusted by 10,000+ users worldwide</span>
             </div>
 
-            <div className="hidden sm:block w-1 h-1 bg-earthy-light rounded-full"></div>
+            <div className="hidden sm:block w-1 h-1 bg-white/80 rounded-full"></div>
 
             <div>
               <span>SOC 2 compliant & secure</span>
@@ -101,7 +101,7 @@ export default function FinalCTA() {
 
           {/* Urgency Element */}
           <div className="mt-8 p-4 bg-white/10 rounded-lg border border-white/20 backdrop-blur-sm">
-            <p className="text-earthy-light text-sm">
+            <p className="text-white/80 text-sm">
               <span className="font-semibold">Limited Time:</span> Get 2 months free when you upgrade to Pro within your trial period
             </p>
           </div>

@@ -72,35 +72,35 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-earthy-brown text-white">
+    <footer className="bg-theme-text-primary text-theme-primary">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="flex items-center mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-earthy-terracotta to-earthy-olive rounded-lg flex items-center justify-center mr-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-theme-accent to-theme-accent rounded-lg flex items-center justify-center mr-3">
                 <Palette className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold">PaletteSaaS</h3>
             </div>
 
-            <p className="text-earthy-light mb-6 leading-relaxed">
+            <p className="text-theme-secondary mb-6 leading-relaxed">
               Transform your design workflow with intelligent theme creation.
               Trusted by 10,000+ designers and developers worldwide.
             </p>
 
             {/* Contact Info */}
             <div className="space-y-3 mb-6">
-              <div className="flex items-center text-earthy-light">
+              <div className="flex items-center text-theme-secondary">
                 <MapPin className="w-4 h-4 mr-3 flex-shrink-0" />
                 <span className="text-sm">San Francisco, CA</span>
               </div>
-              <div className="flex items-center text-earthy-light">
+              <div className="flex items-center text-theme-secondary">
                 <Phone className="w-4 h-4 mr-3 flex-shrink-0" />
                 <span className="text-sm">+1 (555) 123-4567</span>
               </div>
-              <div className="flex items-center text-earthy-light">
+              <div className="flex items-center text-theme-secondary">
                 <Mail className="w-4 h-4 mr-3 flex-shrink-0" />
                 <span className="text-sm">hello@palettesaas.com</span>
               </div>
@@ -112,7 +112,7 @@ export default function Footer() {
                 <a
                   key={social.name}
                   href={social.href}
-                  className="w-10 h-10 bg-earthy-olive/20 rounded-lg flex items-center justify-center text-earthy-light hover:bg-earthy-terracotta hover:text-white transition-all duration-200"
+                  className="w-10 h-10 bg-theme-accent/20 rounded-lg flex items-center justify-center text-theme-secondary hover:bg-theme-accent hover:text-white transition-all duration-200"
                   aria-label={social.name}
                 >
                   <social.icon className="w-5 h-5" />
@@ -130,7 +130,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <a
                       href={link.href}
-                      className="text-earthy-light hover:text-white transition-colors duration-200 text-sm"
+                      className="text-theme-secondary hover:text-theme-primary transition-colors duration-200 text-sm"
                     >
                       {link.name}
                     </a>
@@ -143,16 +143,16 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-earthy-olive/20">
+      <div className="border-t border-theme-accent/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center text-earthy-light text-sm mb-4 md:mb-0">
+            <div className="flex items-center text-theme-secondary text-sm mb-4 md:mb-0">
               <span>© 2024 PaletteSaaS. All rights reserved.</span>
             </div>
 
-            <div className="flex items-center text-earthy-light text-sm">
+            <div className="flex items-center text-theme-secondary text-sm">
               <span>Made with</span>
-              <Heart className="w-4 h-4 mx-1 text-red-400 fill-current" />
+              <Heart className="w-4 h-4 mx-1 text-theme-accent fill-current" />
               <span>for designers everywhere</span>
             </div>
           </div>

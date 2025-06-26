@@ -132,15 +132,42 @@ export function ThemeProvider({ children }) {
   // Apply theme to document
   useEffect(() => {
     const themeToApply = currentTheme === 'auto' ? systemTheme : currentTheme;
-    
+
     // Remove all theme classes
     document.documentElement.classList.remove(
       ...Object.keys(themes).map(theme => `theme-${theme}`)
     );
-    
+
     // Add current theme class
     document.documentElement.classList.add(`theme-${themeToApply}`);
-    
+
+    // Update CSS variables dynamically
+    const activeTheme = themes[themeToApply];
+    if (activeTheme && activeTheme.colors) {
+      const root = document.documentElement;
+      root.style.setProperty('--primary-bg', activeTheme.colors.background);
+      root.style.setProperty('--secondary-bg', activeTheme.colors.surface);
+      root.style.setProperty('--text-primary', activeTheme.colors.text);
+      root.style.setProperty('--text-secondary', activeTheme.colors.secondary);
+      root.style.setProperty('--accent-color', activeTheme.colors.primary);
+      root.style.setProperty('--border-color', activeTheme.colors.secondary);
+
+      // Convert hex to RGB for Tailwind
+      const hexToRgb = (hex) => {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ?
+          `${parseInt(result[1], 16)} ${parseInt(result[2], 16)} ${parseInt(result[3], 16)}` :
+          '0 0 0';
+      };
+
+      root.style.setProperty('--color-primary', hexToRgb(activeTheme.colors.background));
+      root.style.setProperty('--color-secondary', hexToRgb(activeTheme.colors.surface));
+      root.style.setProperty('--color-text-primary', hexToRgb(activeTheme.colors.text));
+      root.style.setProperty('--color-text-secondary', hexToRgb(activeTheme.colors.secondary));
+      root.style.setProperty('--color-accent', hexToRgb(activeTheme.colors.primary));
+      root.style.setProperty('--color-border', hexToRgb(activeTheme.colors.secondary));
+    }
+
     // Save to localStorage
     localStorage.setItem('theme', currentTheme);
   }, [currentTheme, systemTheme]);

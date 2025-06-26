@@ -83,20 +83,20 @@ export default function Testimonials() {
   const currentData = testimonials[currentTestimonial];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-theme-primary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-yellow-100 text-yellow-700 text-sm font-medium mb-6">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-theme-accent/10 text-theme-accent text-sm font-medium mb-6">
             ⭐ Customer Love
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-earthy-brown mb-6">
+          <h2 className="text-3xl lg:text-4xl font-bold text-theme-text-primary mb-6">
             Trusted by design teams
-            <span className="text-earthy-terracotta block">
+            <span className="text-theme-accent block">
               around the world
             </span>
           </h2>
-          <p className="text-lg text-earthy-olive max-w-3xl mx-auto">
+          <p className="text-lg text-theme-text-secondary max-w-3xl mx-auto">
             Don't just take our word for it. Here's what our customers have to say
             about their experience with PaletteSaaS.
           </p>
@@ -104,10 +104,10 @@ export default function Testimonials() {
 
         {/* Featured Testimonial */}
         <div className="relative">
-          <div className="bg-gradient-to-br from-earthy-light to-earthy-cream rounded-3xl p-8 lg:p-12 shadow-xl border border-earthy-sand/20">
+          <div className="bg-gradient-to-br from-theme-secondary to-theme-primary rounded-3xl p-8 lg:p-12 shadow-xl border border-theme-border/20">
             {/* Quote Icon */}
-            <div className="absolute top-8 left-8 w-12 h-12 bg-earthy-terracotta/10 rounded-full flex items-center justify-center">
-              <Quote className="w-6 h-6 text-earthy-terracotta" />
+            <div className="absolute top-8 left-8 w-12 h-12 bg-theme-accent/10 rounded-full flex items-center justify-center">
+              <Quote className="w-6 h-6 text-theme-accent" />
             </div>
 
             <div className="lg:grid lg:grid-cols-3 lg:gap-12 items-center">
@@ -115,44 +115,44 @@ export default function Testimonials() {
               <div className="lg:col-span-2">
                 {/* Rating */}
                 <div className="flex items-center mb-6 mt-8 lg:mt-0">
-                  <div className="flex text-yellow-400 mr-3">
+                  <div className="flex text-theme-accent mr-3">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <Star key={star} className="w-5 h-5 fill-current" />
                     ))}
                   </div>
-                  <span className="text-earthy-brown font-medium">5.0</span>
+                  <span className="text-theme-text-primary font-medium">5.0</span>
                 </div>
 
                 {/* Quote */}
-                <blockquote className="text-xl lg:text-2xl text-earthy-brown leading-relaxed mb-6 font-medium">
+                <blockquote className="text-xl lg:text-2xl text-theme-text-primary leading-relaxed mb-6 font-medium">
                   "{currentData.quote}"
                 </blockquote>
 
                 {/* Highlight */}
-                <div className="inline-flex items-center px-4 py-2 bg-earthy-terracotta/10 rounded-full text-earthy-terracotta text-sm font-semibold mb-6">
+                <div className="inline-flex items-center px-4 py-2 bg-theme-accent/10 rounded-full text-theme-accent text-sm font-semibold mb-6">
                   <Award className="w-4 h-4 mr-2" />
                   {currentData.highlight}
                 </div>
 
                 {/* Author Info */}
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gradient-to-br from-earthy-terracotta to-earthy-olive rounded-full flex items-center justify-center text-white font-bold mr-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-theme-accent to-theme-accent rounded-full flex items-center justify-center text-white font-bold mr-4">
                     {currentData.avatar}
                   </div>
                   <div>
-                    <div className="font-semibold text-earthy-brown">{currentData.name}</div>
-                    <div className="text-earthy-olive">{currentData.position}</div>
-                    <div className="text-sm text-earthy-olive">{currentData.company}</div>
+                    <div className="font-semibold text-theme-text-primary">{currentData.name}</div>
+                    <div className="text-theme-text-secondary">{currentData.position}</div>
+                    <div className="text-sm text-theme-text-secondary">{currentData.company}</div>
                   </div>
                 </div>
               </div>
 
               {/* Company Logo */}
               <div className="lg:col-span-1 mt-8 lg:mt-0 text-center">
-                <div className="inline-flex items-center justify-center w-24 h-24 bg-white rounded-2xl shadow-lg border border-earthy-sand/20 text-earthy-brown font-bold text-2xl">
+                <div className="inline-flex items-center justify-center w-24 h-24 bg-theme-primary rounded-2xl shadow-lg border border-theme-border/20 text-theme-text-primary font-bold text-2xl">
                   {currentData.companyLogo}
                 </div>
-                <p className="text-sm text-earthy-olive mt-3">
+                <p className="text-sm text-theme-text-secondary mt-3">
                   {currentData.company}
                 </p>
               </div>
@@ -163,7 +163,7 @@ export default function Testimonials() {
           <div className="flex items-center justify-between mt-8">
             <button
               onClick={prevTestimonial}
-              className="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg border border-earthy-sand/20 text-earthy-brown hover:text-earthy-terracotta hover:border-earthy-terracotta/30 transition-all"
+              className="flex items-center justify-center w-12 h-12 bg-theme-primary rounded-full shadow-lg border border-theme-border/20 text-theme-text-primary hover:text-theme-accent hover:border-theme-accent/30 transition-all"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -176,8 +176,8 @@ export default function Testimonials() {
                   onClick={() => setCurrentTestimonial(index)}
                   className={`w-3 h-3 rounded-full transition-all ${
                     index === currentTestimonial
-                      ? 'bg-earthy-terracotta'
-                      : 'bg-earthy-sand hover:bg-earthy-terracotta/50'
+                      ? 'bg-theme-accent'
+                      : 'bg-theme-border hover:bg-theme-accent/50'
                   }`}
                 />
               ))}
@@ -185,7 +185,7 @@ export default function Testimonials() {
 
             <button
               onClick={nextTestimonial}
-              className="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg border border-earthy-sand/20 text-earthy-brown hover:text-earthy-terracotta hover:border-earthy-terracotta/30 transition-all"
+              className="flex items-center justify-center w-12 h-12 bg-theme-primary rounded-full shadow-lg border border-theme-border/20 text-theme-text-primary hover:text-theme-accent hover:border-theme-accent/30 transition-all"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -195,20 +195,20 @@ export default function Testimonials() {
         {/* Stats */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
-            <div className="text-3xl font-bold text-earthy-brown mb-2">4.9/5</div>
-            <div className="text-earthy-olive text-sm">Average Rating</div>
+            <div className="text-3xl font-bold text-theme-text-primary mb-2">4.9/5</div>
+            <div className="text-theme-text-secondary text-sm">Average Rating</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-earthy-brown mb-2">2,000+</div>
-            <div className="text-earthy-olive text-sm">Happy Customers</div>
+            <div className="text-3xl font-bold text-theme-text-primary mb-2">2,000+</div>
+            <div className="text-theme-text-secondary text-sm">Happy Customers</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-earthy-brown mb-2">99.9%</div>
-            <div className="text-earthy-olive text-sm">Customer Satisfaction</div>
+            <div className="text-3xl font-bold text-theme-text-primary mb-2">99.9%</div>
+            <div className="text-theme-text-secondary text-sm">Customer Satisfaction</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-earthy-brown mb-2">24/7</div>
-            <div className="text-earthy-olive text-sm">Support Available</div>
+            <div className="text-3xl font-bold text-theme-text-primary mb-2">24/7</div>
+            <div className="text-theme-text-secondary text-sm">Support Available</div>
           </div>
         </div>
       </div>

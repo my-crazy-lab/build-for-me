@@ -8,6 +8,14 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Theme-aware colors using CSS variables
+        'theme-primary': 'rgb(var(--color-primary) / <alpha-value>)',
+        'theme-secondary': 'rgb(var(--color-secondary) / <alpha-value>)',
+        'theme-text-primary': 'rgb(var(--color-text-primary) / <alpha-value>)',
+        'theme-text-secondary': 'rgb(var(--color-text-secondary) / <alpha-value>)',
+        'theme-accent': 'rgb(var(--color-accent) / <alpha-value>)',
+        'theme-border': 'rgb(var(--color-border) / <alpha-value>)',
+
         // Earthy Neutrals (Primary theme based on user preference)
         earthy: {
           terracotta: '#A57B5B',

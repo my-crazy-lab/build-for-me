@@ -82,32 +82,32 @@ export default function Pricing() {
   ];
 
   return (
-    <section id="pricing" className="py-20 bg-earthy-light">
+    <section id="pricing" className="py-20 bg-theme-secondary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm font-medium mb-6">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-theme-accent/10 text-theme-accent text-sm font-medium mb-6">
             💰 Simple Pricing
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-earthy-brown mb-6">
+          <h2 className="text-3xl lg:text-4xl font-bold text-theme-text-primary mb-6">
             Choose the perfect plan
-            <span className="text-earthy-terracotta block">
+            <span className="text-theme-accent block">
               for your needs
             </span>
           </h2>
-          <p className="text-lg text-earthy-olive max-w-3xl mx-auto mb-8">
+          <p className="text-lg text-theme-text-secondary max-w-3xl mx-auto mb-8">
             Start free and scale as you grow. All plans include our core features
             with no hidden fees or surprise charges.
           </p>
 
           {/* Billing Toggle */}
-          <div className="inline-flex items-center bg-white rounded-lg p-1 shadow-sm border border-earthy-sand/20">
+          <div className="inline-flex items-center bg-theme-primary rounded-lg p-1 shadow-sm border border-theme-border/20">
             <button
               onClick={() => setIsAnnual(false)}
               className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                 !isAnnual
-                  ? 'bg-earthy-terracotta text-white shadow-sm'
-                  : 'text-earthy-brown hover:text-earthy-terracotta'
+                  ? 'bg-theme-accent text-white shadow-sm'
+                  : 'text-theme-text-primary hover:text-theme-accent'
               }`}
             >
               Monthly
@@ -116,12 +116,12 @@ export default function Pricing() {
               onClick={() => setIsAnnual(true)}
               className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                 isAnnual
-                  ? 'bg-earthy-terracotta text-white shadow-sm'
-                  : 'text-earthy-brown hover:text-earthy-terracotta'
+                  ? 'bg-theme-accent text-white shadow-sm'
+                  : 'text-theme-text-primary hover:text-theme-accent'
               }`}
             >
               Annual
-              <span className="ml-2 px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+              <span className="ml-2 px-2 py-1 bg-theme-accent/10 text-theme-accent text-xs rounded-full">
                 Save 20%
               </span>
             </button>
@@ -133,16 +133,16 @@ export default function Pricing() {
           {plans.map((plan, index) => (
             <div
               key={plan.name}
-              className={`relative bg-white rounded-2xl shadow-lg border-2 transition-all duration-300 hover:shadow-xl ${
+              className={`relative bg-theme-primary rounded-2xl shadow-lg border-2 transition-all duration-300 hover:shadow-xl ${
                 plan.popular
-                  ? 'border-earthy-terracotta scale-105'
-                  : 'border-earthy-sand/20 hover:border-earthy-terracotta/30'
+                  ? 'border-theme-accent scale-105'
+                  : 'border-theme-border/20 hover:border-theme-accent/30'
               }`}
             >
               {/* Badge */}
               {plan.badge && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-earthy-terracotta text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
+                  <div className="bg-theme-accent text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
                     {plan.badge}
                   </div>
                 </div>
@@ -153,34 +153,34 @@ export default function Pricing() {
                 <div className="text-center mb-8">
                   <div className={`inline-flex items-center justify-center w-16 h-16 rounded-xl mb-4 ${
                     plan.popular
-                      ? 'bg-earthy-terracotta text-white'
-                      : 'bg-earthy-terracotta/10 text-earthy-terracotta'
+                      ? 'bg-theme-accent text-white'
+                      : 'bg-theme-accent/10 text-theme-accent'
                   }`}>
                     <plan.icon className="w-8 h-8" />
                   </div>
 
-                  <h3 className="text-2xl font-bold text-earthy-brown mb-2">
+                  <h3 className="text-2xl font-bold text-theme-text-primary mb-2">
                     {plan.name}
                   </h3>
 
-                  <p className="text-earthy-olive mb-6">
+                  <p className="text-theme-text-secondary mb-6">
                     {plan.description}
                   </p>
 
                   {/* Price */}
                   <div className="mb-6">
                     <div className="flex items-baseline justify-center">
-                      <span className="text-4xl font-bold text-earthy-brown">
+                      <span className="text-4xl font-bold text-theme-text-primary">
                         ${isAnnual ? plan.price.annual : plan.price.monthly}
                       </span>
                       {plan.price.monthly > 0 && (
-                        <span className="text-earthy-olive ml-2">
+                        <span className="text-theme-text-secondary ml-2">
                           /{isAnnual ? 'month' : 'month'}
                         </span>
                       )}
                     </div>
                     {isAnnual && plan.price.monthly > 0 && (
-                      <div className="text-sm text-earthy-olive mt-1">
+                      <div className="text-sm text-theme-text-secondary mt-1">
                         Billed annually (${plan.price.annual * 12}/year)
                       </div>
                     )}
@@ -190,8 +190,8 @@ export default function Pricing() {
                   <button
                     className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-200 ${
                       plan.popular
-                        ? 'bg-earthy-terracotta text-white hover:bg-earthy-brown shadow-lg hover:shadow-xl'
-                        : 'bg-earthy-terracotta/10 text-earthy-terracotta hover:bg-earthy-terracotta hover:text-white border border-earthy-terracotta/20'
+                        ? 'bg-theme-accent text-white hover:opacity-90 shadow-lg hover:shadow-xl'
+                        : 'bg-theme-accent/10 text-theme-accent hover:bg-theme-accent hover:text-white border border-theme-accent/20'
                     }`}
                   >
                     {plan.cta}
@@ -203,12 +203,12 @@ export default function Pricing() {
                   {plan.features.map((feature, featureIndex) => (
                     <div key={featureIndex} className="flex items-center">
                       {feature.included ? (
-                        <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                        <Check className="w-5 h-5 text-theme-accent mr-3 flex-shrink-0" />
                       ) : (
-                        <X className="w-5 h-5 text-gray-300 mr-3 flex-shrink-0" />
+                        <X className="w-5 h-5 text-theme-text-secondary/30 mr-3 flex-shrink-0" />
                       )}
                       <span className={`text-sm ${
-                        feature.included ? 'text-earthy-brown' : 'text-gray-400'
+                        feature.included ? 'text-theme-text-primary' : 'text-theme-text-secondary/50'
                       }`}>
                         {feature.name}
                       </span>
@@ -222,31 +222,31 @@ export default function Pricing() {
 
         {/* Bottom Section */}
         <div className="text-center">
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-earthy-sand/20 max-w-4xl mx-auto">
+          <div className="bg-theme-primary rounded-2xl p-8 shadow-lg border border-theme-border/20 max-w-4xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
               <div className="text-center">
-                <Users className="w-8 h-8 text-earthy-terracotta mx-auto mb-3" />
-                <h4 className="font-semibold text-earthy-brown mb-2">14-Day Free Trial</h4>
-                <p className="text-sm text-earthy-olive">No credit card required</p>
+                <Users className="w-8 h-8 text-theme-accent mx-auto mb-3" />
+                <h4 className="font-semibold text-theme-text-primary mb-2">14-Day Free Trial</h4>
+                <p className="text-sm text-theme-text-secondary">No credit card required</p>
               </div>
 
               <div className="text-center">
-                <Star className="w-8 h-8 text-earthy-terracotta mx-auto mb-3" />
-                <h4 className="font-semibold text-earthy-brown mb-2">Money-Back Guarantee</h4>
-                <p className="text-sm text-earthy-olive">30-day refund policy</p>
+                <Star className="w-8 h-8 text-theme-accent mx-auto mb-3" />
+                <h4 className="font-semibold text-theme-text-primary mb-2">Money-Back Guarantee</h4>
+                <p className="text-sm text-theme-text-secondary">30-day refund policy</p>
               </div>
 
               <div className="text-center">
-                <Zap className="w-8 h-8 text-earthy-terracotta mx-auto mb-3" />
-                <h4 className="font-semibold text-earthy-brown mb-2">Cancel Anytime</h4>
-                <p className="text-sm text-earthy-olive">No long-term contracts</p>
+                <Zap className="w-8 h-8 text-theme-accent mx-auto mb-3" />
+                <h4 className="font-semibold text-theme-text-primary mb-2">Cancel Anytime</h4>
+                <p className="text-sm text-theme-text-secondary">No long-term contracts</p>
               </div>
             </div>
           </div>
 
-          <p className="text-earthy-olive mt-8">
+          <p className="text-theme-text-secondary mt-8">
             Questions about pricing?
-            <a href="#" className="text-earthy-terracotta hover:underline ml-1">
+            <a href="#" className="text-theme-accent hover:underline ml-1">
               Contact our sales team
             </a>
           </p>

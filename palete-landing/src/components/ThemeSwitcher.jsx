@@ -43,30 +43,30 @@ export default function ThemeSwitcher() {
       {/* Theme Switcher Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-4 py-2 rounded-lg border border-earthy-sand/30 
-                   bg-white/80 backdrop-blur-sm hover:bg-white/90 transition-all duration-200
-                   text-earthy-brown hover:border-earthy-terracotta/50 group"
+        className="flex items-center gap-2 px-4 py-2 rounded-lg border border-theme-border/30
+                   bg-theme-primary/80 backdrop-blur-sm hover:bg-theme-primary/90 transition-all duration-200
+                   text-theme-text-primary hover:border-theme-accent/50 group"
         aria-label="Switch theme"
         aria-expanded={isOpen}
       >
-        <Palette className="w-4 h-4 text-earthy-terracotta group-hover:rotate-12 transition-transform" />
+        <Palette className="w-4 h-4 text-theme-accent group-hover:rotate-12 transition-transform" />
         <span className="text-sm font-medium hidden sm:inline">
           {activeTheme?.name || 'Theme'}
         </span>
-        <ChevronDown 
+        <ChevronDown
           className={`w-4 h-4 transition-transform duration-200 ${
             isOpen ? 'rotate-180' : ''
-          }`} 
+          }`}
         />
       </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 w-64 bg-white/95 backdrop-blur-md 
-                        rounded-xl shadow-xl border border-earthy-sand/30 overflow-hidden z-50
+        <div className="absolute top-full right-0 mt-2 w-64 bg-theme-primary/95 backdrop-blur-md
+                        rounded-xl shadow-xl border border-theme-border/30 overflow-hidden z-50
                         animate-slide-up">
-          <div className="p-3 border-b border-earthy-sand/20">
-            <h3 className="text-sm font-semibold text-earthy-brown flex items-center gap-2">
+          <div className="p-3 border-b border-theme-border/20">
+            <h3 className="text-sm font-semibold text-theme-text-primary flex items-center gap-2">
               <Palette className="w-4 h-4" />
               Choose Theme
             </h3>

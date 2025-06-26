@@ -20,13 +20,13 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-earthy-sand/20">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-theme-primary/80 backdrop-blur-md border-b border-theme-border/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <h1 className="text-xl font-bold text-earthy-terracotta">
+              <h1 className="text-xl font-bold text-theme-accent">
                 PaletteSaaS
               </h1>
             </div>
@@ -39,7 +39,7 @@ export default function Header() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-earthy-brown hover:text-earthy-terracotta px-3 py-2 text-sm font-medium transition-colors duration-200"
+                  className="text-theme-text-primary hover:text-theme-accent px-3 py-2 text-sm font-medium transition-colors duration-200"
                 >
                   {item.label}
                 </a>
@@ -50,7 +50,7 @@ export default function Header() {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
             <ThemeSwitcher />
-            <button className="bg-earthy-terracotta text-white px-6 py-2 rounded-lg font-medium hover:bg-earthy-brown transition-colors duration-200">
+            <button className="bg-theme-accent text-white px-6 py-2 rounded-lg font-medium hover:opacity-90 transition-all duration-200">
               Get Started
             </button>
           </div>
