@@ -21,6 +21,7 @@ import Badge from '../components/ui/Badge';
 import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
+import { emotionsService } from '../services';
 
 const EmotionTracker = () => {
   const [emotions, setEmotions] = useState([]);
@@ -29,6 +30,8 @@ const EmotionTracker = () => {
   const [viewMode, setViewMode] = useState('daily'); // daily, weekly, monthly, yearly
   const [showAddModal, setShowAddModal] = useState(false);
   const [selectedEmotion, setSelectedEmotion] = useState(null);
+  const [error, setError] = useState(null);
+  const [todayEmotion, setTodayEmotion] = useState(null);
 
   // Emotion categories with emojis and colors
   const emotionCategories = {
@@ -100,79 +103,47 @@ const EmotionTracker = () => {
     }
   };
 
-  // Mock emotion data
-  const mockEmotions = [
-    {
-      id: 1,
-      date: '2024-12-25',
-      time: '09:30',
-      category: 'love',
-      emotion: 'in-love',
-      intensity: 5,
-      note: 'Woke up next to my amazing partner on Christmas morning. Feeling so grateful and in love! ❤️',
-      tags: ['morning', 'christmas', 'grateful'],
-      partner: 'both',
-      triggers: ['quality-time', 'special-occasion']
-    },
-    {
-      id: 2,
-      date: '2024-12-24',
-      time: '20:15',
-      category: 'joy',
-      emotion: 'joyful',
-      intensity: 4,
-      note: 'Christmas Eve dinner was perfect. We cooked together and laughed so much.',
-      tags: ['cooking', 'laughter', 'christmas-eve'],
-      partner: 'both',
-      triggers: ['shared-activity', 'accomplishment']
-    },
-    {
-      id: 3,
-      date: '2024-12-23',
-      time: '14:45',
-      category: 'excitement',
-      emotion: 'excited',
-      intensity: 4,
-      note: 'Gift shopping together was so fun! Can\'t wait to see their reaction tomorrow.',
-      tags: ['shopping', 'gifts', 'anticipation'],
-      partner: 'both',
-      triggers: ['anticipation', 'giving']
-    },
-    {
-      id: 4,
-      date: '2024-12-22',
-      time: '18:00',
-      category: 'peace',
-      emotion: 'calm',
-      intensity: 3,
-      note: 'Quiet evening at home, just cuddling and watching movies.',
-      tags: ['home', 'movies', 'cuddling'],
-      partner: 'both',
-      triggers: ['physical-touch', 'relaxation']
-    },
-    {
-      id: 5,
-      date: '2024-12-21',
-      time: '12:30',
-      category: 'stress',
-      emotion: 'worried',
-      intensity: 3,
-      note: 'Feeling a bit anxious about meeting their family for Christmas.',
-      tags: ['family', 'anxiety', 'meeting'],
-      partner: 'self',
-      triggers: ['social-situation', 'uncertainty']
+
+
+
+  // Load emotions from API
+  const loadEmotions = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const days = viewMode === 'daily' ? 1 : viewMode === 'weekly' ? 7 : viewMode === 'monthly' ? 30 : 365;
+
+      const response = await emotionsService.getEmotions({ days });
+      if (response.success) {
+        setEmotions(response.data);
+      } else {
+        setError(response.error);
+      }
+    } catch (error) {
+      console.error('Error loading emotions:', error);
+      setError('Failed to load emotions');
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  // Load today's emotion entry
+  const loadTodayEmotion = async () => {
+    try {
+      const response = await emotionsService.getTodayEmotion();
+      if (response.success) {
+        setTodayEmotion(response.data);
+      }
+    } catch (error) {
+      console.error('Error loading today emotion:', error);
+    }
+  };
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setEmotions(mockEmotions);
-      setLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
+    loadEmotions();
+    loadTodayEmotion();
+  }, [viewMode]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getEmotionsByDate = (date) => {
     return emotions.filter(emotion => emotion.date === date);
@@ -246,6 +217,22 @@ const EmotionTracker = () => {
           variant="heart"
           text="Loading your emotional journey..."
         />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-96">
+        <Card className="p-6 text-center">
+          <p className="text-error-600 dark:text-error-400 mb-4">{error}</p>
+          <Button
+            variant="primary"
+            onClick={() => loadEmotions()}
+          >
+            Try Again
+          </Button>
+        </Card>
       </div>
     );
   }
@@ -447,9 +434,26 @@ const EmotionTracker = () => {
         <EmotionForm
           emotionCategories={emotionCategories}
           onClose={() => setShowAddModal(false)}
-          onSave={(newEmotion) => {
-            setEmotions([...emotions, { ...newEmotion, id: Date.now() }]);
-            setShowAddModal(false);
+          onSave={async (newEmotion) => {
+            try {
+              const response = await emotionsService.createEmotion(newEmotion);
+              if (response.success) {
+                // Refresh emotions list
+                const emotionsResponse = await emotionsService.getEmotions({ days: viewMode === 'daily' ? 1 : viewMode === 'weekly' ? 7 : viewMode === 'monthly' ? 30 : 365 });
+                if (emotionsResponse.success) {
+                  setEmotions(emotionsResponse.data);
+                }
+                // Refresh today's emotion
+                loadTodayEmotion();
+                setShowAddModal(false);
+              } else {
+                console.error('Failed to create emotion:', response.error);
+                alert('Failed to log emotion. Please try again.');
+              }
+            } catch (error) {
+              console.error('Error creating emotion:', error);
+              alert('Failed to log emotion. Please try again.');
+            }
           }}
         />
       </Modal>

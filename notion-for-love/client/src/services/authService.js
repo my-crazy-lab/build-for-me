@@ -49,6 +49,28 @@ api.interceptors.response.use(
 );
 
 class AuthService {
+  // Register new user
+  async register(userData) {
+    try {
+      const response = await api.post('/auth/register', userData);
+
+      if (response.data.success) {
+        const { token, user } = response.data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+        return { success: true, user, token };
+      }
+
+      return { success: false, error: 'Registration failed' };
+    } catch (error) {
+      console.error('Registration error:', error);
+      return {
+        success: false,
+        error: error.response?.data?.error || 'Registration failed',
+      };
+    }
+  }
+
   // Login with email and password (demo mode)
   async login(email, password) {
     try {

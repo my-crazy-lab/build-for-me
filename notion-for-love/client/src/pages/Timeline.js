@@ -21,6 +21,7 @@ import Badge from '../components/ui/Badge';
 import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
+import { milestonesService } from '../services';
 
 const Timeline = () => {
   const [milestones, setMilestones] = useState([]);
@@ -32,117 +33,33 @@ const Timeline = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [selectedMilestone, setSelectedMilestone] = useState(null);
 
-  // Mock milestone data
-  const mockMilestones = [
-    {
-      id: 1,
-      title: "First Anniversary Celebration",
-      description: "Our amazing first anniversary dinner at the rooftop restaurant with the most beautiful city view. We talked about our dreams and future together.",
-      date: "2024-12-20T19:00:00Z",
-      location: "Skyline Rooftop Restaurant",
-      category: "anniversary",
-      emotions: ["loved", "grateful", "happy"],
-      media: [
-        {
-          type: "image",
-          url: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=300&fit=crop&crop=center",
-          caption: "Anniversary dinner setup"
-        },
-        {
-          type: "image",
-          url: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop&crop=center",
-          caption: "City view from our table"
-        }
-      ],
-      tags: ["anniversary", "romantic", "dinner", "celebration"],
-      isFavorite: true,
-      notes: "This was such a perfect evening. The weather was perfect, the food was amazing, and most importantly, we felt so connected."
-    },
-    {
-      id: 2,
-      title: "Moved in Together",
-      description: "Finally took the big step and moved into our first shared apartment. It feels like home already!",
-      date: "2024-12-10T10:00:00Z",
-      location: "Our New Home, 123 Love Street",
-      category: "milestone",
-      emotions: ["excited", "nervous", "hopeful"],
-      media: [
-        {
-          type: "image",
-          url: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop&crop=center",
-          caption: "Our new living room"
-        },
-        {
-          type: "video",
-          url: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop&crop=center",
-          caption: "Moving day chaos"
-        }
-      ],
-      tags: ["moving", "home", "together", "new-chapter"],
-      isFavorite: false,
-      notes: "So many boxes, but so much excitement! Can't wait to make this place truly ours."
-    },
-    {
-      id: 3,
-      title: "First Trip to Paris",
-      description: "Our romantic getaway to the City of Love. Every moment was magical, from the Eiffel Tower to the Seine river walks.",
-      date: "2024-11-15T08:00:00Z",
-      location: "Paris, France",
-      category: "travel",
-      emotions: ["amazed", "romantic", "adventurous"],
-      media: [
-        {
-          type: "image",
-          url: "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=300&fit=crop&crop=center",
-          caption: "Eiffel Tower at sunset"
-        },
-        {
-          type: "image",
-          url: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&h=300&fit=crop&crop=center",
-          caption: "Seine river walk"
-        }
-      ],
-      tags: ["travel", "paris", "romantic", "adventure"],
-      isFavorite: true,
-      notes: "Paris truly is the city of love. Every corner had something beautiful to discover together."
-    },
-    {
-      id: 4,
-      title: "First Date",
-      description: "The day that started it all. Coffee at the little café downtown that became 'our place'.",
-      date: "2023-06-14T15:30:00Z",
-      location: "Corner Café, Downtown",
-      category: "first-date",
-      emotions: ["nervous", "excited", "hopeful"],
-      media: [
-        {
-          type: "image",
-          url: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=300&fit=crop&crop=center",
-          caption: "The café where it all began"
-        }
-      ],
-      tags: ["first-date", "coffee", "beginning", "nervous"],
-      isFavorite: true,
-      notes: "I was so nervous I could barely drink my coffee, but somehow we talked for hours."
+
+
+  // Load milestones from API
+  const loadMilestones = async () => {
+    try {
+      setLoading(true);
+      const response = await milestonesService.getMilestones();
+      if (response.success) {
+        setMilestones(response.data);
+      }
+    } catch (error) {
+      console.error('Error loading milestones:', error);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
 
   const categories = [
-    { id: 'all', label: 'All Milestones', count: mockMilestones.length },
-    { id: 'anniversary', label: 'Anniversaries', count: 1 },
-    { id: 'milestone', label: 'Milestones', count: 1 },
-    { id: 'travel', label: 'Travel', count: 1 },
-    { id: 'first-date', label: 'First Dates', count: 1 }
+    { id: 'all', label: 'All Milestones', count: milestones.length },
+    { id: 'anniversary', label: 'Anniversaries', count: milestones.filter(m => m.category === 'anniversary').length },
+    { id: 'milestone', label: 'Milestones', count: milestones.filter(m => m.category === 'milestone').length },
+    { id: 'travel', label: 'Travel', count: milestones.filter(m => m.category === 'travel').length },
+    { id: 'first-date', label: 'First Dates', count: milestones.filter(m => m.category === 'first-date').length }
   ];
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setMilestones(mockMilestones);
-      setLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
+    loadMilestones();
   }, []);
 
   const filteredMilestones = milestones
@@ -334,20 +251,28 @@ const Timeline = () => {
         title="Add New Milestone"
         size="lg"
       >
-        <div className="space-y-4">
-          <p className="text-gray-600 dark:text-gray-400">
-            Create a new milestone to capture this special moment in your journey together.
-          </p>
-          {/* Add milestone form would go here */}
-          <div className="flex justify-end space-x-3">
-            <Button variant="ghost" onClick={() => setShowAddModal(false)}>
-              Cancel
-            </Button>
-            <Button variant="primary">
-              Create Milestone
-            </Button>
-          </div>
-        </div>
+        <MilestoneForm
+          onClose={() => setShowAddModal(false)}
+          onSave={async (milestoneData) => {
+            try {
+              const response = await milestonesService.createMilestone(milestoneData);
+              if (response.success) {
+                // Refresh milestones list
+                const milestonesResponse = await milestonesService.getMilestones();
+                if (milestonesResponse.success) {
+                  setMilestones(milestonesResponse.data);
+                }
+                setShowAddModal(false);
+              } else {
+                console.error('Failed to create milestone:', response.error);
+                alert('Failed to create milestone. Please try again.');
+              }
+            } catch (error) {
+              console.error('Error creating milestone:', error);
+              alert('Failed to create milestone. Please try again.');
+            }
+          }}
+        />
       </Modal>
 
       {/* Milestone Detail Modal */}
@@ -706,6 +631,203 @@ const MilestoneDetailModal = ({ milestone, onClose, getEmotionColor, formatDate 
         </div>
       </div>
     </Modal>
+  );
+};
+
+// Milestone Form Component
+const MilestoneForm = ({ onClose, onSave }) => {
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    date: '',
+    location: '',
+    category: 'other',
+    emotions: [],
+    tags: '',
+    notes: '',
+    isPrivate: false,
+    isFavorite: false
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const categories = [
+    { value: 'first-meeting', label: 'First Meeting' },
+    { value: 'first-date', label: 'First Date' },
+    { value: 'relationship-official', label: 'Relationship Official' },
+    { value: 'first-kiss', label: 'First Kiss' },
+    { value: 'moving-in', label: 'Moving In Together' },
+    { value: 'engagement', label: 'Engagement' },
+    { value: 'wedding', label: 'Wedding' },
+    { value: 'anniversary', label: 'Anniversary' },
+    { value: 'travel', label: 'Travel' },
+    { value: 'achievement', label: 'Achievement' },
+    { value: 'celebration', label: 'Celebration' },
+    { value: 'other', label: 'Other' }
+  ];
+
+  const emotionOptions = [
+    'happy', 'excited', 'grateful', 'loved', 'peaceful', 'proud',
+    'surprised', 'nostalgic', 'content', 'joyful', 'romantic', 'blessed'
+  ];
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.title || !formData.date) return;
+
+    setLoading(true);
+    try {
+      const milestoneData = {
+        ...formData,
+        tags: formData.tags.split(',').map(tag => tag.trim()).filter(Boolean),
+        date: new Date(formData.date).toISOString()
+      };
+
+      await onSave(milestoneData);
+    } catch (error) {
+      console.error('Error submitting milestone:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const toggleEmotion = (emotion) => {
+    setFormData(prev => ({
+      ...prev,
+      emotions: prev.emotions.includes(emotion)
+        ? prev.emotions.filter(e => e !== emotion)
+        : [...prev.emotions, emotion]
+    }));
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Input
+          label="Title"
+          value={formData.title}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          placeholder="Our first date"
+          required
+        />
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Category
+          </label>
+          <select
+            value={formData.category}
+            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white"
+          >
+            {categories.map(cat => (
+              <option key={cat.value} value={cat.value}>{cat.label}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Input
+          label="Date"
+          type="date"
+          value={formData.date}
+          onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+          required
+        />
+        <Input
+          label="Location"
+          value={formData.location}
+          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+          placeholder="Central Park, NYC"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Description
+        </label>
+        <textarea
+          value={formData.description}
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+          placeholder="Tell the story of this special moment..."
+          rows={3}
+          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+          Emotions
+        </label>
+        <div className="flex flex-wrap gap-2">
+          {emotionOptions.map(emotion => (
+            <button
+              key={emotion}
+              type="button"
+              onClick={() => toggleEmotion(emotion)}
+              className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                formData.emotions.includes(emotion)
+                  ? 'bg-primary-100 text-primary-700 border-primary-300 dark:bg-primary-900 dark:text-primary-300'
+                  : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600'
+              } border`}
+            >
+              {emotion}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <Input
+        label="Tags"
+        value={formData.tags}
+        onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+        placeholder="romantic, special, memorable (comma separated)"
+        helperText="Add tags to help organize and find this milestone later"
+      />
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Notes
+        </label>
+        <textarea
+          value={formData.notes}
+          onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+          placeholder="Any additional thoughts or memories about this moment..."
+          rows={2}
+          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white"
+        />
+      </div>
+
+      <div className="flex items-center space-x-4">
+        <label className="flex items-center">
+          <input
+            type="checkbox"
+            checked={formData.isFavorite}
+            onChange={(e) => setFormData({ ...formData, isFavorite: e.target.checked })}
+            className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+          />
+          <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Mark as favorite</span>
+        </label>
+        <label className="flex items-center">
+          <input
+            type="checkbox"
+            checked={formData.isPrivate}
+            onChange={(e) => setFormData({ ...formData, isPrivate: e.target.checked })}
+            className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+          />
+          <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Keep private</span>
+        </label>
+      </div>
+
+      <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <Button variant="ghost" onClick={onClose} disabled={loading}>
+          Cancel
+        </Button>
+        <Button variant="primary" type="submit" disabled={loading}>
+          {loading ? 'Creating...' : 'Create Milestone'}
+        </Button>
+      </div>
+    </form>
   );
 };
 

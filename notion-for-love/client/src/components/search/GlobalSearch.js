@@ -10,8 +10,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Search, Filter, Calendar, Image, Target, Heart, 
+import {
+  Search, Filter, Calendar, Image, Target, Heart,
   Clock, MessageCircle, X, Loader
 } from 'lucide-react';
 import { clsx } from 'clsx';
@@ -19,6 +19,7 @@ import Card from '../ui/Card';
 import Button from '../ui/Button';
 import Badge from '../ui/Badge';
 import Input from '../ui/Input';
+import { goalsService, memoriesService, milestonesService } from '../../services';
 
 const GlobalSearch = ({ isOpen, onClose, className = '' }) => {
   const [query, setQuery] = useState('');
@@ -44,36 +45,47 @@ const GlobalSearch = ({ isOpen, onClose, className = '' }) => {
     { id: 'timecapsules', label: 'Time Capsules', icon: Clock },
   ];
 
-  // Mock search results
-  const mockResults = [
-    {
-      id: 1,
-      type: 'milestone',
-      title: 'First Anniversary Celebration',
-      description: 'Our amazing first anniversary dinner at the rooftop restaurant',
-      date: '2024-12-20',
-      relevance: 95,
-      tags: ['anniversary', 'romantic', 'celebration']
-    },
-    {
-      id: 2,
-      type: 'memory',
-      title: 'Paris Trip Photos',
-      description: '156 photos from our romantic getaway to Paris',
-      date: '2024-11-15',
-      relevance: 88,
-      tags: ['travel', 'paris', 'romantic']
-    },
-    {
-      id: 3,
-      type: 'goal',
-      title: 'Save for Dream House',
-      description: 'Goal to save $50,000 for our future home down payment',
-      date: '2024-01-01',
-      relevance: 75,
-      tags: ['financial', 'future', 'home']
+  // Search across all data types
+  const performSearch = async (searchQuery, filter) => {
+    try {
+      setLoading(true);
+      const searchPromises = [];
+
+      if (filter === 'all' || filter === 'goals') {
+        searchPromises.push(
+          goalsService.getGoals({ search: searchQuery }).then(response =>
+            response.success ? response.data.map(item => ({ ...item, type: 'goal' })) : []
+          )
+        );
+      }
+
+      if (filter === 'all' || filter === 'memories') {
+        searchPromises.push(
+          memoriesService.getMemories({ search: searchQuery }).then(response =>
+            response.success ? response.data.map(item => ({ ...item, type: 'memory' })) : []
+          )
+        );
+      }
+
+      if (filter === 'all' || filter === 'milestones') {
+        searchPromises.push(
+          milestonesService.getMilestones({ search: searchQuery }).then(response =>
+            response.success ? response.data.map(item => ({ ...item, type: 'milestone' })) : []
+          )
+        );
+      }
+
+      const results = await Promise.all(searchPromises);
+      const combinedResults = results.flat();
+
+      setResults(combinedResults);
+    } catch (error) {
+      console.error('Search error:', error);
+      setResults([]);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
 
   useEffect(() => {
     if (isOpen && searchInputRef.current) {
@@ -83,17 +95,8 @@ const GlobalSearch = ({ isOpen, onClose, className = '' }) => {
 
   useEffect(() => {
     if (query.length > 2) {
-      setLoading(true);
-      // Simulate API call
       const timer = setTimeout(() => {
-        const filteredResults = mockResults.filter(result => 
-          (selectedFilter === 'all' || result.type === selectedFilter) &&
-          (result.title.toLowerCase().includes(query.toLowerCase()) ||
-           result.description.toLowerCase().includes(query.toLowerCase()) ||
-           result.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())))
-        );
-        setResults(filteredResults);
-        setLoading(false);
+        performSearch(query, selectedFilter);
       }, 300);
 
       return () => clearTimeout(timer);

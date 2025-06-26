@@ -21,6 +21,7 @@ import Badge from '../components/ui/Badge';
 import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
+import { checkinsService } from '../services';
 
 const CheckIns = () => {
   const [checkIns, setCheckIns] = useState([]);
@@ -29,6 +30,7 @@ const CheckIns = () => {
   const [showCheckInModal, setShowCheckInModal] = useState(false);
   const [selectedCheckIn, setSelectedCheckIn] = useState(null);
   const [currentStreak, setCurrentStreak] = useState(0);
+  const [error, setError] = useState(null);
 
   // Check-in categories and questions
   const checkInCategories = {
@@ -138,90 +140,46 @@ const CheckIns = () => {
     }
   ];
 
-  // Mock check-in data
-  const mockCheckIns = [
-    {
-      id: 1,
-      date: '2024-12-22',
-      week: 'Week of Dec 16-22, 2024',
-      responses: {
-        communication: { score: 4, notes: 'Good week for talking through our holiday plans' },
-        intimacy: { score: 5, notes: 'Felt very connected, lots of cuddles and quality time' },
-        goals: { score: 3, notes: 'Made some progress on savings goal' },
-        fun: { score: 5, notes: 'Had a great date night and tried ice skating!' },
-        support: { score: 4, notes: 'Helped each other with holiday stress' }
-      },
-      overallScore: 4.2,
-      highlights: ['Great date night', 'Excellent communication about holidays'],
-      improvements: ['Focus more on financial goals'],
-      completedBy: 'both',
-      completedAt: '2024-12-22T20:30:00Z'
-    },
-    {
-      id: 2,
-      date: '2024-12-15',
-      week: 'Week of Dec 9-15, 2024',
-      responses: {
-        communication: { score: 3, notes: 'Had one argument but resolved it well' },
-        intimacy: { score: 4, notes: 'Good physical connection, could use more emotional talks' },
-        goals: { score: 4, notes: 'Made good progress on house hunting' },
-        fun: { score: 3, notes: 'Busy week, but managed movie night' },
-        support: { score: 5, notes: 'Really supported each other during stressful work week' }
-      },
-      overallScore: 3.8,
-      highlights: ['Excellent support during stress', 'Good conflict resolution'],
-      improvements: ['Make more time for fun activities'],
-      completedBy: 'both',
-      completedAt: '2024-12-15T19:15:00Z'
-    },
-    {
-      id: 3,
-      date: '2024-12-08',
-      week: 'Week of Dec 2-8, 2024',
-      responses: {
-        communication: { score: 5, notes: 'Amazing communication all week' },
-        intimacy: { score: 5, notes: 'Very connected emotionally and physically' },
-        goals: { score: 5, notes: 'Crushed our fitness goals together' },
-        fun: { score: 4, notes: 'Fun weekend trip, great memories' },
-        support: { score: 5, notes: 'Perfect support and encouragement' }
-      },
-      overallScore: 4.8,
-      highlights: ['Perfect week!', 'Amazing weekend trip', 'Fitness goals achieved'],
-      improvements: ['Keep up the great work!'],
-      completedBy: 'both',
-      completedAt: '2024-12-08T21:00:00Z'
-    }
-  ];
 
-  const mockBadges = [
-    {
-      id: 'streak_7',
-      earnedAt: '2024-12-22T20:30:00Z',
-      isNew: true
-    },
-    {
-      id: 'perfect_score',
-      earnedAt: '2024-12-08T21:00:00Z',
-      isNew: false
-    },
-    {
-      id: 'communicator',
-      earnedAt: '2024-12-01T18:00:00Z',
-      isNew: false
+
+  // Load check-ins from API
+  const loadCheckIns = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await checkinsService.getCheckins({ days: 30 });
+      if (response.success) {
+        setCheckIns(response.data);
+      } else {
+        setError(response.error);
+      }
+    } catch (error) {
+      console.error('Error loading check-ins:', error);
+      setError('Failed to load check-ins');
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  // Load user streak
+  const loadUserStreak = async () => {
+    try {
+      // Assuming we have a way to get current user ID
+      const userId = 'current-user-id'; // This would come from auth context
+      const response = await checkinsService.getUserStreak(userId);
+      if (response.success) {
+        setCurrentStreak(response.data.streak);
+      }
+    } catch (error) {
+      console.error('Error loading user streak:', error);
+    }
+  };
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setCheckIns(mockCheckIns);
-      setBadges(mockBadges);
-      setCurrentStreak(7);
-      setLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
+    loadCheckIns();
+    loadUserStreak();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getCheckInStats = () => {
     const total = checkIns.length;
@@ -277,11 +235,27 @@ const CheckIns = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-96">
-        <LoadingSpinner 
-          size="lg" 
-          variant="heart" 
-          text="Loading your relationship insights..." 
+        <LoadingSpinner
+          size="lg"
+          variant="heart"
+          text="Loading your relationship insights..."
         />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-96">
+        <Card className="p-6 text-center">
+          <p className="text-error-600 dark:text-error-400 mb-4">{error}</p>
+          <Button
+            variant="primary"
+            onClick={() => loadCheckIns()}
+          >
+            Try Again
+          </Button>
+        </Card>
       </div>
     );
   }
@@ -514,9 +488,24 @@ const CheckIns = () => {
         <CheckInForm
           checkInCategories={checkInCategories}
           onClose={() => setShowCheckInModal(false)}
-          onSave={(newCheckIn) => {
-            setCheckIns([{ ...newCheckIn, id: Date.now() }, ...checkIns]);
-            setShowCheckInModal(false);
+          onSave={async (checkInData) => {
+            try {
+              const response = await checkinsService.createCheckin(checkInData);
+              if (response.success) {
+                // Refresh check-ins list
+                const checkinsResponse = await checkinsService.getCheckins();
+                if (checkinsResponse.success) {
+                  setCheckIns(checkinsResponse.data);
+                }
+                setShowCheckInModal(false);
+              } else {
+                console.error('Failed to create check-in:', response.error);
+                alert('Failed to create check-in. Please try again.');
+              }
+            } catch (error) {
+              console.error('Error creating check-in:', error);
+              alert('Failed to create check-in. Please try again.');
+            }
           }}
         />
       </Modal>
@@ -668,18 +657,26 @@ const CheckInForm = ({ checkInCategories, onClose, onSave }) => {
   const handleSubmit = () => {
     const overallScore = Object.values(responses).reduce((sum, response) => sum + response.score, 0) / Object.keys(responses).length;
 
-    const newCheckIn = {
-      date: new Date().toISOString().split('T')[0],
-      week: `Week of ${new Date().toLocaleDateString()}`,
-      responses,
-      overallScore: parseFloat(overallScore.toFixed(1)),
-      highlights: highlights.split('\n').filter(h => h.trim()),
-      improvements: improvements.split('\n').filter(i => i.trim()),
-      completedBy: 'both',
-      completedAt: new Date().toISOString()
+    // Format data for API - create a comprehensive check-in response
+    const responseText = Object.entries(responses)
+      .map(([category, data]) => `${category}: ${data.score}/5 - ${data.notes || 'No notes'}`)
+      .join('\n');
+
+    const fullResponse = [
+      responseText,
+      highlights && `Highlights: ${highlights}`,
+      improvements && `Improvements: ${improvements}`
+    ].filter(Boolean).join('\n\n');
+
+    const checkInData = {
+      prompt: 'Weekly Relationship Check-in',
+      response: fullResponse,
+      category: 'reflection',
+      mood: overallScore >= 4 ? 'great' : overallScore >= 3 ? 'good' : overallScore >= 2 ? 'okay' : 'concerned',
+      rating: Math.round(overallScore * 2) // Convert 1-5 scale to 1-10 scale
     };
 
-    onSave(newCheckIn);
+    onSave(checkInData);
   };
 
   const isComplete = Object.keys(responses).length === categories.length;

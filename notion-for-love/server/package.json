@@ -4,8 +4,8 @@
   "description": "Backend API for Love Journey application",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "node --no-deprecation server.js",
+    "dev": "nodemon --no-deprecation server.js",
     "test": "jest"
   },
   "keywords": [

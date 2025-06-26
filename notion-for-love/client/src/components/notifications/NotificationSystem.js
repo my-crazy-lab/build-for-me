@@ -10,14 +10,15 @@
 
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Bell, BellOff, X, Check, Heart, Calendar, 
+import {
+  Bell, BellOff, X, Check, Heart, Calendar,
   Gift, Star, MessageCircle, Clock, AlertCircle,
   Info, CheckCircle, XCircle, Settings
 } from 'lucide-react';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
 import Badge from '../ui/Badge';
+import { dashboardService } from '../../services';
 
 // Notification Context
 const NotificationContext = createContext();
@@ -48,73 +49,21 @@ export const NotificationProvider = ({ children }) => {
     }
   });
 
-  // Mock notifications
-  const mockNotifications = [
-    {
-      id: 1,
-      type: 'anniversary',
-      title: 'Anniversary Reminder',
-      message: 'Your 2-year anniversary is coming up in 3 days! Time to plan something special.',
-      timestamp: new Date(Date.now() - 5 * 60 * 1000).toISOString(),
-      read: false,
-      priority: 'high',
-      actionUrl: '/love-calendar',
-      icon: Heart,
-      color: 'bg-red-500'
-    },
-    {
-      id: 2,
-      type: 'checkin',
-      title: 'Weekly Check-in Due',
-      message: 'It\'s time for your weekly relationship check-in. How was your week together?',
-      timestamp: new Date(Date.now() - 15 * 60 * 1000).toISOString(),
-      read: false,
-      priority: 'medium',
-      actionUrl: '/check-ins',
-      icon: MessageCircle,
-      color: 'bg-blue-500'
-    },
-    {
-      id: 3,
-      type: 'goal',
-      title: 'Goal Progress Update',
-      message: 'Great job! You\'ve reached 75% of your savings goal for the dream house.',
-      timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
-      read: true,
-      priority: 'low',
-      actionUrl: '/goals',
-      icon: Star,
-      color: 'bg-yellow-500'
-    },
-    {
-      id: 4,
-      type: 'partner',
-      title: 'New Journal Entry',
-      message: 'Your partner shared a new journal entry: "Perfect Sunday Morning"',
-      timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-      read: true,
-      priority: 'medium',
-      actionUrl: '/journal',
-      icon: MessageCircle,
-      color: 'bg-purple-500'
-    },
-    {
-      id: 5,
-      type: 'timecapsule',
-      title: 'Time Capsule Ready!',
-      message: 'Your "Summer Memories" time capsule is ready to be opened!',
-      timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(),
-      read: false,
-      priority: 'high',
-      actionUrl: '/time-capsule',
-      icon: Gift,
-      color: 'bg-indigo-500'
+  // Load notifications from API
+  const loadNotifications = async () => {
+    try {
+      // For now, start with empty notifications since we don't have a notifications API yet
+      // In the future, this would call a notifications service
+      setNotifications([]);
+    } catch (error) {
+      console.error('Error loading notifications:', error);
+      setNotifications([]);
     }
-  ];
+  };
 
   useEffect(() => {
-    // Initialize with mock notifications
-    setNotifications(mockNotifications);
+    // Load real notifications
+    loadNotifications();
     
     // Request notification permission
     if ('Notification' in window && Notification.permission === 'default') {

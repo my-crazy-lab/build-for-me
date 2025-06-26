@@ -25,7 +25,7 @@ const router = express.Router();
 // @access  Private
 router.get('/me', protect, async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).populate('relationshipId');
+    const user = await User.findById(req.user._id);
 
     res.status(200).json({
       success: true,
@@ -33,6 +33,76 @@ router.get('/me', protect, async (req, res) => {
     });
   } catch (error) {
     console.error('Get current user error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Server error'
+    });
+  }
+});
+
+// @desc    Register user
+// @route   POST /api/auth/register
+// @access  Public
+router.post('/register', [
+  body('firstName').trim().isLength({ min: 1, max: 50 }).withMessage('First name is required and must be less than 50 characters'),
+  body('lastName').trim().isLength({ min: 1, max: 50 }).withMessage('Last name is required and must be less than 50 characters'),
+  body('email').isEmail().normalizeEmail().withMessage('Valid email is required'),
+  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
+  body('dateOfBirth').optional().isISO8601().withMessage('Valid date of birth is required'),
+  body('coupleName').optional().trim().isLength({ min: 1, max: 100 }).withMessage('Couple name must be less than 100 characters'),
+  body('relationshipStartDate').optional().isISO8601().withMessage('Valid relationship start date is required')
+], async (req, res) => {
+  try {
+    // Check for validation errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid input data',
+        details: errors.array()
+      });
+    }
+
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      dateOfBirth,
+      coupleName,
+      relationshipStartDate
+    } = req.body;
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        error: 'User already exists with this email'
+      });
+    }
+
+    // Create user with couple information
+    const userData = {
+      name: `${firstName} ${lastName}`,
+      email,
+      password,
+      profile: {
+        firstName,
+        lastName,
+        dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : null,
+        coupleName: coupleName || null,
+        relationshipStartDate: relationshipStartDate ? new Date(relationshipStartDate) : null
+      }
+    };
+
+    const user = await User.create(userData);
+
+    await user.updateLastLogin();
+    sendTokenResponse(user, 201, res);
+
+  } catch (error) {
+    console.error('Register error:', error);
     res.status(500).json({
       success: false,
       error: 'Server error'

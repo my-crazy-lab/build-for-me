@@ -11,10 +11,10 @@
 const mongoose = require('mongoose');
 
 const MilestoneSchema = new mongoose.Schema({
-  relationshipId: {
+  userId: {
     type: mongoose.Schema.ObjectId,
-    ref: 'Relationship',
-    required: [true, 'Milestone must belong to a relationship']
+    ref: 'User',
+    required: [true, 'Milestone must belong to a user']
   },
   title: {
     type: String,
@@ -176,9 +176,9 @@ MilestoneSchema.methods.removeEmotion = function(emotion) {
 };
 
 // Static method to get milestones by date range
-MilestoneSchema.statics.getByDateRange = function(relationshipId, startDate, endDate) {
+MilestoneSchema.statics.getByDateRange = function(userId, startDate, endDate) {
   return this.find({
-    relationshipId,
+    userId,
     date: {
       $gte: startDate,
       $lte: endDate
@@ -187,26 +187,26 @@ MilestoneSchema.statics.getByDateRange = function(relationshipId, startDate, end
 };
 
 // Static method to get favorite milestones
-MilestoneSchema.statics.getFavorites = function(relationshipId) {
+MilestoneSchema.statics.getFavorites = function(userId) {
   return this.find({
-    relationshipId,
+    userId,
     isFavorite: true
   }).sort({ date: -1 });
 };
 
 // Static method to get milestones by category
-MilestoneSchema.statics.getByCategory = function(relationshipId, category) {
+MilestoneSchema.statics.getByCategory = function(userId, category) {
   return this.find({
-    relationshipId,
+    userId,
     category
   }).sort({ date: -1 });
 };
 
 // Indexes for better query performance
-MilestoneSchema.index({ relationshipId: 1, date: -1 });
-MilestoneSchema.index({ relationshipId: 1, category: 1 });
-MilestoneSchema.index({ relationshipId: 1, isFavorite: 1 });
-MilestoneSchema.index({ relationshipId: 1, tags: 1 });
+MilestoneSchema.index({ userId: 1, date: -1 });
+MilestoneSchema.index({ userId: 1, category: 1 });
+MilestoneSchema.index({ userId: 1, isFavorite: 1 });
+MilestoneSchema.index({ userId: 1, tags: 1 });
 MilestoneSchema.index({ createdBy: 1 });
 
 module.exports = mongoose.model('Milestone', MilestoneSchema);

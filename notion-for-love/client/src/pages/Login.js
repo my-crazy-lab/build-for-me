@@ -71,8 +71,14 @@ const Login = () => {
 
     setLoading(true);
     try {
-      await login(formData.email, formData.password);
-      navigate('/dashboard');
+      const response = await login(formData.email, formData.password);
+      if (response.success) {
+        navigate('/dashboard');
+      } else {
+        setErrors({
+          submit: response.error || 'Login failed. Please try again.'
+        });
+      }
     } catch (error) {
       setErrors({
         submit: error.message || 'Login failed. Please try again.'
@@ -218,8 +224,8 @@ const Login = () => {
                 Demo Credentials
               </h3>
               <div className="text-xs text-blue-600 dark:text-blue-300 space-y-1">
-                <p>Email: demo@lovejourney.com</p>
-                <p>Password: demo123</p>
+                <p>Email: admin@lovejourney.com</p>
+                <p>Password: 123456</p>
               </div>
             </div>
           </Card>

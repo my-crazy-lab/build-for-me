@@ -22,6 +22,7 @@ import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
 import Avatar from '../components/ui/Avatar';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
+import { goalsService } from '../services';
 
 const Goals = () => {
   const [goals, setGoals] = useState([]);
@@ -31,125 +32,62 @@ const Goals = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
   const [selectedGoal, setSelectedGoal] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [error, setError] = useState(null);
 
-  // Mock goals data
-  const mockGoals = [
-    {
-      id: 1,
-      title: "Save for Dream House",
-      description: "Save $50,000 for our future home down payment. We want to find a cozy place with a garden where we can build our life together.",
-      status: "in-progress",
-      priority: "high",
-      category: "financial",
-      progress: 68,
-      targetAmount: 50000,
-      currentAmount: 34000,
-      targetDate: "2025-06-01",
-      assignedTo: ["user1", "user2"],
-      createdBy: "user1",
-      createdAt: "2024-01-01",
-      milestones: [
-        { id: 1, title: "Open savings account", completed: true, completedAt: "2024-01-15" },
-        { id: 2, title: "Save first $10k", completed: true, completedAt: "2024-03-20" },
-        { id: 3, title: "Reach $25k milestone", completed: true, completedAt: "2024-08-15" },
-        { id: 4, title: "Find potential neighborhoods", completed: false },
-        { id: 5, title: "Get pre-approved for mortgage", completed: false }
-      ],
-      tags: ["house", "savings", "future", "investment"],
-      notes: "We've been really disciplined with our spending and are ahead of schedule!"
-    },
-    {
-      id: 2,
-      title: "Plan European Honeymoon",
-      description: "Research and book our 2-week European adventure visiting Paris, Rome, and Barcelona.",
-      status: "planning",
-      priority: "medium",
-      category: "travel",
-      progress: 45,
-      targetDate: "2025-03-15",
-      assignedTo: ["user1"],
-      createdBy: "user2",
-      createdAt: "2024-10-01",
-      milestones: [
-        { id: 1, title: "Research destinations", completed: true, completedAt: "2024-10-15" },
-        { id: 2, title: "Set budget", completed: true, completedAt: "2024-10-20" },
-        { id: 3, title: "Book flights", completed: false },
-        { id: 4, title: "Reserve hotels", completed: false },
-        { id: 5, title: "Plan daily itineraries", completed: false }
-      ],
-      tags: ["honeymoon", "europe", "travel", "adventure"],
-      notes: "So excited for this trip! Need to book flights soon for better prices."
-    },
-    {
-      id: 3,
-      title: "Learn Cooking Together",
-      description: "Master 20 new recipes from different cuisines to expand our culinary skills and enjoy cooking dates.",
-      status: "in-progress",
-      priority: "low",
-      category: "learning",
-      progress: 85,
-      targetDate: "2025-01-31",
-      assignedTo: ["user1", "user2"],
-      createdBy: "user1",
-      createdAt: "2024-09-01",
-      milestones: [
-        { id: 1, title: "Learn 5 Italian recipes", completed: true, completedAt: "2024-09-30" },
-        { id: 2, title: "Learn 5 Asian recipes", completed: true, completedAt: "2024-10-31" },
-        { id: 3, title: "Learn 5 Mexican recipes", completed: true, completedAt: "2024-11-30" },
-        { id: 4, title: "Learn 3 French recipes", completed: true, completedAt: "2024-12-15" },
-        { id: 5, title: "Learn 2 dessert recipes", completed: false }
-      ],
-      tags: ["cooking", "learning", "together", "food"],
-      notes: "We've become quite the cooking team! Just need to master some desserts."
-    },
-    {
-      id: 4,
-      title: "Start Fitness Journey",
-      description: "Begin working out together 3 times per week to stay healthy and support each other's fitness goals.",
-      status: "completed",
-      priority: "medium",
-      category: "health",
-      progress: 100,
-      targetDate: "2024-12-31",
-      completedDate: "2024-12-20",
-      assignedTo: ["user1", "user2"],
-      createdBy: "user2",
-      createdAt: "2024-06-01",
-      milestones: [
-        { id: 1, title: "Join gym together", completed: true, completedAt: "2024-06-15" },
-        { id: 2, title: "Create workout schedule", completed: true, completedAt: "2024-06-20" },
-        { id: 3, title: "Complete first month", completed: true, completedAt: "2024-07-15" },
-        { id: 4, title: "Establish routine", completed: true, completedAt: "2024-09-01" },
-        { id: 5, title: "Reach 6-month milestone", completed: true, completedAt: "2024-12-01" }
-      ],
-      tags: ["fitness", "health", "together", "routine"],
-      notes: "We did it! Working out together has been amazing for our relationship."
+  // Load goals and categories from API
+  const loadGoals = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const filters = {
+        category: selectedCategory,
+        search: searchQuery
+      };
+
+      const response = await goalsService.getGoals(filters);
+      if (response.success) {
+        setGoals(response.data);
+      } else {
+        setError(response.error);
+      }
+    } catch (error) {
+      console.error('Error loading goals:', error);
+      setError('Failed to load goals');
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
 
-  const categories = [
-    { id: 'all', label: 'All Goals', count: mockGoals.length },
-    { id: 'financial', label: 'Financial', count: 1 },
-    { id: 'travel', label: 'Travel', count: 1 },
-    { id: 'learning', label: 'Learning', count: 1 },
-    { id: 'health', label: 'Health', count: 1 }
-  ];
+  const loadCategories = async () => {
+    try {
+      const response = await goalsService.getCategories();
+      if (response.success) {
+        setCategories(response.data.map(cat => ({
+          id: cat._id,
+          label: cat._id === 'all' ? 'All Goals' : cat._id.charAt(0).toUpperCase() + cat._id.slice(1),
+          count: cat.count
+        })));
+      }
+    } catch (error) {
+      console.error('Error loading categories:', error);
+    }
+  };
 
   const statusColumns = [
-    { id: 'planning', label: 'Planning', color: 'bg-blue-100 dark:bg-blue-900' },
-    { id: 'in-progress', label: 'In Progress', color: 'bg-yellow-100 dark:bg-yellow-900' },
+    { id: 'active', label: 'Active', color: 'bg-blue-100 dark:bg-blue-900' },
+    { id: 'paused', label: 'Paused', color: 'bg-yellow-100 dark:bg-yellow-900' },
     { id: 'completed', label: 'Completed', color: 'bg-green-100 dark:bg-green-900' }
   ];
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setGoals(mockGoals);
-      setLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
+    loadCategories();
   }, []);
+
+  useEffect(() => {
+    loadGoals();
+  }, [selectedCategory, searchQuery]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const filteredGoals = goals.filter(goal => {
     if (selectedCategory !== 'all' && goal.category !== selectedCategory) {
@@ -190,6 +128,7 @@ const Goals = () => {
   };
 
   const getDaysUntilTarget = (targetDate) => {
+    if (!targetDate) return null;
     const now = new Date();
     const target = new Date(targetDate);
     const diffTime = target - now;
@@ -198,6 +137,7 @@ const Goals = () => {
   };
 
   const formatDate = (dateString) => {
+    if (!dateString) return 'No date set';
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
@@ -213,6 +153,22 @@ const Goals = () => {
           variant="dots"
           text="Loading your goals..."
         />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-96">
+        <Card className="p-6 text-center">
+          <p className="text-error-600 dark:text-error-400 mb-4">{error}</p>
+          <Button
+            variant="primary"
+            onClick={() => loadGoals()}
+          >
+            Try Again
+          </Button>
+        </Card>
       </div>
     );
   }
@@ -393,20 +349,28 @@ const Goals = () => {
         title="Create New Goal"
         size="lg"
       >
-        <div className="space-y-4">
-          <p className="text-gray-600 dark:text-gray-400">
-            Set a new goal to achieve together and track your progress.
-          </p>
-          {/* Add goal form would go here */}
-          <div className="flex justify-end space-x-3">
-            <Button variant="ghost" onClick={() => setShowAddModal(false)}>
-              Cancel
-            </Button>
-            <Button variant="primary">
-              Create Goal
-            </Button>
-          </div>
-        </div>
+        <GoalForm
+          onClose={() => setShowAddModal(false)}
+          onSave={async (goalData) => {
+            try {
+              const response = await goalsService.createGoal(goalData);
+              if (response.success) {
+                // Refresh goals list
+                const goalsResponse = await goalsService.getGoals();
+                if (goalsResponse.success) {
+                  setGoals(goalsResponse.data);
+                }
+                setShowAddModal(false);
+              } else {
+                console.error('Failed to create goal:', response.error);
+                alert('Failed to create goal. Please try again.');
+              }
+            } catch (error) {
+              console.error('Error creating goal:', error);
+              alert('Failed to create goal. Please try again.');
+            }
+          }}
+        />
       </Modal>
 
       {/* Goal Detail Modal */}
@@ -435,8 +399,8 @@ const GoalCard = ({
   formatDate
 }) => {
   const daysUntilTarget = getDaysUntilTarget(goal.targetDate);
-  const completedMilestones = goal.milestones.filter(m => m.completed).length;
-  const totalMilestones = goal.milestones.length;
+  const completedMilestones = goal.milestones ? goal.milestones.filter(m => m.isCompleted).length : 0;
+  const totalMilestones = goal.milestones ? goal.milestones.length : 0;
 
   return (
     <motion.div
@@ -525,10 +489,11 @@ const GoalCard = ({
             <div className="flex items-center space-x-2">
               <span className="text-sm text-gray-600 dark:text-gray-400">Assigned to:</span>
               <div className="flex -space-x-1">
-                {goal.assignedTo.map((userId, userIndex) => (
+                {goal.assignedTo && goal.assignedTo.map((user, userIndex) => (
                   <Avatar
                     key={userIndex}
-                    name={`User ${userId}`}
+                    name={user.name || `User ${userIndex + 1}`}
+                    src={user.avatar}
                     size="sm"
                     className="ring-2 ring-white dark:ring-gray-800"
                   />
@@ -544,18 +509,20 @@ const GoalCard = ({
           </div>
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-1">
-            {goal.tags.slice(0, 3).map((tag, tagIndex) => (
-              <Badge key={tagIndex} variant="outline" size="sm">
-                #{tag}
-              </Badge>
-            ))}
-            {goal.tags.length > 3 && (
-              <Badge variant="outline" size="sm">
-                +{goal.tags.length - 3}
-              </Badge>
-            )}
-          </div>
+          {goal.tags && goal.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1">
+              {goal.tags.slice(0, 3).map((tag, tagIndex) => (
+                <Badge key={tagIndex} variant="outline" size="sm">
+                  #{tag}
+                </Badge>
+              ))}
+              {goal.tags.length > 3 && (
+                <Badge variant="outline" size="sm">
+                  +{goal.tags.length - 3}
+                </Badge>
+              )}
+            </div>
+          )}
         </div>
       </Card>
     </motion.div>
@@ -564,8 +531,8 @@ const GoalCard = ({
 
 // Goal Detail Modal Component
 const GoalDetailModal = ({ goal, onClose, getPriorityColor, getCategoryColor, formatDate }) => {
-  const completedMilestones = goal.milestones.filter(m => m.completed).length;
-  const totalMilestones = goal.milestones.length;
+  const completedMilestones = goal.milestones ? goal.milestones.filter(m => m.isCompleted).length : 0;
+  const totalMilestones = goal.milestones ? goal.milestones.length : 0;
 
   return (
     <Modal
@@ -636,7 +603,7 @@ const GoalDetailModal = ({ goal, onClose, getPriorityColor, getCategoryColor, fo
         </div>
 
         {/* Financial Progress (if applicable) */}
-        {goal.targetAmount && (
+        {goal.targetAmount && goal.currentAmount !== undefined && (
           <div>
             <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Financial Progress</h4>
             <div className="space-y-2">
@@ -659,55 +626,59 @@ const GoalDetailModal = ({ goal, onClose, getPriorityColor, getCategoryColor, fo
         )}
 
         {/* Milestones */}
-        <div>
-          <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Milestones</h4>
-          <div className="space-y-3">
-            {goal.milestones.map((milestone, index) => (
-              <div
-                key={milestone.id}
-                className={`flex items-center space-x-3 p-3 rounded-lg ${
-                  milestone.completed
-                    ? 'bg-success-50 dark:bg-success-900/20'
-                    : 'bg-gray-50 dark:bg-gray-700/50'
-                }`}
-              >
-                <div className={`w-5 h-5 rounded-full flex items-center justify-center ${
-                  milestone.completed
-                    ? 'bg-success-500 text-white'
-                    : 'bg-gray-300 dark:bg-gray-600'
-                }`}>
-                  {milestone.completed && <CheckCircle className="w-3 h-3" />}
-                </div>
-                <div className="flex-1">
-                  <h5 className={`font-medium ${
-                    milestone.completed
-                      ? 'text-success-800 dark:text-success-200 line-through'
-                      : 'text-gray-900 dark:text-white'
+        {goal.milestones && goal.milestones.length > 0 && (
+          <div>
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Milestones</h4>
+            <div className="space-y-3">
+              {goal.milestones.map((milestone, index) => (
+                <div
+                  key={milestone._id || index}
+                  className={`flex items-center space-x-3 p-3 rounded-lg ${
+                    milestone.isCompleted
+                      ? 'bg-success-50 dark:bg-success-900/20'
+                      : 'bg-gray-50 dark:bg-gray-700/50'
+                  }`}
+                >
+                  <div className={`w-5 h-5 rounded-full flex items-center justify-center ${
+                    milestone.isCompleted
+                      ? 'bg-success-500 text-white'
+                      : 'bg-gray-300 dark:bg-gray-600'
                   }`}>
-                    {milestone.title}
-                  </h5>
-                  {milestone.completed && milestone.completedAt && (
-                    <p className="text-sm text-success-600 dark:text-success-400">
-                      Completed {formatDate(milestone.completedAt)}
-                    </p>
-                  )}
+                    {milestone.isCompleted && <CheckCircle className="w-3 h-3" />}
+                  </div>
+                  <div className="flex-1">
+                    <h5 className={`font-medium ${
+                      milestone.isCompleted
+                        ? 'text-success-800 dark:text-success-200 line-through'
+                        : 'text-gray-900 dark:text-white'
+                    }`}>
+                      {milestone.title}
+                    </h5>
+                    {milestone.isCompleted && milestone.completedDate && (
+                      <p className="text-sm text-success-600 dark:text-success-400">
+                        Completed {formatDate(milestone.completedDate)}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Tags */}
-        <div>
-          <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Tags</h4>
-          <div className="flex flex-wrap gap-2">
-            {goal.tags.map((tag, index) => (
-              <Badge key={index} variant="outline" size="sm">
-                #{tag}
-              </Badge>
-            ))}
+        {goal.tags && goal.tags.length > 0 && (
+          <div>
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Tags</h4>
+            <div className="flex flex-wrap gap-2">
+              {goal.tags.map((tag, index) => (
+                <Badge key={index} variant="outline" size="sm">
+                  #{tag}
+                </Badge>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Notes */}
         {goal.notes && (
@@ -731,6 +702,202 @@ const GoalDetailModal = ({ goal, onClose, getPriorityColor, getCategoryColor, fo
         </div>
       </div>
     </Modal>
+  );
+};
+
+// Goal Form Component
+const GoalForm = ({ onClose, onSave }) => {
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    category: 'other',
+    priority: 'medium',
+    targetDate: '',
+    tags: '',
+    notes: '',
+    milestones: [],
+    isPrivate: false
+  });
+
+  const [currentMilestone, setCurrentMilestone] = useState({
+    title: '',
+    description: '',
+    targetDate: ''
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const categories = [
+    { value: 'travel', label: 'Travel & Adventures' },
+    { value: 'finance', label: 'Financial Goals' },
+    { value: 'health', label: 'Health & Fitness' },
+    { value: 'family', label: 'Family & Relationships' },
+    { value: 'learning', label: 'Learning & Growth' },
+    { value: 'career', label: 'Career & Professional' },
+    { value: 'home', label: 'Home & Living' },
+    { value: 'romantic', label: 'Romantic Goals' },
+    { value: 'adventure', label: 'Adventures' },
+    { value: 'spiritual', label: 'Spiritual & Personal' },
+    { value: 'social', label: 'Social & Community' },
+    { value: 'hobby', label: 'Hobbies & Interests' },
+    { value: 'other', label: 'Other' }
+  ];
+
+  const priorities = [
+    { value: 'low', label: 'Low Priority' },
+    { value: 'medium', label: 'Medium Priority' },
+    { value: 'high', label: 'High Priority' },
+    { value: 'urgent', label: 'Urgent' }
+  ];
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.title || !formData.category) return;
+
+    setLoading(true);
+    try {
+      const goalData = {
+        ...formData,
+        tags: formData.tags.split(',').map(tag => tag.trim()).filter(Boolean),
+        targetDate: formData.targetDate ? new Date(formData.targetDate).toISOString() : undefined,
+        milestones: formData.milestones.map(milestone => ({
+          ...milestone,
+          targetDate: milestone.targetDate ? new Date(milestone.targetDate).toISOString() : undefined
+        }))
+      };
+
+      await onSave(goalData);
+    } catch (error) {
+      console.error('Error submitting goal:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const addMilestone = () => {
+    if (!currentMilestone.title) return;
+
+    setFormData(prev => ({
+      ...prev,
+      milestones: [...prev.milestones, { ...currentMilestone, id: Date.now() }]
+    }));
+
+    setCurrentMilestone({
+      title: '',
+      description: '',
+      targetDate: ''
+    });
+  };
+
+  const removeMilestone = (id) => {
+    setFormData(prev => ({
+      ...prev,
+      milestones: prev.milestones.filter(milestone => milestone.id !== id)
+    }));
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Input
+          label="Goal Title"
+          value={formData.title}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          placeholder="Save for our dream vacation"
+          required
+        />
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Category
+          </label>
+          <select
+            value={formData.category}
+            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white"
+          >
+            {categories.map(cat => (
+              <option key={cat.value} value={cat.value}>{cat.label}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Priority
+          </label>
+          <select
+            value={formData.priority}
+            onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white"
+          >
+            {priorities.map(priority => (
+              <option key={priority.value} value={priority.value}>{priority.label}</option>
+            ))}
+          </select>
+        </div>
+        <Input
+          label="Target Date"
+          type="date"
+          value={formData.targetDate}
+          onChange={(e) => setFormData({ ...formData, targetDate: e.target.value })}
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Description
+        </label>
+        <textarea
+          value={formData.description}
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+          placeholder="Describe your goal and why it's important to you both..."
+          rows={3}
+          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white"
+        />
+      </div>
+
+      <Input
+        label="Tags"
+        value={formData.tags}
+        onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+        placeholder="vacation, savings, travel (comma separated)"
+        helperText="Add tags to help organize and find this goal later"
+      />
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Notes
+        </label>
+        <textarea
+          value={formData.notes}
+          onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+          placeholder="Any additional notes or details about this goal..."
+          rows={2}
+          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white"
+        />
+      </div>
+
+      <div className="flex items-center">
+        <input
+          type="checkbox"
+          checked={formData.isPrivate}
+          onChange={(e) => setFormData({ ...formData, isPrivate: e.target.checked })}
+          className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+        />
+        <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Keep this goal private</span>
+      </div>
+
+      <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <Button variant="ghost" onClick={onClose} disabled={loading}>
+          Cancel
+        </Button>
+        <Button variant="primary" type="submit" disabled={loading}>
+          {loading ? 'Creating...' : 'Create Goal'}
+        </Button>
+      </div>
+    </form>
   );
 };
 

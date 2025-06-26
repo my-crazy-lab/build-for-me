@@ -37,7 +37,7 @@ const LoginPage = () => {
   const handleDemoLogin = async (e) => {
     e.preventDefault();
     try {
-      const result = await login('admin', '123456');
+      const result = await login('admin@lovejourney.com', '123456');
       if (result.success) {
         toast.success('Welcome to Love Journey! 💕');
         navigate('/dashboard');
@@ -201,7 +201,7 @@ const LoginPage = () => {
           disabled={loading}
           className="w-full btn-secondary"
         >
-          {loading ? <LoadingSpinner size="sm" /> : 'Quick Demo (admin:123456)'}
+          {loading ? <LoadingSpinner size="sm" /> : 'Quick Demo (admin@lovejourney.com)'}
         </motion.button>
 
         {/* Footer */}

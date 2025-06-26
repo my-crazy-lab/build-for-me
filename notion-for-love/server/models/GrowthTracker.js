@@ -11,10 +11,10 @@
 const mongoose = require('mongoose');
 
 const GrowthTrackerSchema = new mongoose.Schema({
-  relationshipId: {
+  userId: {
     type: mongoose.Schema.ObjectId,
-    ref: 'Relationship',
-    required: [true, 'Growth tracker must belong to a relationship'],
+    ref: 'User',
+    required: [true, 'Growth tracker must belong to a user'],
     unique: true
   },
   leavesCount: {
@@ -335,17 +335,17 @@ GrowthTrackerSchema.statics.getLeaderboard = function(limit = 10) {
   return this.find({})
     .sort({ totalPoints: -1, treeLevel: -1 })
     .limit(limit)
-    .populate('relationshipId', 'coupleName');
+    .populate('userId', 'name');
 };
 
 // Static method to get growth statistics
-GrowthTrackerSchema.statics.getGrowthStats = function(relationshipId) {
-  return this.findOne({ relationshipId })
-    .populate('relationshipId', 'coupleName stats');
+GrowthTrackerSchema.statics.getGrowthStats = function(userId) {
+  return this.findOne({ userId })
+    .populate('userId', 'name stats');
 };
 
 // Indexes for better query performance
-GrowthTrackerSchema.index({ relationshipId: 1 }, { unique: true });
+GrowthTrackerSchema.index({ userId: 1 }, { unique: true });
 GrowthTrackerSchema.index({ totalPoints: -1 });
 GrowthTrackerSchema.index({ treeLevel: -1 });
 

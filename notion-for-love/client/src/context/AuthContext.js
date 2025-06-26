@@ -9,6 +9,7 @@
  */
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { authService } from '../services';
 
 const AuthContext = createContext();
 
@@ -22,54 +23,7 @@ export const useAuth = () => {
   return context;
 };
 
-// Mock auth service for demo purposes
-const authService = {
-  login: async (email, password) => {
-    // Demo login logic
-    if (email === 'admin' && password === '123456') {
-      const user = {
-        id: '1',
-        name: 'Demo User',
-        email: 'admin@lovejourney.app',
-        partner: {
-          id: '2',
-          name: 'Demo Partner',
-          email: 'partner@lovejourney.app'
-        },
-        relationshipStartDate: '2023-01-01'
-      };
-      localStorage.setItem('auth_token', 'demo_token');
-      localStorage.setItem('user', JSON.stringify(user));
-      return { success: true, user };
-    }
-    return { success: false, error: 'Invalid credentials' };
-  },
-
-  logout: async () => {
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('user');
-    return { success: true };
-  },
-
-  getCurrentUser: async () => {
-    const token = localStorage.getItem('auth_token');
-    const user = localStorage.getItem('user');
-
-    if (token && user) {
-      return { success: true, user: JSON.parse(user) };
-    }
-    return { success: false };
-  },
-
-  clearAuth: () => {
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('user');
-  },
-
-  updateStoredUser: (userData) => {
-    localStorage.setItem('user', JSON.stringify(userData));
-  }
-};
+// Use the real auth service (imported above)
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);

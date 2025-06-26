@@ -22,6 +22,7 @@ import Badge from '../components/ui/Badge';
 import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
+import { eventsService } from '../services';
 
 const DateNightPlanner = () => {
   const [datePlans, setDatePlans] = useState([]);
@@ -150,149 +151,35 @@ const DateNightPlanner = () => {
     luxury: { name: '$150+', min: 150, max: 1000, color: 'bg-red-500' }
   };
 
-  // Mock date plans
-  const mockDatePlans = [
-    {
-      id: 1,
-      title: 'Romantic Dinner & Stargazing',
-      category: 'romantic',
-      budget: 'medium',
-      estimatedCost: 65,
-      duration: 4,
-      date: '2024-12-28T19:00:00Z',
-      status: 'planned',
-      activities: [
-        {
-          time: '7:00 PM',
-          activity: 'Dinner at Bella Vista',
-          location: '123 Romance St',
-          cost: 50,
-          notes: 'Made reservation for window table'
-        },
-        {
-          time: '9:00 PM',
-          activity: 'Stargazing at Hilltop Park',
-          location: 'Hilltop Park Observatory',
-          cost: 15,
-          notes: 'Bring blanket and hot chocolate'
-        }
-      ],
-      notes: 'Perfect for clear winter night. Check weather forecast!',
-      tags: ['dinner', 'outdoor', 'romantic'],
-      createdBy: 'self',
-      isShared: true
-    },
-    {
-      id: 2,
-      title: 'Cooking Adventure at Home',
-      category: 'food',
-      budget: 'low',
-      estimatedCost: 20,
-      duration: 3,
-      date: '2024-12-30T17:00:00Z',
-      status: 'planned',
-      activities: [
-        {
-          time: '5:00 PM',
-          activity: 'Grocery shopping together',
-          location: 'Local Market',
-          cost: 15,
-          notes: 'Pick ingredients for homemade pasta'
-        },
-        {
-          time: '6:00 PM',
-          activity: 'Cooking session',
-          location: 'Home Kitchen',
-          cost: 5,
-          notes: 'Try making fresh pasta from scratch'
-        }
-      ],
-      notes: 'Fun way to learn something new together!',
-      tags: ['cooking', 'home', 'learning'],
-      createdBy: 'partner',
-      isShared: true
-    },
-    {
-      id: 3,
-      title: 'Art Gallery & Coffee',
-      category: 'cultural',
-      budget: 'low',
-      estimatedCost: 18,
-      duration: 2.5,
-      date: '2025-01-05T14:00:00Z',
-      status: 'completed',
-      activities: [
-        {
-          time: '2:00 PM',
-          activity: 'Modern Art Gallery Visit',
-          location: 'Downtown Art Center',
-          cost: 12,
-          notes: 'Student discount available'
-        },
-        {
-          time: '4:00 PM',
-          activity: 'Coffee & Discussion',
-          location: 'Artisan Coffee House',
-          cost: 6,
-          notes: 'Discuss favorite pieces'
-        }
-      ],
-      notes: 'Great way to explore culture together',
-      tags: ['art', 'culture', 'coffee'],
-      createdBy: 'self',
-      isShared: true,
-      rating: 5,
-      review: 'Amazing afternoon! Loved the contemporary exhibit.'
-    }
-  ];
 
-  // Mock date ideas
-  const mockDateIdeas = [
-    {
-      id: 1,
-      title: 'Sunrise Hike & Breakfast',
-      category: 'adventure',
-      budget: 'free',
-      description: 'Wake up early for a beautiful sunrise hike followed by a picnic breakfast',
-      estimatedCost: 0,
-      duration: 3,
-      difficulty: 'medium',
-      season: 'any',
-      tags: ['outdoor', 'morning', 'nature']
-    },
-    {
-      id: 2,
-      title: 'Wine & Paint Night',
-      category: 'creative',
-      budget: 'medium',
-      description: 'Create art together while enjoying wine and good conversation',
-      estimatedCost: 45,
-      duration: 2.5,
-      difficulty: 'easy',
-      season: 'any',
-      tags: ['art', 'wine', 'creative']
-    },
-    {
-      id: 3,
-      title: 'Food Truck Festival',
-      category: 'food',
-      budget: 'low',
-      description: 'Explore different cuisines at a local food truck gathering',
-      estimatedCost: 20,
-      duration: 2,
-      difficulty: 'easy',
-      season: 'spring,summer,fall',
-      tags: ['food', 'outdoor', 'variety']
-    }
-  ];
+
+
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setDatePlans(mockDatePlans);
-      setDateIdeas(mockDateIdeas);
-      setLoading(false);
-    }, 1000);
+    // Load date plans and ideas from API
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        // Load date plans from events service (filter by type: 'date')
+        const plansResponse = await eventsService.getEvents({ type: 'date' });
+        if (plansResponse.success) {
+          setDatePlans(plansResponse.data);
+        }
+
+        // For date ideas, we'll use empty array for now
+        // In a real app, these could come from a separate service
+        setDateIdeas([]);
+      } catch (error) {
+        console.error('Error loading date planner data:', error);
+        setError('Failed to load date planner data');
+        setDatePlans([]);
+        setDateIdeas([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
 
     return () => clearTimeout(timer);
   }, []);
@@ -553,9 +440,24 @@ const DateNightPlanner = () => {
           dateCategories={dateCategories}
           budgetRanges={budgetRanges}
           onClose={() => setShowPlanModal(false)}
-          onSave={(newPlan) => {
-            setDatePlans([{ ...newPlan, id: Date.now() }, ...datePlans]);
-            setShowPlanModal(false);
+          onSave={async (planData) => {
+            try {
+              const response = await eventsService.createEvent(planData);
+              if (response.success) {
+                // Refresh date plans list
+                const plansResponse = await eventsService.getEvents({ type: 'date' });
+                if (plansResponse.success) {
+                  setDatePlans(plansResponse.data);
+                }
+                setShowPlanModal(false);
+              } else {
+                console.error('Failed to create date plan:', response.error);
+                alert('Failed to create date plan. Please try again.');
+              }
+            } catch (error) {
+              console.error('Error creating date plan:', error);
+              alert('Failed to create date plan. Please try again.');
+            }
           }}
         />
       </Modal>
@@ -738,15 +640,30 @@ const DatePlanForm = ({ dateCategories, budgetRanges, onClose, onSave }) => {
     e.preventDefault();
     if (!formData.title || !formData.date) return;
 
-    const newPlan = {
-      ...formData,
-      date: `${formData.date}T${formData.time}:00Z`,
-      status: 'planned',
+    // Format date and time for API
+    const eventDateTime = new Date(`${formData.date}T${formData.time}`).toISOString();
+    const endDateTime = new Date(new Date(`${formData.date}T${formData.time}`).getTime() + (formData.duration * 60 * 60 * 1000)).toISOString();
+
+    const planData = {
+      title: formData.title,
+      description: formData.notes || `${formData.category} date night`,
+      date: eventDateTime,
+      endDate: endDateTime,
+      type: 'date',
+      status: 'planning',
+      location: formData.activities.length > 0 ? { name: formData.activities[0].location } : undefined,
       tags: formData.tags.split(',').map(tag => tag.trim()).filter(Boolean),
-      createdBy: 'self'
+      notes: JSON.stringify({
+        category: formData.category,
+        budget: formData.budget,
+        estimatedCost: formData.estimatedCost,
+        activities: formData.activities,
+        isShared: formData.isShared
+      }),
+      isPrivate: !formData.isShared
     };
 
-    onSave(newPlan);
+    onSave(planData);
   };
 
   const addActivity = () => {

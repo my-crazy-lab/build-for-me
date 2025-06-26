@@ -11,10 +11,10 @@
 const mongoose = require('mongoose');
 
 const VaultSchema = new mongoose.Schema({
-  relationshipId: {
+  userId: {
     type: mongoose.Schema.ObjectId,
-    ref: 'Relationship',
-    required: [true, 'Vault item must belong to a relationship']
+    ref: 'User',
+    required: [true, 'Vault item must belong to a user']
   },
   title: {
     type: String,
@@ -290,44 +290,29 @@ VaultSchema.methods.addAttachment = function(attachmentData) {
 };
 
 // Static method to get accessible items for user
-VaultSchema.statics.getAccessibleItems = function(relationshipId, userId) {
+VaultSchema.statics.getAccessibleItems = function(userId) {
   return this.find({
-    relationshipId,
-    isActive: true,
-    $or: [
-      { 'accessRules.allowedUsers': userId },
-      { 'accessRules.requireBothConsent': false },
-      {
-        'accessRules.requireBothConsent': true,
-        'consentStatus.user1.hasConsented': true,
-        'consentStatus.user2.hasConsented': true
-      },
-      {
-        'accessRules.unlockDate': { $lte: new Date() }
-      },
-      {
-        'accessRules.emergencyAccess': true
-      }
-    ]
+    userId,
+    isActive: true
   }).sort({ priority: -1, createdAt: -1 });
 };
 
 // Static method to get items by type
-VaultSchema.statics.getByType = function(relationshipId, type) {
+VaultSchema.statics.getByType = function(userId, type) {
   return this.find({
-    relationshipId,
+    userId,
     type,
     isActive: true
   }).sort({ createdAt: -1 });
 };
 
 // Static method to get expiring items
-VaultSchema.statics.getExpiringItems = function(relationshipId, days = 30) {
+VaultSchema.statics.getExpiringItems = function(userId, days = 30) {
   const futureDate = new Date();
   futureDate.setDate(futureDate.getDate() + days);
-  
+
   return this.find({
-    relationshipId,
+    userId,
     isActive: true,
     expiryDate: {
       $lte: futureDate,
@@ -337,8 +322,8 @@ VaultSchema.statics.getExpiringItems = function(relationshipId, days = 30) {
 };
 
 // Indexes for better query performance
-VaultSchema.index({ relationshipId: 1, type: 1 });
-VaultSchema.index({ relationshipId: 1, isActive: 1 });
+VaultSchema.index({ userId: 1, type: 1 });
+VaultSchema.index({ userId: 1, isActive: 1 });
 VaultSchema.index({ 'accessRules.allowedUsers': 1 });
 VaultSchema.index({ createdBy: 1 });
 VaultSchema.index({ expiryDate: 1 });

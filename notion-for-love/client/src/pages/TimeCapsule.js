@@ -9,11 +9,11 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Clock, Calendar, Lock, Unlock, Plus, Gift, Heart,
   Image, Video, FileText, Music, Star, Timer,
-  Send, Package, Archive, Eye, EyeOff, Download, Share
+  Package, Archive, Download, Share
 } from 'lucide-react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
@@ -21,18 +21,20 @@ import Badge from '../components/ui/Badge';
 import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
+import { timeCapsulesService } from '../services';
 
 const TimeCapsule = () => {
   const [capsules, setCapsules] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [viewMode, setViewMode] = useState('all'); // all, locked, unlocked, scheduled
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [selectedCapsule, setSelectedCapsule] = useState(null);
   const [showUnlockModal, setShowUnlockModal] = useState(false);
 
-  // Mock time capsule data
-  const mockCapsules = [
-    {
+  // Legacy mock data removed - time capsules now loaded from API
+  // const mockCapsules = [
+  /*  {
       id: 1,
       title: "Our First Anniversary",
       description: "A special message for our first year together",
@@ -141,16 +143,31 @@ const TimeCapsule = () => {
       isSpecial: true,
       countdown: true
     }
-  ];
+  */  // ];
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setCapsules(mockCapsules);
-      setLoading(false);
-    }, 1000);
+    // Load time capsules from API (when implemented)
+    const loadTimeCapsules = async () => {
+      try {
+        setLoading(true);
+        // Load time capsules from API
+        const response = await timeCapsulesService.getTimeCapsules();
+        if (response.success) {
+          setCapsules(response.data);
+        } else {
+          setError(response.error || 'Failed to load time capsules');
+          setCapsules([]);
+        }
+      } catch (error) {
+        console.error('Error loading time capsules:', error);
+        setError('Failed to load time capsules');
+        setCapsules([]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    return () => clearTimeout(timer);
+    loadTimeCapsules();
   }, []);
 
   const filteredCapsules = capsules.filter(capsule => {
@@ -404,9 +421,24 @@ const TimeCapsule = () => {
       >
         <CreateCapsuleForm
           onClose={() => setShowCreateModal(false)}
-          onSave={(newCapsule) => {
-            setCapsules([...capsules, { ...newCapsule, id: Date.now() }]);
-            setShowCreateModal(false);
+          onSave={async (capsuleData) => {
+            try {
+              const response = await timeCapsulesService.createTimeCapsule(capsuleData);
+              if (response.success) {
+                // Refresh capsules list
+                const capsulesResponse = await timeCapsulesService.getTimeCapsules();
+                if (capsulesResponse.success) {
+                  setCapsules(capsulesResponse.data);
+                }
+                setShowCreateModal(false);
+              } else {
+                console.error('Failed to create time capsule:', response.error);
+                alert('Failed to create time capsule. Please try again.');
+              }
+            } catch (error) {
+              console.error('Error creating time capsule:', error);
+              alert('Failed to create time capsule. Please try again.');
+            }
           }}
         />
       </Modal>
@@ -618,15 +650,31 @@ const CreateCapsuleForm = ({ onClose, onSave }) => {
     e.preventDefault();
     if (!formData.title || !formData.unlockDate) return;
 
-    const newCapsule = {
-      ...formData,
-      createdDate: new Date().toISOString(),
-      isLocked: true,
+    // Format data for API based on TimeCapsule model
+    const capsuleData = {
+      title: formData.title,
+      message: formData.description || 'A special time capsule message',
+      unlockAt: new Date(formData.unlockDate).toISOString(),
+      category: formData.type,
       tags: formData.tags.split(',').map(tag => tag.trim()).filter(Boolean),
-      createdBy: 'self'
+      shared: formData.recipients.includes('both'),
+      isPrivate: !formData.recipients.includes('both'),
+      // For now, we'll store the contents as a JSON string in the message field
+      // In a real implementation, you'd handle file uploads separately
+      contents: formData.contents
     };
 
-    onSave(newCapsule);
+    // If there are contents, format them into the message
+    if (formData.contents.length > 0) {
+      const contentsText = formData.contents.map(content =>
+        `${content.title}: ${content.content}`
+      ).join('\n\n');
+      capsuleData.message = formData.description ?
+        `${formData.description}\n\n--- Contents ---\n${contentsText}` :
+        contentsText;
+    }
+
+    onSave(capsuleData);
   };
 
   const addContent = () => {

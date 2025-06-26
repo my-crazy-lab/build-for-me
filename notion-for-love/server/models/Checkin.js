@@ -11,11 +11,6 @@
 const mongoose = require('mongoose');
 
 const CheckinSchema = new mongoose.Schema({
-  relationshipId: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Relationship',
-    required: [true, 'Check-in must belong to a relationship']
-  },
   userId: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
@@ -158,13 +153,13 @@ CheckinSchema.statics.getUserHistory = function(userId, days = 30) {
   }).sort({ date: -1 });
 };
 
-// Static method to get relationship check-ins
-CheckinSchema.statics.getRelationshipCheckins = function(relationshipId, days = 30) {
+// Static method to get user check-ins
+CheckinSchema.statics.getUserCheckins = function(userId, days = 30) {
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - days);
-  
+
   return this.find({
-    relationshipId,
+    userId,
     date: { $gte: startDate }
   }).sort({ date: -1 }).populate('userId', 'name avatar');
 };
@@ -195,7 +190,6 @@ CheckinSchema.statics.calculateStreak = async function(userId) {
 };
 
 // Indexes for better query performance
-CheckinSchema.index({ relationshipId: 1, date: -1 });
 CheckinSchema.index({ userId: 1, date: -1 });
 CheckinSchema.index({ category: 1 });
 

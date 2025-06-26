@@ -11,10 +11,10 @@
 const mongoose = require('mongoose');
 
 const GoalSchema = new mongoose.Schema({
-  relationshipId: {
+  userId: {
     type: mongoose.Schema.ObjectId,
-    ref: 'Relationship',
-    required: [true, 'Goal must belong to a relationship']
+    ref: 'User',
+    required: [true, 'Goal must belong to a user']
   },
   title: {
     type: String,
@@ -226,28 +226,28 @@ GoalSchema.methods.addAttachment = function(attachmentData) {
 };
 
 // Static method to get goals by status
-GoalSchema.statics.getByStatus = function(relationshipId, status) {
-  return this.find({ relationshipId, status }).sort({ createdAt: -1 });
+GoalSchema.statics.getByStatus = function(userId, status) {
+  return this.find({ userId, status }).sort({ createdAt: -1 });
 };
 
 // Static method to get goals by category
-GoalSchema.statics.getByCategory = function(relationshipId, category) {
-  return this.find({ relationshipId, category }).sort({ createdAt: -1 });
+GoalSchema.statics.getByCategory = function(userId, category) {
+  return this.find({ userId, category }).sort({ createdAt: -1 });
 };
 
 // Static method to get overdue goals
-GoalSchema.statics.getOverdue = function(relationshipId) {
+GoalSchema.statics.getOverdue = function(userId) {
   return this.find({
-    relationshipId,
+    userId,
     status: 'active',
     targetDate: { $lt: new Date() }
   }).sort({ targetDate: 1 });
 };
 
 // Indexes for better query performance
-GoalSchema.index({ relationshipId: 1, status: 1 });
-GoalSchema.index({ relationshipId: 1, category: 1 });
-GoalSchema.index({ relationshipId: 1, targetDate: 1 });
+GoalSchema.index({ userId: 1, status: 1 });
+GoalSchema.index({ userId: 1, category: 1 });
+GoalSchema.index({ userId: 1, targetDate: 1 });
 GoalSchema.index({ assignedTo: 1 });
 GoalSchema.index({ createdBy: 1 });
 

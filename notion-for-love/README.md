@@ -81,8 +81,8 @@ Love Journey is a modern, feature-rich web application designed specifically for
 ### Demo Access
 
 You can try the application immediately with these demo credentials:
-- **Email**: `demo@lovejourney.com`
-- **Password**: `demo123`
+- **Email**: `admin@lovejourney.com`
+- **Password**: `123456`
 
 ## 🏗️ Project Structure
 

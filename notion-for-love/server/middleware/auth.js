@@ -52,25 +52,6 @@ const protect = async (req, res, next) => {
   }
 };
 
-// Middleware to check if user has a relationship
-const requireRelationship = async (req, res, next) => {
-  try {
-    if (!req.user.relationshipId) {
-      return res.status(403).json({
-        success: false,
-        error: 'User must be part of a relationship to access this resource'
-      });
-    }
-    next();
-  } catch (error) {
-    console.error('Relationship check error:', error);
-    return res.status(500).json({
-      success: false,
-      error: 'Server error during relationship check'
-    });
-  }
-};
-
 // Middleware to check if user is admin (for demo purposes)
 const requireAdmin = async (req, res, next) => {
   try {
@@ -92,6 +73,5 @@ const requireAdmin = async (req, res, next) => {
 
 module.exports = {
   protect,
-  requireRelationship,
   requireAdmin
 };

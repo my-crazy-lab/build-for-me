@@ -11,10 +11,10 @@
 const mongoose = require('mongoose');
 
 const MemorySchema = new mongoose.Schema({
-  relationshipId: {
+  userId: {
     type: mongoose.Schema.ObjectId,
-    ref: 'Relationship',
-    required: [true, 'Memory must belong to a relationship']
+    ref: 'User',
+    required: [true, 'Memory must belong to a user']
   },
   title: {
     type: String,
@@ -248,16 +248,16 @@ MemorySchema.methods.toggleHighlight = function() {
 };
 
 // Static method to get memories by type
-MemorySchema.statics.getByType = function(relationshipId, type) {
-  return this.find({ relationshipId, type })
+MemorySchema.statics.getByType = function(userId, type) {
+  return this.find({ userId, type })
     .sort({ dateTaken: -1, createdAt: -1 })
     .populate('uploadedBy', 'name avatar');
 };
 
 // Static method to get memories by date range
-MemorySchema.statics.getByDateRange = function(relationshipId, startDate, endDate) {
+MemorySchema.statics.getByDateRange = function(userId, startDate, endDate) {
   return this.find({
-    relationshipId,
+    userId,
     dateTaken: {
       $gte: startDate,
       $lte: endDate
@@ -266,35 +266,35 @@ MemorySchema.statics.getByDateRange = function(relationshipId, startDate, endDat
 };
 
 // Static method to get favorite memories
-MemorySchema.statics.getFavorites = function(relationshipId) {
+MemorySchema.statics.getFavorites = function(userId) {
   return this.find({
-    relationshipId,
+    userId,
     isFavorite: true
   }).sort({ dateTaken: -1 });
 };
 
 // Static method to get highlight memories
-MemorySchema.statics.getHighlights = function(relationshipId) {
+MemorySchema.statics.getHighlights = function(userId) {
   return this.find({
-    relationshipId,
+    userId,
     isHighlight: true
   }).sort({ dateTaken: -1 });
 };
 
 // Static method to get memories by category
-MemorySchema.statics.getByCategory = function(relationshipId, category) {
+MemorySchema.statics.getByCategory = function(userId, category) {
   return this.find({
-    relationshipId,
+    userId,
     category
   }).sort({ dateTaken: -1 });
 };
 
 // Indexes for better query performance
-MemorySchema.index({ relationshipId: 1, dateTaken: -1 });
-MemorySchema.index({ relationshipId: 1, type: 1 });
-MemorySchema.index({ relationshipId: 1, category: 1 });
-MemorySchema.index({ relationshipId: 1, isFavorite: 1 });
-MemorySchema.index({ relationshipId: 1, isHighlight: 1 });
+MemorySchema.index({ userId: 1, dateTaken: -1 });
+MemorySchema.index({ userId: 1, type: 1 });
+MemorySchema.index({ userId: 1, category: 1 });
+MemorySchema.index({ userId: 1, isFavorite: 1 });
+MemorySchema.index({ userId: 1, isHighlight: 1 });
 MemorySchema.index({ milestoneId: 1 });
 MemorySchema.index({ uploadedBy: 1 });
 MemorySchema.index({ tags: 1 });

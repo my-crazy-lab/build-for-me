@@ -21,7 +21,7 @@ require('dotenv').config();
 // Import routes
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
-const relationshipRoutes = require('./routes/relationships');
+
 const milestoneRoutes = require('./routes/milestones');
 const goalRoutes = require('./routes/goals');
 const taskRoutes = require('./routes/tasks');
@@ -33,6 +33,7 @@ const eventRoutes = require('./routes/events');
 const vaultRoutes = require('./routes/vault');
 const growthRoutes = require('./routes/growth');
 const searchRoutes = require('./routes/search');
+const dashboardRoutes = require('./routes/dashboard');
 
 // Import middleware
 const { errorHandler } = require('./middleware/errorHandler');
@@ -116,10 +117,19 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Handle favicon and logo requests to prevent 404 errors
+app.get('/favicon.ico', (req, res) => {
+  res.status(204).end(); // No content
+});
+
+app.get('/logo192.png', (req, res) => {
+  res.status(204).end(); // No content
+});
+
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/relationships', relationshipRoutes);
+
 app.use('/api/milestones', milestoneRoutes);
 app.use('/api/goals', goalRoutes);
 app.use('/api/tasks', taskRoutes);
@@ -131,6 +141,7 @@ app.use('/api/events', eventRoutes);
 app.use('/api/vault', vaultRoutes);
 app.use('/api/growth', growthRoutes);
 app.use('/api/search', searchRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 // Error handling middleware
 app.use(notFound);

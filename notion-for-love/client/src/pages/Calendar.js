@@ -8,7 +8,7 @@
  * Version: 1.0.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Calendar as CalendarIcon, ChevronLeft, ChevronRight,
@@ -17,54 +17,78 @@ import {
 } from 'lucide-react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
+import Modal from '../components/ui/Modal';
+import Input from '../components/ui/Input';
+import { eventsService } from '../services';
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showEventModal, setShowEventModal] = useState(false);
 
   const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  const events = [
-    {
-      id: 1,
-      date: '2025-06-28',
-      title: 'Romantic Dinner',
-      time: '7:00 PM',
-      type: 'date',
-      icon: Heart,
-      color: 'bg-red-500'
-    },
-    {
-      id: 2,
-      date: '2025-06-30',
-      title: 'Coffee Date',
-      time: '10:00 AM',
-      type: 'casual',
-      icon: Coffee,
-      color: 'bg-amber-500'
-    },
-    {
-      id: 3,
-      date: '2025-07-05',
-      title: 'Weekend Getaway',
-      time: 'All Day',
-      type: 'travel',
-      icon: Plane,
-      color: 'bg-blue-500'
-    },
-    {
-      id: 4,
-      date: '2025-07-14',
-      title: 'Anniversary',
-      time: 'All Day',
-      type: 'milestone',
-      icon: Star,
-      color: 'bg-purple-500'
-    }
-  ];
+  // Load events from API
+  useEffect(() => {
+    const loadEvents = async () => {
+      try {
+        setLoading(true);
+        const response = await eventsService.getEvents();
+        if (response.success) {
+          // Transform events to calendar format
+          const calendarEvents = response.data.map(event => ({
+            id: event._id,
+            date: event.date.split('T')[0], // Extract date part
+            title: event.title,
+            time: new Date(event.date).toLocaleTimeString('en-US', {
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true
+            }),
+            type: event.type,
+            icon: getEventIcon(event.type),
+            color: getEventColor(event.type)
+          }));
+          setEvents(calendarEvents);
+        }
+      } catch (error) {
+        console.error('Error loading events:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadEvents();
+  }, []);
+
+  const getEventIcon = (type) => {
+    const icons = {
+      date: Heart,
+      milestone: Star,
+      travel: Plane,
+      casual: Coffee,
+      anniversary: Gift,
+      default: CalendarIcon
+    };
+    return icons[type] || icons.default;
+  };
+
+  const getEventColor = (type) => {
+    const colors = {
+      date: 'bg-red-500',
+      milestone: 'bg-purple-500',
+      travel: 'bg-blue-500',
+      casual: 'bg-amber-500',
+      anniversary: 'bg-pink-500',
+      default: 'bg-gray-500'
+    };
+    return colors[type] || colors.default;
+  };
 
   const getDaysInMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -233,7 +257,10 @@ const Calendar = () => {
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                 Quick Add
               </h3>
-              <Button className="w-full mb-3">
+              <Button
+                className="w-full mb-3"
+                onClick={() => setShowEventModal(true)}
+              >
                 <Plus className="w-4 h-4 mr-2" />
                 New Event
               </Button>
@@ -281,8 +308,220 @@ const Calendar = () => {
             </Card>
           </div>
         </div>
+
+        {/* Event Creation Modal */}
+        <Modal
+          isOpen={showEventModal}
+          onClose={() => setShowEventModal(false)}
+          title="Create New Event"
+          size="lg"
+        >
+          <EventForm
+            selectedDate={selectedDate}
+            onClose={() => setShowEventModal(false)}
+            onSave={async (eventData) => {
+              try {
+                const response = await eventsService.createEvent(eventData);
+                if (response.success) {
+                  // Refresh events list
+                  const eventsResponse = await eventsService.getEvents();
+                  if (eventsResponse.success) {
+                    // Transform events to calendar format
+                    const calendarEvents = eventsResponse.data.map(event => ({
+                      id: event._id,
+                      date: event.date.split('T')[0],
+                      title: event.title,
+                      time: new Date(event.date).toLocaleTimeString('en-US', {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: true
+                      }),
+                      type: event.type,
+                      icon: getEventIcon(event.type),
+                      color: getEventColor(event.type)
+                    }));
+                    setEvents(calendarEvents);
+                  }
+                  setShowEventModal(false);
+                } else {
+                  console.error('Failed to create event:', response.error);
+                  alert('Failed to create event. Please try again.');
+                }
+              } catch (error) {
+                console.error('Error creating event:', error);
+                alert('Failed to create event. Please try again.');
+              }
+            }}
+          />
+        </Modal>
       </div>
     </div>
+  );
+};
+
+// Event Form Component
+const EventForm = ({ selectedDate, onClose, onSave }) => {
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    date: selectedDate ? selectedDate.toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+    time: '19:00',
+    endTime: '21:00',
+    type: 'date-night',
+    location: '',
+    isAllDay: false,
+    notes: ''
+  });
+
+  const eventTypes = [
+    { value: 'date-night', label: 'Date Night' },
+    { value: 'anniversary', label: 'Anniversary' },
+    { value: 'birthday', label: 'Birthday' },
+    { value: 'milestone', label: 'Milestone' },
+    { value: 'travel', label: 'Travel' },
+    { value: 'family', label: 'Family' },
+    { value: 'celebration', label: 'Celebration' },
+    { value: 'appointment', label: 'Appointment' },
+    { value: 'other', label: 'Other' }
+  ];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.title || !formData.date) return;
+
+    // Format date and time for API
+    const eventDateTime = formData.isAllDay
+      ? new Date(formData.date).toISOString()
+      : new Date(`${formData.date}T${formData.time}`).toISOString();
+
+    const endDateTime = formData.isAllDay
+      ? new Date(formData.date).toISOString()
+      : new Date(`${formData.date}T${formData.endTime}`).toISOString();
+
+    const eventData = {
+      title: formData.title,
+      description: formData.description,
+      date: eventDateTime,
+      endDate: endDateTime,
+      type: formData.type,
+      status: 'confirmed',
+      isAllDay: formData.isAllDay,
+      location: formData.location ? { name: formData.location } : undefined,
+      notes: formData.notes,
+      isPrivate: false
+    };
+
+    onSave(eventData);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <Input
+        label="Event Title"
+        value={formData.title}
+        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+        placeholder="Date Night"
+        required
+      />
+
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Event Type
+          </label>
+          <select
+            value={formData.type}
+            onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+          >
+            {eventTypes.map((type) => (
+              <option key={type.value} value={type.value}>
+                {type.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="flex items-center space-x-2 mt-8">
+            <input
+              type="checkbox"
+              checked={formData.isAllDay}
+              onChange={(e) => setFormData({ ...formData, isAllDay: e.target.checked })}
+              className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+            />
+            <span className="text-sm text-gray-700 dark:text-gray-300">All day event</span>
+          </label>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-3 gap-4">
+        <Input
+          label="Date"
+          type="date"
+          value={formData.date}
+          onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+          required
+        />
+        {!formData.isAllDay && (
+          <>
+            <Input
+              label="Start Time"
+              type="time"
+              value={formData.time}
+              onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+            />
+            <Input
+              label="End Time"
+              type="time"
+              value={formData.endTime}
+              onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
+            />
+          </>
+        )}
+      </div>
+
+      <Input
+        label="Location"
+        value={formData.location}
+        onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+        placeholder="Where is this happening?"
+      />
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Description
+        </label>
+        <textarea
+          value={formData.description}
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+          placeholder="Add details about this event..."
+          rows={3}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Notes
+        </label>
+        <textarea
+          value={formData.notes}
+          onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+          placeholder="Any additional notes..."
+          rows={2}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+        />
+      </div>
+
+      <div className="flex justify-end space-x-3">
+        <Button variant="ghost" onClick={onClose}>
+          Cancel
+        </Button>
+        <Button type="submit" variant="primary">
+          Create Event
+        </Button>
+      </div>
+    </form>
   );
 };
 

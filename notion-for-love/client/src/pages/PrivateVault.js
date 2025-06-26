@@ -80,133 +80,29 @@ const PrivateVault = () => {
     }
   };
 
-  // Mock vault data (encrypted in real implementation)
-  const mockVaultItems = [
-    {
-      id: 1,
-      title: "Shared Bank Account",
-      category: "financial",
-      type: "bank_account",
-      data: {
-        accountNumber: "****-****-****-1234",
-        routingNumber: "021000021",
-        bankName: "First National Bank",
-        accountType: "Joint Checking"
-      },
-      notes: "Our main shared account for household expenses",
-      tags: ["joint", "checking", "primary"],
-      createdAt: "2024-01-15T10:00:00Z",
-      updatedAt: "2024-12-01T14:30:00Z",
-      isFavorite: true,
-      isShared: true,
-      accessLevel: "both"
-    },
-    {
-      id: 2,
-      title: "Anniversary Surprise Plans",
-      category: "intimate",
-      type: "note",
-      data: {
-        content: "Planning a surprise weekend getaway to the cabin where we first said 'I love you'. Booked for June 14-16. Restaurant reservations at 7 PM on the 14th. Don't let them see this!"
-      },
-      notes: "Keep this secret until the surprise!",
-      tags: ["surprise", "anniversary", "secret"],
-      createdAt: "2024-05-01T09:00:00Z",
-      updatedAt: "2024-05-15T16:20:00Z",
-      isFavorite: true,
-      isShared: false,
-      accessLevel: "self"
-    },
-    {
-      id: 3,
-      title: "Netflix Account",
-      category: "password",
-      type: "login",
-      data: {
-        username: "ourcouple@email.com",
-        password: "••••••••••••",
-        website: "netflix.com",
-        notes: "Family plan - 4 screens"
-      },
-      notes: "Shared streaming account",
-      tags: ["streaming", "entertainment", "shared"],
-      createdAt: "2024-02-10T12:00:00Z",
-      updatedAt: "2024-11-20T10:15:00Z",
-      isFavorite: false,
-      isShared: true,
-      accessLevel: "both"
-    },
-    {
-      id: 4,
-      title: "Emergency Contacts",
-      category: "personal",
-      type: "contact_list",
-      data: {
-        contacts: [
-          { name: "Mom", phone: "(555) 123-4567", relationship: "Mother" },
-          { name: "Dad", phone: "(555) 234-5678", relationship: "Father" },
-          { name: "Dr. Smith", phone: "(555) 345-6789", relationship: "Family Doctor" }
-        ]
-      },
-      notes: "Important contacts for emergencies",
-      tags: ["emergency", "family", "medical"],
-      createdAt: "2024-01-20T15:30:00Z",
-      updatedAt: "2024-10-05T11:45:00Z",
-      isFavorite: true,
-      isShared: true,
-      accessLevel: "both"
-    },
-    {
-      id: 5,
-      title: "Love Letters Collection",
-      category: "intimate",
-      type: "document",
-      data: {
-        fileType: "PDF Collection",
-        fileName: "love_letters_2023_2024.pdf",
-        fileSize: "2.4 MB",
-        description: "Digital copies of all our handwritten love letters"
-      },
-      notes: "Our most precious written memories",
-      tags: ["letters", "memories", "precious"],
-      createdAt: "2024-03-14T20:00:00Z",
-      updatedAt: "2024-12-20T18:30:00Z",
-      isFavorite: true,
-      isShared: true,
-      accessLevel: "both"
-    },
-    {
-      id: 6,
-      title: "Insurance Policy",
-      category: "document",
-      type: "insurance",
-      data: {
-        policyNumber: "POL-2024-789456",
-        provider: "SecureLife Insurance",
-        type: "Life Insurance",
-        beneficiary: "Partner",
-        coverage: "$500,000"
-      },
-      notes: "Life insurance policy with partner as beneficiary",
-      tags: ["insurance", "life", "protection"],
-      createdAt: "2024-04-01T14:00:00Z",
-      updatedAt: "2024-04-01T14:00:00Z",
-      isFavorite: false,
-      isShared: true,
-      accessLevel: "both"
+  // Load vault items from secure storage
+  const loadVaultItems = async () => {
+    try {
+      // In a real implementation, this would call a secure vault API
+      // For now, start with empty vault since we don't have a vault service yet
+      return [];
+    } catch (error) {
+      console.error('Error loading vault items:', error);
+      return [];
     }
-  ];
+  };
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
+    const loadItems = async () => {
       if (isUnlocked) {
-        setVaultItems(mockVaultItems);
+        setLoading(true);
+        const items = await loadVaultItems();
+        setVaultItems(items);
+        setLoading(false);
       }
-      setLoading(false);
-    }, 1000);
+    };
 
-    return () => clearTimeout(timer);
+    loadItems();
   }, [isUnlocked]);
 
   const handleUnlockVault = (password) => {

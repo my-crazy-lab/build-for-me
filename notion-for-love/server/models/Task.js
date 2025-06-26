@@ -11,10 +11,10 @@
 const mongoose = require('mongoose');
 
 const TaskSchema = new mongoose.Schema({
-  relationshipId: {
+  userId: {
     type: mongoose.Schema.ObjectId,
-    ref: 'Relationship',
-    required: [true, 'Task must belong to a relationship']
+    ref: 'User',
+    required: [true, 'Task must belong to a user']
   },
   title: {
     type: String,
@@ -259,40 +259,40 @@ TaskSchema.methods.assignTo = function(userId) {
 };
 
 // Static method to get tasks by status
-TaskSchema.statics.getByStatus = function(relationshipId, status) {
-  return this.find({ relationshipId, status })
+TaskSchema.statics.getByStatus = function(userId, status) {
+  return this.find({ userId, status })
     .sort({ position: 1, createdAt: -1 })
     .populate('assignedTo', 'name avatar')
     .populate('createdBy', 'name avatar');
 };
 
 // Static method to get tasks by assignee
-TaskSchema.statics.getByAssignee = function(relationshipId, userId) {
-  return this.find({ relationshipId, assignedTo: userId })
+TaskSchema.statics.getByAssignee = function(userId, assigneeId) {
+  return this.find({ userId, assignedTo: assigneeId })
     .sort({ dueDate: 1, createdAt: -1 });
 };
 
 // Static method to get overdue tasks
-TaskSchema.statics.getOverdue = function(relationshipId) {
+TaskSchema.statics.getOverdue = function(userId) {
   return this.find({
-    relationshipId,
+    userId,
     status: { $ne: 'done' },
     dueDate: { $lt: new Date() }
   }).sort({ dueDate: 1 });
 };
 
 // Static method to get tasks for Kanban board
-TaskSchema.statics.getKanbanBoard = function(relationshipId) {
-  return this.find({ relationshipId })
+TaskSchema.statics.getKanbanBoard = function(userId) {
+  return this.find({ userId })
     .sort({ status: 1, position: 1, createdAt: -1 })
     .populate('assignedTo', 'name avatar')
     .populate('createdBy', 'name avatar');
 };
 
 // Indexes for better query performance
-TaskSchema.index({ relationshipId: 1, status: 1, position: 1 });
-TaskSchema.index({ relationshipId: 1, assignedTo: 1 });
-TaskSchema.index({ relationshipId: 1, dueDate: 1 });
+TaskSchema.index({ userId: 1, status: 1, position: 1 });
+TaskSchema.index({ userId: 1, assignedTo: 1 });
+TaskSchema.index({ userId: 1, dueDate: 1 });
 TaskSchema.index({ goalId: 1 });
 TaskSchema.index({ createdBy: 1 });
 

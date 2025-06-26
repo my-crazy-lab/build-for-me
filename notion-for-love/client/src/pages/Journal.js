@@ -21,6 +21,7 @@ import Badge from '../components/ui/Badge';
 import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
+import { journalService } from '../services';
 
 const Journal = () => {
   const [entries, setEntries] = useState([]);
@@ -101,108 +102,28 @@ const Journal = () => {
     }
   };
 
-  // Mock journal entries
-  const mockEntries = [
-    {
-      id: 1,
-      type: 'gratitude',
-      title: 'Grateful for Your Support',
-      content: 'Today I\'m incredibly grateful for how you supported me during my presentation. You helped me practice, gave me confidence, and celebrated with me afterward. Your belief in me means everything. I love how we\'re a team in everything we do.',
-      author: 'self',
-      date: '2024-12-25T20:30:00Z',
-      mood: 'happy',
-      tags: ['support', 'work', 'teamwork'],
-      isShared: true,
-      reactions: [
-        { author: 'partner', emoji: '❤️', timestamp: '2024-12-25T21:00:00Z' },
-        { author: 'partner', emoji: '🥰', timestamp: '2024-12-25T21:01:00Z' }
-      ],
-      comments: [
-        {
-          id: 1,
-          author: 'partner',
-          content: 'You did amazing! I\'m so proud of you. We really are the best team ❤️',
-          timestamp: '2024-12-25T21:05:00Z'
-        }
-      ]
-    },
-    {
-      id: 2,
-      type: 'daily',
-      title: 'Perfect Sunday Morning',
-      content: 'Woke up to the smell of pancakes and found you in the kitchen, dancing to our favorite song while cooking. These simple moments are what I treasure most. We spent the morning talking over coffee, planning our week, and just enjoying each other\'s company.',
-      author: 'partner',
-      date: '2024-12-22T10:15:00Z',
-      mood: 'content',
-      tags: ['morning', 'cooking', 'music'],
-      isShared: true,
-      reactions: [
-        { author: 'self', emoji: '☕', timestamp: '2024-12-22T11:00:00Z' },
-        { author: 'self', emoji: '💕', timestamp: '2024-12-22T11:01:00Z' }
-      ],
-      comments: []
-    },
-    {
-      id: 3,
-      type: 'reflection',
-      title: 'Growing Through Challenges',
-      content: 'This week we faced some stress with work and family obligations, but I noticed how we\'ve gotten better at communicating through difficult times. Instead of getting frustrated with each other, we talked openly about our feelings and found solutions together.',
-      author: 'self',
-      date: '2024-12-20T19:45:00Z',
-      mood: 'thoughtful',
-      tags: ['communication', 'growth', 'challenges'],
-      isShared: true,
-      reactions: [
-        { author: 'partner', emoji: '💪', timestamp: '2024-12-20T20:00:00Z' }
-      ],
-      comments: [
-        {
-          id: 1,
-          author: 'partner',
-          content: 'I\'ve noticed this too! We\'re definitely getting stronger together.',
-          timestamp: '2024-12-20T20:15:00Z'
-        }
-      ]
-    },
-    {
-      id: 4,
-      type: 'dreams',
-      title: 'Our Future Home',
-      content: 'Spent the evening looking at houses online and dreaming about our future home. I love how we both get excited about the same things - a big kitchen for cooking together, a cozy reading nook, and a garden where we can grow our own vegetables.',
-      author: 'partner',
-      date: '2024-12-18T21:20:00Z',
-      mood: 'excited',
-      tags: ['future', 'home', 'dreams'],
-      isShared: true,
-      reactions: [
-        { author: 'self', emoji: '🏠', timestamp: '2024-12-18T22:00:00Z' },
-        { author: 'self', emoji: '🌱', timestamp: '2024-12-18T22:01:00Z' }
-      ],
-      comments: []
-    },
-    {
-      id: 5,
-      type: 'evening',
-      title: 'Peaceful End to the Day',
-      content: 'As I write this, you\'re reading beside me, and I feel so content. Today was busy, but we made time for each other. Our evening walk, dinner together, and now this quiet moment - it\'s perfect. Looking forward to tomorrow\'s adventures with you.',
-      author: 'self',
-      date: '2024-12-15T22:30:00Z',
-      mood: 'peaceful',
-      tags: ['evening', 'contentment', 'togetherness'],
-      isShared: true,
-      reactions: [
-        { author: 'partner', emoji: '🌙', timestamp: '2024-12-15T23:00:00Z' }
-      ],
-      comments: []
-    }
-  ];
+
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setEntries(mockEntries);
-      setLoading(false);
-    }, 1000);
+    // Load journal entries from API
+    const loadEntries = async () => {
+      try {
+        setLoading(true);
+        const response = await journalService.getEntries();
+        if (response.success) {
+          setEntries(response.data);
+        } else {
+          setEntries([]);
+        }
+      } catch (error) {
+        console.error('Error loading journal entries:', error);
+        setEntries([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadEntries();
 
     return () => clearTimeout(timer);
   }, []);
@@ -474,9 +395,24 @@ const Journal = () => {
         <JournalEntryForm
           entryTypes={entryTypes}
           onClose={() => setShowAddModal(false)}
-          onSave={(newEntry) => {
-            setEntries([{ ...newEntry, id: Date.now() }, ...entries]);
-            setShowAddModal(false);
+          onSave={async (newEntry) => {
+            try {
+              const response = await journalService.createEntry(newEntry);
+              if (response.success) {
+                // Refresh entries list
+                const entriesResponse = await journalService.getEntries();
+                if (entriesResponse.success) {
+                  setEntries(entriesResponse.data);
+                }
+                setShowAddModal(false);
+              } else {
+                console.error('Failed to create journal entry:', response.error);
+                alert('Failed to create journal entry. Please try again.');
+              }
+            } catch (error) {
+              console.error('Error creating journal entry:', error);
+              alert('Failed to create journal entry. Please try again.');
+            }
           }}
         />
       </Modal>

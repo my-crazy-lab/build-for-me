@@ -11,11 +11,8 @@
 const mongoose = require('mongoose');
 
 const EmotionSchema = new mongoose.Schema({
-  relationshipId: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Relationship',
-    required: [true, 'Emotion entry must belong to a relationship']
-  },
+  // Note: Keeping this simple for single-user approach
+  // Each emotion entry belongs to a specific user
   userId: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
@@ -193,31 +190,27 @@ EmotionSchema.statics.getUserHistory = function(userId, days = 30) {
   }).sort({ date: -1 });
 };
 
-// Static method to get relationship emotion trends
-EmotionSchema.statics.getRelationshipTrends = function(relationshipId, days = 30) {
+// Static method to get user emotion trends
+EmotionSchema.statics.getUserTrends = function(userId, days = 30) {
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - days);
-  
+
   return this.find({
-    relationshipId,
+    userId,
     date: { $gte: startDate }
   }).sort({ date: -1 }).populate('userId', 'name avatar');
 };
 
 // Static method to get mood statistics
-EmotionSchema.statics.getMoodStats = function(relationshipId, userId = null, days = 30) {
+EmotionSchema.statics.getMoodStats = function(userId, days = 30) {
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - days);
-  
+
   const matchQuery = {
-    relationshipId,
+    userId,
     date: { $gte: startDate }
   };
-  
-  if (userId) {
-    matchQuery.userId = userId;
-  }
-  
+
   return this.aggregate([
     { $match: matchQuery },
     {
@@ -233,19 +226,15 @@ EmotionSchema.statics.getMoodStats = function(relationshipId, userId = null, day
 };
 
 // Static method to get wellness trends
-EmotionSchema.statics.getWellnessTrends = function(relationshipId, userId = null, days = 30) {
+EmotionSchema.statics.getWellnessTrends = function(userId, days = 30) {
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - days);
-  
+
   const matchQuery = {
-    relationshipId,
+    userId,
     date: { $gte: startDate }
   };
-  
-  if (userId) {
-    matchQuery.userId = userId;
-  }
-  
+
   return this.aggregate([
     { $match: matchQuery },
     {
@@ -270,9 +259,7 @@ EmotionSchema.statics.getWellnessTrends = function(relationshipId, userId = null
 };
 
 // Indexes for better query performance
-EmotionSchema.index({ relationshipId: 1, date: -1 });
 EmotionSchema.index({ userId: 1, date: -1 });
-EmotionSchema.index({ relationshipId: 1, userId: 1, date: -1 });
 EmotionSchema.index({ mood: 1 });
 
 // Compound index to enforce one entry per user per day

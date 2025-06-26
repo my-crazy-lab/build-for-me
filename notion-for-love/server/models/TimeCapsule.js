@@ -11,10 +11,10 @@
 const mongoose = require('mongoose');
 
 const TimeCapsuleSchema = new mongoose.Schema({
-  relationshipId: {
+  userId: {
     type: mongoose.Schema.ObjectId,
-    ref: 'Relationship',
-    required: [true, 'Time capsule must belong to a relationship']
+    ref: 'User',
+    required: [true, 'Time capsule must belong to a user']
   },
   title: {
     type: String,
@@ -246,30 +246,30 @@ TimeCapsuleSchema.methods.addReply = function(userId, message) {
 };
 
 // Static method to get unlocked capsules
-TimeCapsuleSchema.statics.getUnlocked = function(relationshipId) {
+TimeCapsuleSchema.statics.getUnlocked = function(userId) {
   return this.find({
-    relationshipId,
+    userId,
     isUnlocked: true
   }).sort({ unlockedAt: -1 }).populate('createdBy', 'name avatar');
 };
 
 // Static method to get capsules ready to unlock
-TimeCapsuleSchema.statics.getReadyToUnlock = function(relationshipId) {
+TimeCapsuleSchema.statics.getReadyToUnlock = function(userId) {
   return this.find({
-    relationshipId,
+    userId,
     isUnlocked: false,
     unlockAt: { $lte: new Date() }
   }).sort({ unlockAt: 1 });
 };
 
 // Static method to get upcoming capsules
-TimeCapsuleSchema.statics.getUpcoming = function(relationshipId, days = 30) {
+TimeCapsuleSchema.statics.getUpcoming = function(userId, days = 30) {
   const now = new Date();
   const futureDate = new Date();
   futureDate.setDate(futureDate.getDate() + days);
-  
+
   return this.find({
-    relationshipId,
+    userId,
     isUnlocked: false,
     unlockAt: {
       $gt: now,
@@ -279,25 +279,25 @@ TimeCapsuleSchema.statics.getUpcoming = function(relationshipId, days = 30) {
 };
 
 // Static method to get capsules by category
-TimeCapsuleSchema.statics.getByCategory = function(relationshipId, category) {
+TimeCapsuleSchema.statics.getByCategory = function(userId, category) {
   return this.find({
-    relationshipId,
+    userId,
     category
   }).sort({ unlockAt: -1 });
 };
 
 // Static method to get capsules created by user
-TimeCapsuleSchema.statics.getByCreator = function(relationshipId, userId) {
+TimeCapsuleSchema.statics.getByCreator = function(userId) {
   return this.find({
-    relationshipId,
+    userId,
     createdBy: userId
   }).sort({ createdAt: -1 });
 };
 
 // Indexes for better query performance
-TimeCapsuleSchema.index({ relationshipId: 1, unlockAt: 1 });
-TimeCapsuleSchema.index({ relationshipId: 1, isUnlocked: 1 });
-TimeCapsuleSchema.index({ relationshipId: 1, category: 1 });
+TimeCapsuleSchema.index({ userId: 1, unlockAt: 1 });
+TimeCapsuleSchema.index({ userId: 1, isUnlocked: 1 });
+TimeCapsuleSchema.index({ userId: 1, category: 1 });
 TimeCapsuleSchema.index({ createdBy: 1 });
 TimeCapsuleSchema.index({ 'recipients.userId': 1 });
 

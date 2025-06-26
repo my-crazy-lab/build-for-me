@@ -11,10 +11,10 @@
 const mongoose = require('mongoose');
 
 const EventSchema = new mongoose.Schema({
-  relationshipId: {
+  userId: {
     type: mongoose.Schema.ObjectId,
-    ref: 'Relationship',
-    required: [true, 'Event must belong to a relationship']
+    ref: 'User',
+    required: [true, 'Event must belong to a user']
   },
   title: {
     type: String,
@@ -28,7 +28,10 @@ const EventSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    required: [true, 'Please add an event date']
+    required: function() {
+      // Date is required only for confirmed and planning events
+      return this.status === 'confirmed' || this.status === 'planning';
+    }
   },
   endDate: {
     type: Date
@@ -37,11 +40,18 @@ const EventSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  status: {
+    type: String,
+    enum: ['confirmed', 'planning', 'idea', 'bucket-list', 'completed', 'cancelled'],
+    default: 'planning',
+    required: [true, 'Please specify event status']
+  },
   type: {
     type: String,
     enum: [
       'anniversary', 'birthday', 'date-night', 'family', 'travel',
-      'milestone', 'appointment', 'celebration', 'reminder', 'other'
+      'milestone', 'appointment', 'celebration', 'reminder', 'other',
+      'dinner', 'activity', 'adventure', 'romantic', 'fun'
     ],
     required: [true, 'Please specify event type']
   },
@@ -236,13 +246,13 @@ EventSchema.methods.addReminder = function(method, offsetMinutes) {
 };
 
 // Static method to get upcoming events
-EventSchema.statics.getUpcoming = function(relationshipId, days = 30) {
+EventSchema.statics.getUpcoming = function(userId, days = 30) {
   const now = new Date();
   const futureDate = new Date();
   futureDate.setDate(futureDate.getDate() + days);
-  
+
   return this.find({
-    relationshipId,
+    userId,
     date: {
       $gte: now,
       $lte: futureDate
@@ -251,9 +261,9 @@ EventSchema.statics.getUpcoming = function(relationshipId, days = 30) {
 };
 
 // Static method to get events by date range
-EventSchema.statics.getByDateRange = function(relationshipId, startDate, endDate) {
+EventSchema.statics.getByDateRange = function(userId, startDate, endDate) {
   return this.find({
-    relationshipId,
+    userId,
     date: {
       $gte: startDate,
       $lte: endDate
@@ -262,9 +272,9 @@ EventSchema.statics.getByDateRange = function(relationshipId, startDate, endDate
 };
 
 // Static method to get events by type
-EventSchema.statics.getByType = function(relationshipId, type) {
+EventSchema.statics.getByType = function(userId, type) {
   return this.find({
-    relationshipId,
+    userId,
     type
   }).sort({ date: -1 });
 };
@@ -276,12 +286,12 @@ EventSchema.statics.getEventsNeedingReminders = function() {
   return this.find({
     'reminders.sent': false,
     date: { $gt: now }
-  }).populate('relationshipId attendees.userId');
+  }).populate('userId attendees.userId');
 };
 
 // Indexes for better query performance
-EventSchema.index({ relationshipId: 1, date: 1 });
-EventSchema.index({ relationshipId: 1, type: 1 });
+EventSchema.index({ userId: 1, date: 1 });
+EventSchema.index({ userId: 1, type: 1 });
 EventSchema.index({ 'attendees.userId': 1 });
 EventSchema.index({ createdBy: 1 });
 EventSchema.index({ date: 1, 'reminders.sent': 1 });

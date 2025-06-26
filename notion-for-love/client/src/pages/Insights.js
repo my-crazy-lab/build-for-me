@@ -26,130 +26,29 @@ const Insights = () => {
   const [timeRange, setTimeRange] = useState('month'); // week, month, quarter, year
   const [refreshing, setRefreshing] = useState(false);
 
-  // Mock insights data
-  const mockInsights = {
-    overview: {
-      relationshipScore: 8.7,
-      scoreChange: 0.3,
-      totalActivities: 47,
-      activitiesChange: 5,
-      communicationScore: 9.1,
-      communicationChange: 0.2,
-      happinessLevel: 8.9,
-      happinessChange: 0.1
-    },
-    trends: {
-      communication: {
-        daily: [7.5, 8.2, 8.8, 9.1, 8.7, 9.3, 9.1],
-        weekly: [8.1, 8.4, 8.7, 9.1],
-        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4']
-      },
-      activities: {
-        categories: ['Romantic', 'Adventure', 'Home', 'Cultural', 'Active'],
-        counts: [12, 8, 15, 7, 5],
-        colors: ['#ef4444', '#3b82f6', '#eab308', '#8b5cf6', '#10b981']
-      },
-      emotions: {
-        positive: 78,
-        neutral: 18,
-        negative: 4,
-        trend: 'improving'
-      }
-    },
-    patterns: {
-      bestDays: ['Friday', 'Saturday', 'Sunday'],
-      bestTimes: ['Evening (6-9 PM)', 'Morning (9-11 AM)'],
-      favoriteActivities: ['Cooking together', 'Movie nights', 'Long walks'],
-      communicationPeaks: ['After dinner', 'Weekend mornings', 'Before bed'],
-      conflictTriggers: ['Work stress', 'Schedule conflicts', 'Household tasks']
-    },
-    recommendations: [
-      {
-        id: 1,
-        type: 'communication',
-        priority: 'high',
-        title: 'Schedule Weekly Check-ins',
-        description: 'Your communication scores are highest on weekends. Consider scheduling regular relationship check-ins on Sunday evenings.',
-        action: 'Set up recurring calendar event',
-        impact: 'Could improve communication score by 15%'
-      },
-      {
-        id: 2,
-        type: 'activity',
-        priority: 'medium',
-        title: 'Try New Adventure Activities',
-        description: 'You\'ve been doing fewer adventure activities lately. Your happiness scores are 20% higher after outdoor adventures.',
-        action: 'Plan a hiking trip or outdoor activity',
-        impact: 'Boost overall relationship satisfaction'
-      },
-      {
-        id: 3,
-        type: 'routine',
-        priority: 'medium',
-        title: 'Morning Connection Ritual',
-        description: 'Data shows you communicate best in the morning. Consider creating a morning connection ritual.',
-        action: 'Start with 10 minutes of morning coffee together',
-        impact: 'Strengthen daily connection'
-      },
-      {
-        id: 4,
-        type: 'stress',
-        priority: 'low',
-        title: 'Stress Management Strategy',
-        description: 'Work stress appears to correlate with communication dips. Consider stress management techniques.',
-        action: 'Practice evening wind-down routine',
-        impact: 'Reduce conflict triggers by 25%'
-      }
-    ],
-    achievements: [
-      {
-        id: 1,
-        title: 'Communication Champions',
-        description: 'Maintained 9+ communication score for 2 weeks',
-        earnedDate: '2024-12-20',
-        icon: MessageCircle,
-        color: 'bg-blue-500'
-      },
-      {
-        id: 2,
-        title: 'Adventure Seekers',
-        description: 'Completed 5 adventure activities this month',
-        earnedDate: '2024-12-15',
-        icon: Target,
-        color: 'bg-green-500'
-      },
-      {
-        id: 3,
-        title: 'Consistency Kings',
-        description: 'Logged activities for 30 consecutive days',
-        earnedDate: '2024-12-10',
-        icon: Calendar,
-        color: 'bg-purple-500'
-      }
-    ],
-    milestones: {
-      upcoming: [
-        {
-          name: '6 Month Anniversary',
-          date: '2025-01-14',
-          daysUntil: 20,
-          suggestions: ['Plan special dinner', 'Create photo album', 'Write love letters']
-        },
-        {
-          name: '100 Shared Activities',
-          current: 47,
-          target: 100,
-          progress: 47,
-          suggestions: ['Try cooking class', 'Visit new museum', 'Go on weekend trip']
-        }
-      ]
-    }
-  };
+
 
   useEffect(() => {
-    // Simulate loading insights
+    // Load insights from API (placeholder for now)
     const timer = setTimeout(() => {
-      setInsights(mockInsights);
+      setInsights({
+        overview: {
+          relationshipScore: 0,
+          scoreChange: 0,
+          totalActivities: 0,
+          activitiesChange: 0,
+          communicationScore: 0,
+          communicationChange: 0,
+          happinessLevel: 0,
+          happinessChange: 0
+        },
+        trends: {
+          communication: { daily: [], weekly: [], labels: [] },
+          activities: { categories: [], counts: [], colors: [] },
+          emotions: { positive: 0, neutral: 0, negative: 0, trend: 'stable' }
+        },
+        milestones: { upcoming: [] }
+      });
       setLoading(false);
     }, 1500);
 

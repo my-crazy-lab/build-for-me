@@ -11,45 +11,36 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Target, Plus, ArrowRight, Calendar, CheckCircle } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { goalsService } from '../../../services';
 import DashboardWidget from '../DashboardWidget';
 import Button from '../../ui/Button';
 import Badge from '../../ui/Badge';
 
 const SharedGoalsWidget = ({ id, onRemove, onResize, onSettings }) => {
-  // Mock goals data
-  const goals = [
-    {
-      id: 1,
-      title: "Save for Dream House",
-      description: "Save $50,000 for our future home down payment",
-      progress: 68,
-      targetDate: "2025-06-01",
-      category: "financial",
-      priority: "high",
-      daysLeft: 158
-    },
-    {
-      id: 2,
-      title: "Plan European Honeymoon",
-      description: "Research and book our 2-week European adventure",
-      progress: 45,
-      targetDate: "2025-03-15",
-      category: "travel",
-      priority: "medium",
-      daysLeft: 80
-    },
-    {
-      id: 3,
-      title: "Learn Cooking Together",
-      description: "Master 20 new recipes from different cuisines",
-      progress: 85,
-      targetDate: "2025-01-31",
-      category: "learning",
-      priority: "low",
-      daysLeft: 37
-    }
-  ];
+  const navigate = useNavigate();
+  const [goals, setGoals] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Load goals from API
+  useEffect(() => {
+    const loadGoals = async () => {
+      try {
+        setLoading(true);
+        const response = await goalsService.getGoals({ limit: 3 });
+        if (response.success) {
+          setGoals(response.data);
+        }
+      } catch (error) {
+        console.error('Error loading goals:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadGoals();
+  }, []);
 
   const getCategoryColor = (category) => {
     const colors = {
@@ -92,7 +83,7 @@ const SharedGoalsWidget = ({ id, onRemove, onResize, onSettings }) => {
           <div className="flex items-center space-x-2">
             <Target className="w-5 h-5 text-secondary-500" />
             <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
-              {goals.length} active goals
+              {loading ? 'Loading...' : `${goals.length} active goals`}
             </span>
           </div>
           <div className="flex items-center space-x-2">
@@ -100,6 +91,7 @@ const SharedGoalsWidget = ({ id, onRemove, onResize, onSettings }) => {
               variant="ghost"
               size="sm"
               leftIcon={<Plus className="w-4 h-4" />}
+              onClick={() => navigate('/goals')}
             >
               Add Goal
             </Button>
@@ -117,7 +109,19 @@ const SharedGoalsWidget = ({ id, onRemove, onResize, onSettings }) => {
 
         {/* Goals List */}
         <div className="space-y-4">
-          {goals.map((goal, index) => (
+          {loading ? (
+            <div className="text-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500 mx-auto"></div>
+              <p className="text-sm text-gray-500 mt-2">Loading goals...</p>
+            </div>
+          ) : goals.length === 0 ? (
+            <div className="text-center py-8">
+              <Target className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+              <p className="text-sm text-gray-500">No goals yet</p>
+              <p className="text-xs text-gray-400">Create your first goal to get started</p>
+            </div>
+          ) : (
+            goals.map((goal, index) => (
             <motion.div
               key={goal.id}
               initial={{ opacity: 0, y: 20 }}
@@ -173,7 +177,8 @@ const SharedGoalsWidget = ({ id, onRemove, onResize, onSettings }) => {
                 </div>
               </div>
             </motion.div>
-          ))}
+          ))
+          )}
         </div>
 
         {/* Footer */}

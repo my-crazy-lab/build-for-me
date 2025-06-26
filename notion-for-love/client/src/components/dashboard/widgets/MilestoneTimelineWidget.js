@@ -11,43 +11,37 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Calendar, MapPin, Plus, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { milestonesService } from '../../../services';
 import DashboardWidget from '../DashboardWidget';
 import Button from '../../ui/Button';
 import Badge from '../../ui/Badge';
-import Avatar from '../../ui/Avatar';
+
 
 const MilestoneTimelineWidget = ({ id, onRemove, onResize, onSettings }) => {
-  // Mock milestone data
-  const milestones = [
-    {
-      id: 1,
-      title: "First Anniversary Celebration",
-      date: "2024-12-20",
-      location: "Rooftop Restaurant",
-      emotion: "loved",
-      image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=60&h=60&fit=crop&crop=center",
-      daysAgo: 2
-    },
-    {
-      id: 2,
-      title: "Moved in Together",
-      date: "2024-12-10",
-      location: "Our New Home",
-      emotion: "excited",
-      image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=60&h=60&fit=crop&crop=center",
-      daysAgo: 12
-    },
-    {
-      id: 3,
-      title: "First Trip to Paris",
-      date: "2024-11-15",
-      location: "Paris, France",
-      emotion: "amazing",
-      image: "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=60&h=60&fit=crop&crop=center",
-      daysAgo: 37
-    }
-  ];
+  const navigate = useNavigate();
+  const [milestones, setMilestones] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Load milestones from API
+  useEffect(() => {
+    const loadMilestones = async () => {
+      try {
+        setLoading(true);
+        const response = await milestonesService.getMilestones({ limit: 3 });
+        if (response.success) {
+          setMilestones(response.data);
+        }
+      } catch (error) {
+        console.error('Error loading milestones:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadMilestones();
+  }, []);
 
   const getEmotionColor = (emotion) => {
     const colors = {
@@ -83,6 +77,7 @@ const MilestoneTimelineWidget = ({ id, onRemove, onResize, onSettings }) => {
               variant="ghost"
               size="sm"
               leftIcon={<Plus className="w-4 h-4" />}
+              onClick={() => navigate('/timeline')}
             >
               Add
             </Button>

@@ -42,11 +42,7 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     sparse: true // Allow null values but ensure uniqueness when present
   },
-  relationshipId: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Relationship',
-    default: null
-  },
+
   role: {
     type: String,
     enum: ['partner', 'admin'],
@@ -122,10 +118,7 @@ UserSchema.methods.updateLastLogin = function() {
   return this.save({ validateBeforeSave: false });
 };
 
-// Check if user is part of a relationship
-UserSchema.methods.hasRelationship = function() {
-  return !!this.relationshipId;
-};
+
 
 // Virtual for user's full profile
 UserSchema.virtual('profile').get(function() {
@@ -135,7 +128,7 @@ UserSchema.virtual('profile').get(function() {
     email: this.email,
     avatar: this.avatar,
     role: this.role,
-    relationshipId: this.relationshipId,
+
     preferences: this.preferences,
     joinedAt: this.joinedAt,
     lastLogin: this.lastLogin
@@ -145,6 +138,6 @@ UserSchema.virtual('profile').get(function() {
 // Index for better query performance
 UserSchema.index({ email: 1 });
 UserSchema.index({ googleId: 1 });
-UserSchema.index({ relationshipId: 1 });
+
 
 module.exports = mongoose.model('User', UserSchema);

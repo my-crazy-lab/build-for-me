@@ -22,6 +22,7 @@ import Badge from '../components/ui/Badge';
 import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
+import { memoriesService } from '../services';
 
 const MemoryVault = () => {
   const [memories, setMemories] = useState([]);
@@ -33,147 +34,16 @@ const MemoryVault = () => {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [selectedMemory, setSelectedMemory] = useState(null);
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [error, setError] = useState(null);
 
-  // Mock memories data
-  const mockMemories = [
-    {
-      id: 1,
-      title: "Anniversary Dinner",
-      description: "Our beautiful first anniversary celebration at the rooftop restaurant",
-      type: "image",
-      url: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&h=600&fit=crop&crop=center",
-      thumbnailUrl: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=300&fit=crop&crop=center",
-      dateTaken: "2024-12-20T19:30:00Z",
-      location: "Skyline Rooftop Restaurant",
-      category: "milestone",
-      tags: ["anniversary", "romantic", "dinner", "celebration"],
-      isFavorite: true,
-      isHighlight: true,
-      reactions: [
-        { type: "love", count: 2 },
-        { type: "wow", count: 1 }
-      ],
-      comments: [
-        { user: "You", text: "This was such a perfect evening!", timestamp: "2024-12-21T10:00:00Z" }
-      ],
-      fileSize: 2.4,
-      dimensions: { width: 1920, height: 1080 }
-    },
-    {
-      id: 2,
-      title: "Moving Day Chaos",
-      description: "The fun and chaos of moving into our first shared apartment",
-      type: "video",
-      url: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop&crop=center",
-      thumbnailUrl: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop&crop=center",
-      dateTaken: "2024-12-10T14:00:00Z",
-      location: "Our New Home",
-      category: "daily-life",
-      tags: ["moving", "home", "together", "funny"],
-      isFavorite: false,
-      isHighlight: false,
-      duration: 120, // seconds
-      reactions: [
-        { type: "laugh", count: 3 }
-      ],
-      comments: [],
-      fileSize: 45.2,
-      dimensions: { width: 1920, height: 1080 }
-    },
-    {
-      id: 3,
-      title: "Paris Sunset",
-      description: "Magical sunset at the Eiffel Tower during our romantic getaway",
-      type: "image",
-      url: "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=800&h=600&fit=crop&crop=center",
-      thumbnailUrl: "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=300&fit=crop&crop=center",
-      dateTaken: "2024-11-15T18:45:00Z",
-      location: "Paris, France",
-      category: "travel",
-      tags: ["paris", "sunset", "eiffel-tower", "romantic"],
-      isFavorite: true,
-      isHighlight: true,
-      reactions: [
-        { type: "love", count: 2 },
-        { type: "wow", count: 2 }
-      ],
-      comments: [
-        { user: "Partner", text: "This moment was pure magic ✨", timestamp: "2024-11-16T09:00:00Z" }
-      ],
-      fileSize: 3.1,
-      dimensions: { width: 1920, height: 1280 }
-    },
-    {
-      id: 4,
-      title: "Cooking Together",
-      description: "Learning to make pasta from scratch - messy but so much fun!",
-      type: "image",
-      url: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop&crop=center",
-      thumbnailUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop&crop=center",
-      dateTaken: "2024-11-28T16:20:00Z",
-      location: "Our Kitchen",
-      category: "daily-life",
-      tags: ["cooking", "pasta", "learning", "fun"],
-      isFavorite: false,
-      isHighlight: false,
-      reactions: [
-        { type: "laugh", count: 1 },
-        { type: "love", count: 1 }
-      ],
-      comments: [],
-      fileSize: 2.8,
-      dimensions: { width: 1920, height: 1080 }
-    },
-    {
-      id: 5,
-      title: "First Date Café",
-      description: "The little café where our love story began",
-      type: "image",
-      url: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&h=600&fit=crop&crop=center",
-      thumbnailUrl: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=300&fit=crop&crop=center",
-      dateTaken: "2023-06-14T15:30:00Z",
-      location: "Corner Café, Downtown",
-      category: "milestone",
-      tags: ["first-date", "coffee", "beginning", "special"],
-      isFavorite: true,
-      isHighlight: true,
-      reactions: [
-        { type: "love", count: 3 }
-      ],
-      comments: [
-        { user: "You", text: "I was so nervous but so excited!", timestamp: "2023-06-15T10:00:00Z" }
-      ],
-      fileSize: 1.9,
-      dimensions: { width: 1920, height: 1080 }
-    },
-    {
-      id: 6,
-      title: "Our Song",
-      description: "The song that was playing during our first dance",
-      type: "audio",
-      url: "https://example.com/our-song.mp3",
-      thumbnailUrl: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop&crop=center",
-      dateTaken: "2024-12-20T21:00:00Z",
-      location: "Anniversary Dinner",
-      category: "romantic",
-      tags: ["music", "first-dance", "anniversary", "special"],
-      isFavorite: true,
-      isHighlight: false,
-      duration: 240, // seconds
-      reactions: [
-        { type: "love", count: 2 }
-      ],
-      comments: [],
-      fileSize: 8.5
-    }
-  ];
+
 
   const categories = [
-    { id: 'all', label: 'All Categories', count: mockMemories.length },
-    { id: 'milestone', label: 'Milestones', count: 2 },
-    { id: 'daily-life', label: 'Daily Life', count: 2 },
-    { id: 'travel', label: 'Travel', count: 1 },
-    { id: 'romantic', label: 'Romantic', count: 1 }
+    { id: 'all', label: 'All Categories', count: memories.length },
+    { id: 'milestone', label: 'Milestones', count: memories.filter(m => m.category === 'milestone').length },
+    { id: 'daily-life', label: 'Daily Life', count: memories.filter(m => m.category === 'daily-life').length },
+    { id: 'travel', label: 'Travel', count: memories.filter(m => m.category === 'travel').length },
+    { id: 'romantic', label: 'Romantic', count: memories.filter(m => m.category === 'romantic').length }
   ];
 
   const types = [
@@ -183,15 +53,35 @@ const MemoryVault = () => {
     { id: 'audio', label: 'Audio', icon: Music }
   ];
 
-  useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setMemories(mockMemories);
-      setLoading(false);
-    }, 1000);
+  // Load memories from API
+  const loadMemories = async () => {
+    try {
+      setLoading(true);
+      setError(null);
 
-    return () => clearTimeout(timer);
-  }, []);
+      const filters = {
+        category: selectedCategory,
+        type: selectedType,
+        search: searchQuery
+      };
+
+      const response = await memoriesService.getMemories(filters);
+      if (response.success) {
+        setMemories(response.data);
+      } else {
+        setError(response.error);
+      }
+    } catch (error) {
+      console.error('Error loading memories:', error);
+      setError('Failed to load memories');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadMemories();
+  }, [selectedCategory, selectedType, searchQuery]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const filteredMemories = memories.filter(memory => {
     if (selectedCategory !== 'all' && memory.category !== selectedCategory) {
@@ -259,6 +149,22 @@ const MemoryVault = () => {
           variant="pulse"
           text="Loading your precious memories..."
         />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-96">
+        <Card className="p-6 text-center">
+          <p className="text-error-600 dark:text-error-400 mb-4">{error}</p>
+          <Button
+            variant="primary"
+            onClick={() => loadMemories()}
+          >
+            Try Again
+          </Button>
+        </Card>
       </div>
     );
   }
@@ -472,20 +378,28 @@ const MemoryVault = () => {
         title="Upload New Memory"
         size="lg"
       >
-        <div className="space-y-4">
-          <p className="text-gray-600 dark:text-gray-400">
-            Share a new precious moment to your memory vault.
-          </p>
-          {/* Upload form would go here */}
-          <div className="flex justify-end space-x-3">
-            <Button variant="ghost" onClick={() => setShowUploadModal(false)}>
-              Cancel
-            </Button>
-            <Button variant="primary">
-              Upload Memory
-            </Button>
-          </div>
-        </div>
+        <MemoryUploadForm
+          onClose={() => setShowUploadModal(false)}
+          onSave={async (memoryData) => {
+            try {
+              const response = await memoriesService.createMemory(memoryData);
+              if (response.success) {
+                // Refresh memories list
+                const memoriesResponse = await memoriesService.getMemories();
+                if (memoriesResponse.success) {
+                  setMemories(memoriesResponse.data);
+                }
+                setShowUploadModal(false);
+              } else {
+                console.error('Failed to create memory:', response.error);
+                alert('Failed to upload memory. Please try again.');
+              }
+            } catch (error) {
+              console.error('Error creating memory:', error);
+              alert('Failed to upload memory. Please try again.');
+            }
+          }}
+        />
       </Modal>
 
       {/* Memory Detail Modal */}
@@ -979,6 +893,207 @@ const MemoryLightbox = ({ memories, currentIndex, onClose, onNavigate }) => {
         </div>
       </div>
     </motion.div>
+  );
+};
+
+// Memory Upload Form Component
+const MemoryUploadForm = ({ onClose, onSave }) => {
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    type: 'image',
+    category: 'special',
+    dateTaken: '',
+    location: '',
+    tags: '',
+    isPrivate: false,
+    isFavorite: false,
+    isHighlight: false
+  });
+
+  const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const categories = [
+    { value: 'special', label: 'Special Moments' },
+    { value: 'everyday', label: 'Everyday Life' },
+    { value: 'travel', label: 'Travel & Adventures' },
+    { value: 'celebration', label: 'Celebrations' },
+    { value: 'family', label: 'Family & Friends' },
+    { value: 'romantic', label: 'Romantic' },
+    { value: 'achievement', label: 'Achievements' },
+    { value: 'other', label: 'Other' }
+  ];
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+
+      // Auto-detect type based on file
+      if (selectedFile.type.startsWith('image/')) {
+        setFormData(prev => ({ ...prev, type: 'image' }));
+      } else if (selectedFile.type.startsWith('video/')) {
+        setFormData(prev => ({ ...prev, type: 'video' }));
+      } else if (selectedFile.type.startsWith('audio/')) {
+        setFormData(prev => ({ ...prev, type: 'audio' }));
+      } else {
+        setFormData(prev => ({ ...prev, type: 'document' }));
+      }
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.title || !file) return;
+
+    setLoading(true);
+    try {
+      // Create FormData for file upload
+      const uploadData = new FormData();
+      uploadData.append('file', file);
+      uploadData.append('title', formData.title);
+      uploadData.append('description', formData.description);
+      uploadData.append('type', formData.type);
+      uploadData.append('category', formData.category);
+      uploadData.append('dateTaken', formData.dateTaken || new Date().toISOString());
+      uploadData.append('location', formData.location);
+      uploadData.append('isPrivate', formData.isPrivate);
+      uploadData.append('isFavorite', formData.isFavorite);
+      uploadData.append('isHighlight', formData.isHighlight);
+
+      if (formData.tags) {
+        const tags = formData.tags.split(',').map(tag => tag.trim()).filter(Boolean);
+        uploadData.append('tags', JSON.stringify(tags));
+      }
+
+      await onSave(uploadData);
+    } catch (error) {
+      console.error('Error submitting memory:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Input
+          label="Title"
+          value={formData.title}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          placeholder="Our amazing day at the beach"
+          required
+        />
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Category
+          </label>
+          <select
+            value={formData.category}
+            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white"
+          >
+            {categories.map(cat => (
+              <option key={cat.value} value={cat.value}>{cat.label}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          File Upload
+        </label>
+        <input
+          type="file"
+          onChange={handleFileChange}
+          accept="image/*,video/*,audio/*,.pdf,.doc,.docx"
+          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white"
+          required
+        />
+        {file && (
+          <p className="text-sm text-gray-500 mt-1">
+            Selected: {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
+          </p>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Input
+          label="Date Taken"
+          type="date"
+          value={formData.dateTaken}
+          onChange={(e) => setFormData({ ...formData, dateTaken: e.target.value })}
+        />
+        <Input
+          label="Location"
+          value={formData.location}
+          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+          placeholder="Central Park, NYC"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Description
+        </label>
+        <textarea
+          value={formData.description}
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+          placeholder="Tell the story behind this memory..."
+          rows={3}
+          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white"
+        />
+      </div>
+
+      <Input
+        label="Tags"
+        value={formData.tags}
+        onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+        placeholder="vacation, beach, sunset (comma separated)"
+        helperText="Add tags to help organize and find this memory later"
+      />
+
+      <div className="flex items-center space-x-4">
+        <label className="flex items-center">
+          <input
+            type="checkbox"
+            checked={formData.isFavorite}
+            onChange={(e) => setFormData({ ...formData, isFavorite: e.target.checked })}
+            className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+          />
+          <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Mark as favorite</span>
+        </label>
+        <label className="flex items-center">
+          <input
+            type="checkbox"
+            checked={formData.isHighlight}
+            onChange={(e) => setFormData({ ...formData, isHighlight: e.target.checked })}
+            className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+          />
+          <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Highlight memory</span>
+        </label>
+        <label className="flex items-center">
+          <input
+            type="checkbox"
+            checked={formData.isPrivate}
+            onChange={(e) => setFormData({ ...formData, isPrivate: e.target.checked })}
+            className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+          />
+          <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Keep private</span>
+        </label>
+      </div>
+
+      <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <Button variant="ghost" onClick={onClose} disabled={loading}>
+          Cancel
+        </Button>
+        <Button variant="primary" type="submit" disabled={loading || !file}>
+          {loading ? 'Uploading...' : 'Upload Memory'}
+        </Button>
+      </div>
+    </form>
   );
 };
 

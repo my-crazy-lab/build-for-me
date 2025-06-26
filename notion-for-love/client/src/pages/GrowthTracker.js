@@ -122,117 +122,36 @@ const GrowthTracker = () => {
     }
   };
 
-  // Mock tree data
-  const mockTreeData = {
-    stage: 'young_tree',
-    totalPoints: 127,
-    level: 8,
-    branches: [
-      {
-        id: 1,
-        type: 'milestone',
-        achievement: 'first_date',
-        date: '2023-06-14',
-        points: 5,
-        position: { x: 20, y: 80 }
-      },
-      {
-        id: 2,
-        type: 'milestone',
-        achievement: 'first_kiss',
-        date: '2023-06-20',
-        points: 5,
-        position: { x: 80, y: 75 }
-      },
-      {
-        id: 3,
-        type: 'milestone',
-        achievement: 'first_ily',
-        date: '2023-08-15',
-        points: 10,
-        position: { x: 15, y: 60 }
-      },
-      {
-        id: 4,
-        type: 'adventure',
-        achievement: 'first_trip',
-        date: '2023-09-22',
-        points: 8,
-        position: { x: 85, y: 55 }
-      },
-      {
-        id: 5,
-        type: 'milestone',
-        achievement: 'moving_in',
-        date: '2024-01-10',
-        points: 15,
-        position: { x: 50, y: 40 }
-      },
-      {
-        id: 6,
-        type: 'growth',
-        achievement: 'communication',
-        date: '2024-03-15',
-        points: 10,
-        position: { x: 25, y: 35 }
-      },
-      {
-        id: 7,
-        type: 'celebration',
-        achievement: 'anniversary_1',
-        date: '2024-06-14',
-        points: 10,
-        position: { x: 75, y: 30 }
-      },
-      {
-        id: 8,
-        type: 'adventure',
-        achievement: 'international',
-        date: '2024-08-20',
-        points: 15,
-        position: { x: 40, y: 20 }
-      },
-      {
-        id: 9,
-        type: 'growth',
-        achievement: 'trust_builder',
-        date: '2024-10-05',
-        points: 12,
-        position: { x: 65, y: 15 }
-      },
-      {
-        id: 10,
-        type: 'celebration',
-        achievement: 'surprise_expert',
-        date: '2024-12-01',
-        points: 8,
-        position: { x: 30, y: 10 }
-      }
-    ]
-  };
 
-  const mockAchievements = [
-    { id: 'first_date', category: 'milestone', earnedAt: '2023-06-14T19:00:00Z', isNew: false },
-    { id: 'first_kiss', category: 'milestone', earnedAt: '2023-06-20T22:30:00Z', isNew: false },
-    { id: 'first_ily', category: 'milestone', earnedAt: '2023-08-15T20:15:00Z', isNew: false },
-    { id: 'first_trip', category: 'adventure', earnedAt: '2023-09-22T08:00:00Z', isNew: false },
-    { id: 'moving_in', category: 'milestone', earnedAt: '2024-01-10T12:00:00Z', isNew: false },
-    { id: 'communication', category: 'growth', earnedAt: '2024-03-15T16:30:00Z', isNew: false },
-    { id: 'anniversary_1', category: 'celebration', earnedAt: '2024-06-14T19:00:00Z', isNew: false },
-    { id: 'international', category: 'adventure', earnedAt: '2024-08-20T10:00:00Z', isNew: false },
-    { id: 'trust_builder', category: 'growth', earnedAt: '2024-10-05T14:20:00Z', isNew: false },
-    { id: 'surprise_expert', category: 'celebration', earnedAt: '2024-12-01T18:45:00Z', isNew: true }
-  ];
+
+
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setTreeData(mockTreeData);
-      setAchievements(mockAchievements);
-      setLoading(false);
-    }, 1000);
+    // Load growth data from API
+    const loadGrowthData = async () => {
+      try {
+        setLoading(true);
+        // TODO: Implement growth tracker service API calls
+        // const [treeResponse, achievementsResponse] = await Promise.all([
+        //   growthService.getTreeData(),
+        //   growthService.getAchievements()
+        // ]);
+        // if (treeResponse.success) setTreeData(treeResponse.data);
+        // if (achievementsResponse.success) setAchievements(achievementsResponse.data);
 
-    return () => clearTimeout(timer);
+        // Start with empty data until API is implemented
+        setTreeData({ stage: 'seed', totalPoints: 0, level: 1, nextLevelPoints: 50 });
+        setAchievements([]);
+      } catch (error) {
+        console.error('Error loading growth data:', error);
+        setTreeData({ stage: 'seed', totalPoints: 0, level: 1, nextLevelPoints: 50 });
+        setAchievements([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadGrowthData();
   }, []);
 
   const getCurrentStage = () => {

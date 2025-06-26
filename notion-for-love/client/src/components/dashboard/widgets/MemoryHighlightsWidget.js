@@ -8,72 +8,44 @@
  * Version: 1.0.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Image, Heart, Play, Plus, ArrowRight, Star } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Image, Play, Plus, ArrowRight, Star } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { memoriesService } from '../../../services';
 import DashboardWidget from '../DashboardWidget';
 import Button from '../../ui/Button';
 import Badge from '../../ui/Badge';
 
 const MemoryHighlightsWidget = ({ id, onRemove, onResize, onSettings }) => {
+  const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState('recent');
+  const [memories, setMemories] = useState({ recent: [], favorites: [] });
+  const [loading, setLoading] = useState(true);
 
-  // Mock memories data
-  const memories = {
-    recent: [
-      {
-        id: 1,
-        type: 'image',
-        url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=200&h=200&fit=crop&crop=center',
-        title: 'Anniversary Dinner',
-        date: '2 days ago',
-        isFavorite: true
-      },
-      {
-        id: 2,
-        type: 'video',
-        url: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=200&h=200&fit=crop&crop=center',
-        title: 'Moving Day Fun',
-        date: '1 week ago',
-        isFavorite: false
-      },
-      {
-        id: 3,
-        type: 'image',
-        url: 'https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=200&h=200&fit=crop&crop=center',
-        title: 'Paris Sunset',
-        date: '2 weeks ago',
-        isFavorite: true
-      },
-      {
-        id: 4,
-        type: 'image',
-        url: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=200&h=200&fit=crop&crop=center',
-        title: 'Cooking Together',
-        date: '3 weeks ago',
-        isFavorite: false
+  // Load memories from API
+  useEffect(() => {
+    const loadMemories = async () => {
+      try {
+        setLoading(true);
+        const [recentResponse, favoritesResponse] = await Promise.all([
+          memoriesService.getMemories({ limit: 4 }),
+          memoriesService.getMemories({ isFavorite: true, limit: 4 })
+        ]);
+
+        setMemories({
+          recent: recentResponse.success ? recentResponse.data : [],
+          favorites: favoritesResponse.success ? favoritesResponse.data : []
+        });
+      } catch (error) {
+        console.error('Error loading memories:', error);
+      } finally {
+        setLoading(false);
       }
-    ],
-    favorites: [
-      {
-        id: 1,
-        type: 'image',
-        url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=200&h=200&fit=crop&crop=center',
-        title: 'Anniversary Dinner',
-        date: '2 days ago',
-        isFavorite: true
-      },
-      {
-        id: 3,
-        type: 'image',
-        url: 'https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=200&h=200&fit=crop&crop=center',
-        title: 'Paris Sunset',
-        date: '2 weeks ago',
-        isFavorite: true
-      }
-    ]
-  };
+    };
+
+    loadMemories();
+  }, []);
 
   const currentMemories = memories[selectedTab];
 
@@ -114,6 +86,7 @@ const MemoryHighlightsWidget = ({ id, onRemove, onResize, onSettings }) => {
               variant="ghost"
               size="sm"
               leftIcon={<Plus className="w-4 h-4" />}
+              onClick={() => navigate('/memories')}
             >
               Add
             </Button>

@@ -10,8 +10,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Calendar, Plus, ChevronLeft, ChevronRight, Heart, 
+import {
+  Calendar, Plus, ChevronLeft, ChevronRight, Heart,
   MapPin, Clock, Users, Gift, Star, Filter,
   Edit, Trash2, Share, Download, Bell, BellOff
 } from 'lucide-react';
@@ -20,7 +20,9 @@ import Button from '../components/ui/Button';
 import Badge from '../components/ui/Badge';
 import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
+import { eventsService } from '../services';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
+import { eventsService } from '../services';
 
 const LoveCalendar = () => {
   const [events, setEvents] = useState([]);
@@ -78,7 +80,7 @@ const LoveCalendar = () => {
     }
   };
 
-  // Mock events data
+  // Legacy mock data (no longer used - events now loaded from API)
   const mockEvents = [
     {
       id: 1,
@@ -189,11 +191,23 @@ const LoveCalendar = () => {
   ];
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setEvents(mockEvents);
-      setLoading(false);
-    }, 1000);
+    // Load events from API
+    const loadEvents = async () => {
+      try {
+        setLoading(true);
+        const response = await eventsService.getEvents();
+        if (response.success) {
+          setEvents(response.data);
+        }
+      } catch (error) {
+        console.error('Error loading events:', error);
+        setEvents([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadEvents();
 
     return () => clearTimeout(timer);
   }, []);
@@ -496,9 +510,24 @@ const LoveCalendar = () => {
           eventCategories={eventCategories}
           selectedDate={selectedDate}
           onClose={() => setShowAddModal(false)}
-          onSave={(newEvent) => {
-            setEvents([...events, { ...newEvent, id: Date.now() }]);
-            setShowAddModal(false);
+          onSave={async (eventData) => {
+            try {
+              const response = await eventsService.createEvent(eventData);
+              if (response.success) {
+                // Refresh events list
+                const eventsResponse = await eventsService.getEvents();
+                if (eventsResponse.success) {
+                  setEvents(eventsResponse.data);
+                }
+                setShowAddModal(false);
+              } else {
+                console.error('Failed to create event:', response.error);
+                alert('Failed to create event. Please try again.');
+              }
+            } catch (error) {
+              console.error('Error creating event:', error);
+              alert('Failed to create event. Please try again.');
+            }
           }}
         />
       </Modal>
@@ -722,13 +751,30 @@ const EventForm = ({ eventCategories, selectedDate, onClose, onSave }) => {
     e.preventDefault();
     if (!formData.title || !formData.date) return;
 
-    const newEvent = {
-      ...formData,
+    // Format date and time for API
+    const eventDateTime = formData.isAllDay
+      ? new Date(formData.date).toISOString()
+      : new Date(`${formData.date}T${formData.time}`).toISOString();
+
+    const endDateTime = formData.isAllDay
+      ? new Date(formData.date).toISOString()
+      : new Date(`${formData.date}T${formData.endTime}`).toISOString();
+
+    const eventData = {
+      title: formData.title,
+      description: formData.description,
+      date: eventDateTime,
+      endDate: endDateTime,
+      type: formData.category,
+      status: 'planning',
+      isAllDay: formData.isAllDay,
+      location: formData.location ? { name: formData.location } : undefined,
       tags: formData.tags.split(',').map(tag => tag.trim()).filter(Boolean),
-      createdBy: 'self'
+      notes: formData.notes,
+      isPrivate: false
     };
 
-    onSave(newEvent);
+    onSave(eventData);
   };
 
   return (

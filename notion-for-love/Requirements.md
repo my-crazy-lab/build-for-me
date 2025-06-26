@@ -163,7 +163,6 @@ A shared dashboard for couples to **record**, **plan**, and **grow together** th
   "name": "String",
   "avatar": "String",
   "joinedAt": "Date",
-  "relationshipId": "ObjectId",
   "role": "String" // "partner" | "admin"
 }
 ```
@@ -189,7 +188,6 @@ A shared dashboard for couples to **record**, **plan**, and **grow together** th
 ```json
 {
   "_id": "ObjectId",
-  "relationshipId": "ObjectId",
   "title": "String",
   "date": "Date",
   "location": "String",
@@ -206,7 +204,6 @@ A shared dashboard for couples to **record**, **plan**, and **grow together** th
 ```json
 {
   "_id": "ObjectId",
-  "relationshipId": "ObjectId",
   "title": "String",
   "category": "String",
   "description": "String",
@@ -222,7 +219,6 @@ A shared dashboard for couples to **record**, **plan**, and **grow together** th
 ```json
 {
   "_id": "ObjectId",
-  "relationshipId": "ObjectId",
   "title": "String",
   "description": "String",
   "assignedTo": "ObjectId",
@@ -238,7 +234,6 @@ A shared dashboard for couples to **record**, **plan**, and **grow together** th
 ```json
 {
   "_id": "ObjectId",
-  "relationshipId": "ObjectId",
   "title": "String",
   "description": "String",
   "type": "String",
@@ -255,7 +250,6 @@ A shared dashboard for couples to **record**, **plan**, and **grow together** th
 ```json
 {
   "_id": "ObjectId",
-  "relationshipId": "ObjectId",
   "userId": "ObjectId",
   "date": "Date",
   "mood": "String",
@@ -269,7 +263,6 @@ A shared dashboard for couples to **record**, **plan**, and **grow together** th
 ```json
 {
   "_id": "ObjectId",
-  "relationshipId": "ObjectId",
   "title": "String",
   "message": "String",
   "mediaUrl": "String",
@@ -285,7 +278,6 @@ A shared dashboard for couples to **record**, **plan**, and **grow together** th
 ```json
 {
   "_id": "ObjectId",
-  "relationshipId": "ObjectId",
   "userId": "ObjectId",
   "date": "Date",
   "prompt": "String",
@@ -300,7 +292,6 @@ A shared dashboard for couples to **record**, **plan**, and **grow together** th
 ```json
 {
   "_id": "ObjectId",
-  "relationshipId": "ObjectId",
   "title": "String",
   "description": "String",
   "date": "Date",
@@ -321,7 +312,6 @@ A shared dashboard for couples to **record**, **plan**, and **grow together** th
 ```json
 {
   "_id": "ObjectId",
-  "relationshipId": "ObjectId",
   "title": "String",
   "type": "String",
   "content": "String",
@@ -341,7 +331,6 @@ A shared dashboard for couples to **record**, **plan**, and **grow together** th
 ```json
 {
   "_id": "ObjectId",
-  "relationshipId": "ObjectId",
   "leavesCount": "Number",
   "flowersCount": "Number",
   "lastUpdated": "Date",
@@ -355,7 +344,6 @@ A shared dashboard for couples to **record**, **plan**, and **grow together** th
 ```json
 {
   "_id": "ObjectId",
-  "relationshipId": "ObjectId",
   "layoutConfig": "Object",
   "updatedAt": "Date"
 }
