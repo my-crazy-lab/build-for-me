@@ -22,7 +22,7 @@ import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
 import { eventsService } from '../services';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
-import { eventsService } from '../services';
+import { showToast, handleApiError, handleApiSuccess } from '../utils/toast';
 
 const LoveCalendar = () => {
   const [events, setEvents] = useState([]);
@@ -519,14 +519,14 @@ const LoveCalendar = () => {
                 if (eventsResponse.success) {
                   setEvents(eventsResponse.data);
                 }
+                handleApiSuccess('Event created successfully');
                 setShowAddModal(false);
               } else {
-                console.error('Failed to create event:', response.error);
-                alert('Failed to create event. Please try again.');
+                handleApiError({ message: response.error });
               }
             } catch (error) {
               console.error('Error creating event:', error);
-              alert('Failed to create event. Please try again.');
+              handleApiError(error, 'Failed to create event');
             }
           }}
         />

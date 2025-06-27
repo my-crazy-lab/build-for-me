@@ -23,6 +23,7 @@ import Modal from '../components/ui/Modal';
 import Avatar from '../components/ui/Avatar';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import { goalsService } from '../services';
+import { showToast, handleApiError, handleApiSuccess } from '../utils/toast';
 
 const Goals = () => {
   const [goals, setGoals] = useState([]);
@@ -31,7 +32,9 @@ const Goals = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [selectedGoal, setSelectedGoal] = useState(null);
+  const [editingGoal, setEditingGoal] = useState(null);
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
 
@@ -42,21 +45,80 @@ const Goals = () => {
       setError(null);
 
       const filters = {
-        category: selectedCategory,
-        search: searchQuery
+        category: selectedCategory !== 'all' ? selectedCategory : undefined,
+        search: searchQuery || undefined
       };
+
+      // Remove undefined values to avoid sending empty params
+      Object.keys(filters).forEach(key => {
+        if (filters[key] === undefined) {
+          delete filters[key];
+        }
+      });
 
       const response = await goalsService.getGoals(filters);
       if (response.success) {
-        setGoals(response.data);
+        setGoals(response.data || []);
       } else {
-        setError(response.error);
+        const errorMsg = response.error || 'Failed to load goals';
+        setError(errorMsg);
+        handleApiError({ message: errorMsg });
       }
     } catch (error) {
       console.error('Error loading goals:', error);
-      setError('Failed to load goals');
+      const errorMsg = 'Failed to load goals';
+      setError(errorMsg);
+      handleApiError(error, errorMsg);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Handle edit goal
+  const handleEditGoal = (goal) => {
+    setEditingGoal(goal);
+    setShowEditModal(true);
+    setSelectedGoal(null);
+  };
+
+  // Handle delete goal
+  const handleDeleteGoal = async (goalId) => {
+    if (!window.confirm('Are you sure you want to delete this goal? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      const response = await goalsService.deleteGoal(goalId);
+      if (response.success) {
+        handleApiSuccess('Goal deleted successfully');
+        loadGoals(); // Refresh the list
+        setSelectedGoal(null);
+      } else {
+        handleApiError({ message: response.error });
+      }
+    } catch (error) {
+      console.error('Error deleting goal:', error);
+      handleApiError(error, 'Failed to delete goal');
+    }
+  };
+
+  // Handle progress update
+  const handleUpdateProgress = async (goalId, newProgress) => {
+    try {
+      const response = await goalsService.updateProgress(goalId, newProgress);
+      if (response.success) {
+        handleApiSuccess('Progress updated successfully');
+        loadGoals(); // Refresh the list
+        // Update the selected goal if it's the same one
+        if (selectedGoal && selectedGoal._id === goalId) {
+          setSelectedGoal({ ...selectedGoal, progress: newProgress });
+        }
+      } else {
+        handleApiError({ message: response.error });
+      }
+    } catch (error) {
+      console.error('Error updating progress:', error);
+      handleApiError(error, 'Failed to update progress');
     }
   };
 
@@ -355,19 +417,50 @@ const Goals = () => {
             try {
               const response = await goalsService.createGoal(goalData);
               if (response.success) {
-                // Refresh goals list
-                const goalsResponse = await goalsService.getGoals();
-                if (goalsResponse.success) {
-                  setGoals(goalsResponse.data);
-                }
+                handleApiSuccess('Goal created successfully');
+                loadGoals(); // Refresh the list
                 setShowAddModal(false);
               } else {
-                console.error('Failed to create goal:', response.error);
-                alert('Failed to create goal. Please try again.');
+                handleApiError({ message: response.error });
               }
             } catch (error) {
               console.error('Error creating goal:', error);
-              alert('Failed to create goal. Please try again.');
+              handleApiError(error, 'Failed to create goal');
+            }
+          }}
+        />
+      </Modal>
+
+      {/* Edit Goal Modal */}
+      <Modal
+        isOpen={showEditModal}
+        onClose={() => {
+          setShowEditModal(false);
+          setEditingGoal(null);
+        }}
+        title="Edit Goal"
+        size="lg"
+      >
+        <GoalForm
+          goal={editingGoal}
+          onClose={() => {
+            setShowEditModal(false);
+            setEditingGoal(null);
+          }}
+          onSave={async (goalData) => {
+            try {
+              const response = await goalsService.updateGoal(editingGoal._id, goalData);
+              if (response.success) {
+                handleApiSuccess('Goal updated successfully');
+                loadGoals(); // Refresh the list
+                setShowEditModal(false);
+                setEditingGoal(null);
+              } else {
+                handleApiError({ message: response.error });
+              }
+            } catch (error) {
+              console.error('Error updating goal:', error);
+              handleApiError(error, 'Failed to update goal');
             }
           }}
         />
@@ -378,6 +471,9 @@ const Goals = () => {
         <GoalDetailModal
           goal={selectedGoal}
           onClose={() => setSelectedGoal(null)}
+          onEdit={() => handleEditGoal(selectedGoal)}
+          onDelete={() => handleDeleteGoal(selectedGoal._id)}
+          onUpdateProgress={handleUpdateProgress}
           getPriorityColor={getPriorityColor}
           getCategoryColor={getCategoryColor}
           formatDate={formatDate}
@@ -530,9 +626,16 @@ const GoalCard = ({
 };
 
 // Goal Detail Modal Component
-const GoalDetailModal = ({ goal, onClose, getPriorityColor, getCategoryColor, formatDate }) => {
+const GoalDetailModal = ({ goal, onClose, onEdit, onDelete, onUpdateProgress, getPriorityColor, getCategoryColor, formatDate }) => {
+  const [showProgressUpdate, setShowProgressUpdate] = useState(false);
+  const [newProgress, setNewProgress] = useState(goal.progress);
   const completedMilestones = goal.milestones ? goal.milestones.filter(m => m.isCompleted).length : 0;
   const totalMilestones = goal.milestones ? goal.milestones.length : 0;
+
+  const handleProgressSubmit = () => {
+    onUpdateProgress(goal._id, newProgress);
+    setShowProgressUpdate(false);
+  };
 
   return (
     <Modal
@@ -540,6 +643,16 @@ const GoalDetailModal = ({ goal, onClose, getPriorityColor, getCategoryColor, fo
       onClose={onClose}
       title={goal.title}
       size="xl"
+      actions={
+        <div className="flex space-x-3">
+          <Button variant="outline" onClick={onEdit}>
+            Edit
+          </Button>
+          <Button variant="danger" onClick={onDelete}>
+            Delete
+          </Button>
+        </div>
+      }
     >
       <div className="space-y-6">
         {/* Header Info */}
@@ -688,16 +801,46 @@ const GoalDetailModal = ({ goal, onClose, getPriorityColor, getCategoryColor, fo
           </div>
         )}
 
+        {/* Progress Update Section */}
+        {showProgressUpdate && (
+          <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Update Progress</h4>
+            <div className="space-y-3">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Progress: {newProgress}%
+                </label>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={newProgress}
+                  onChange={(e) => setNewProgress(parseInt(e.target.value))}
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                />
+              </div>
+              <div className="flex justify-end space-x-2">
+                <Button variant="ghost" size="sm" onClick={() => setShowProgressUpdate(false)}>
+                  Cancel
+                </Button>
+                <Button variant="primary" size="sm" onClick={handleProgressSubmit}>
+                  Update
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Actions */}
         <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
           <Button variant="ghost" onClick={onClose}>
             Close
           </Button>
-          <Button variant="outline">
+          <Button variant="outline" onClick={onEdit}>
             Edit Goal
           </Button>
-          <Button variant="primary">
-            Update Progress
+          <Button variant="primary" onClick={() => setShowProgressUpdate(!showProgressUpdate)}>
+            {showProgressUpdate ? 'Cancel Update' : 'Update Progress'}
           </Button>
         </div>
       </div>
@@ -706,17 +849,17 @@ const GoalDetailModal = ({ goal, onClose, getPriorityColor, getCategoryColor, fo
 };
 
 // Goal Form Component
-const GoalForm = ({ onClose, onSave }) => {
+const GoalForm = ({ goal, onClose, onSave }) => {
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    category: 'other',
-    priority: 'medium',
-    targetDate: '',
-    tags: '',
-    notes: '',
-    milestones: [],
-    isPrivate: false
+    title: goal?.title || '',
+    description: goal?.description || '',
+    category: goal?.category || 'other',
+    priority: goal?.priority || 'medium',
+    targetDate: goal?.targetDate ? new Date(goal.targetDate).toISOString().split('T')[0] : '',
+    tags: goal?.tags ? goal.tags.join(', ') : '',
+    notes: goal?.notes || '',
+    milestones: goal?.milestones || [],
+    isPrivate: goal?.isPrivate || false
   });
 
   const [currentMilestone, setCurrentMilestone] = useState({
@@ -726,6 +869,7 @@ const GoalForm = ({ onClose, onSave }) => {
   });
 
   const [loading, setLoading] = useState(false);
+  const isEditing = !!goal;
 
   const categories = [
     { value: 'travel', label: 'Travel & Adventures' },
@@ -894,7 +1038,7 @@ const GoalForm = ({ onClose, onSave }) => {
           Cancel
         </Button>
         <Button variant="primary" type="submit" disabled={loading}>
-          {loading ? 'Creating...' : 'Create Goal'}
+          {loading ? (isEditing ? 'Updating...' : 'Creating...') : (isEditing ? 'Update Goal' : 'Create Goal')}
         </Button>
       </div>
     </form>

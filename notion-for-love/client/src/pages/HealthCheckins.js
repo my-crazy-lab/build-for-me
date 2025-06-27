@@ -17,9 +17,68 @@ import {
 } from 'lucide-react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
+import Input from '../components/ui/Input';
+import Modal from '../components/ui/Modal';
+import { checkinsService } from '../services';
+import { showToast, handleApiError, handleApiSuccess } from '../utils/toast';
 
 const HealthCheckins = () => {
   const [selectedMood, setSelectedMood] = useState(null);
+  const [showCheckinModal, setShowCheckinModal] = useState(false);
+  const [showAnalytics, setShowAnalytics] = useState(false);
+  const [checkinData, setCheckinData] = useState({
+    mood: '',
+    communication: 5,
+    intimacy: 5,
+    sharedGoals: 5,
+    overallSatisfaction: 5,
+    notes: '',
+    gratitude: '',
+    concerns: ''
+  });
+  const [loading, setLoading] = useState(false);
+
+  // Handle check-in submission
+  const handleSubmitCheckin = async () => {
+    if (!selectedMood) {
+      showToast.warning('Please select your mood first');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const checkinPayload = {
+        ...checkinData,
+        mood: selectedMood,
+        date: new Date().toISOString()
+      };
+
+      const response = await checkinsService.createCheckin(checkinPayload);
+      if (response.success) {
+        handleApiSuccess('Check-in submitted successfully!');
+        setShowCheckinModal(false);
+        // Reset form
+        setSelectedMood(null);
+        setCheckinData({
+          mood: '',
+          communication: 5,
+          intimacy: 5,
+          sharedGoals: 5,
+          overallSatisfaction: 5,
+          notes: '',
+          gratitude: '',
+          concerns: ''
+        });
+      } else {
+        handleApiError({ message: response.error });
+      }
+    } catch (error) {
+      console.error('Error submitting check-in:', error);
+      handleApiError(error, 'Failed to submit check-in');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const moodOptions = [
     { id: 'great', icon: Smile, label: 'Great', color: 'text-green-500', bg: 'bg-green-100 dark:bg-green-900' },
@@ -141,7 +200,10 @@ const HealthCheckins = () => {
                 className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white resize-none"
                 rows={3}
               />
-              <Button className="w-full md:w-auto">
+              <Button
+                className="w-full md:w-auto"
+                onClick={() => setShowCheckinModal(true)}
+              >
                 <Heart className="w-4 h-4 mr-2" />
                 Submit Check-in
               </Button>
@@ -199,7 +261,11 @@ const HealthCheckins = () => {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
               Recent Check-ins
             </h2>
-            <Button variant="outline" size="sm">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowAnalytics(true)}
+            >
               <BarChart3 className="w-4 h-4 mr-2" />
               View Analytics
             </Button>
@@ -238,6 +304,172 @@ const HealthCheckins = () => {
           </div>
         </Card>
       </div>
+
+      {/* Check-in Modal */}
+      <Modal
+        isOpen={showCheckinModal}
+        onClose={() => setShowCheckinModal(false)}
+        title="Complete Your Check-in"
+        size="lg"
+      >
+        <div className="space-y-6">
+          {/* Mood Selection */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+              How are you feeling about your relationship today?
+            </label>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {moodOptions.map((mood) => {
+                const Icon = mood.icon;
+                return (
+                  <button
+                    key={mood.id}
+                    onClick={() => setCheckinData({ ...checkinData, mood: mood.id })}
+                    className={`p-3 rounded-lg border-2 transition-all ${
+                      checkinData.mood === mood.id
+                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                    }`}
+                  >
+                    <div className={`w-8 h-8 rounded-full ${mood.bg} flex items-center justify-center mx-auto mb-2`}>
+                      <Icon className={`w-4 h-4 ${mood.color}`} />
+                    </div>
+                    <p className="text-xs font-medium text-gray-900 dark:text-white">
+                      {mood.label}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Rating Scales */}
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Communication Quality: {checkinData.communication}/10
+              </label>
+              <input
+                type="range"
+                min="1"
+                max="10"
+                value={checkinData.communication}
+                onChange={(e) => setCheckinData({ ...checkinData, communication: parseInt(e.target.value) })}
+                className="w-full"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Intimacy Level: {checkinData.intimacy}/10
+              </label>
+              <input
+                type="range"
+                min="1"
+                max="10"
+                value={checkinData.intimacy}
+                onChange={(e) => setCheckinData({ ...checkinData, intimacy: parseInt(e.target.value) })}
+                className="w-full"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Shared Goals Alignment: {checkinData.sharedGoals}/10
+              </label>
+              <input
+                type="range"
+                min="1"
+                max="10"
+                value={checkinData.sharedGoals}
+                onChange={(e) => setCheckinData({ ...checkinData, sharedGoals: parseInt(e.target.value) })}
+                className="w-full"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Overall Satisfaction: {checkinData.overallSatisfaction}/10
+              </label>
+              <input
+                type="range"
+                min="1"
+                max="10"
+                value={checkinData.overallSatisfaction}
+                onChange={(e) => setCheckinData({ ...checkinData, overallSatisfaction: parseInt(e.target.value) })}
+                className="w-full"
+              />
+            </div>
+          </div>
+
+          {/* Text Fields */}
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                What are you grateful for today?
+              </label>
+              <Input
+                value={checkinData.gratitude}
+                onChange={(e) => setCheckinData({ ...checkinData, gratitude: e.target.value })}
+                placeholder="Something you appreciate about your partner or relationship..."
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Any concerns or areas for improvement?
+              </label>
+              <Input
+                value={checkinData.concerns}
+                onChange={(e) => setCheckinData({ ...checkinData, concerns: e.target.value })}
+                placeholder="Optional: Share any concerns or suggestions..."
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Additional Notes
+              </label>
+              <textarea
+                value={checkinData.notes}
+                onChange={(e) => setCheckinData({ ...checkinData, notes: e.target.value })}
+                placeholder="Any other thoughts or feelings you'd like to share..."
+                className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white resize-none"
+                rows={3}
+              />
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <Button variant="ghost" onClick={() => setShowCheckinModal(false)} disabled={loading}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={handleSubmitCheckin} disabled={loading}>
+              {loading ? 'Submitting...' : 'Submit Check-in'}
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Analytics Modal */}
+      <Modal
+        isOpen={showAnalytics}
+        onClose={() => setShowAnalytics(false)}
+        title="Relationship Analytics"
+        size="xl"
+      >
+        <div className="space-y-6">
+          <div className="text-center">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+              Coming Soon!
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400">
+              Detailed analytics and insights about your relationship health will be available soon.
+            </p>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

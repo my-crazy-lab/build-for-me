@@ -16,6 +16,7 @@ import {
   TrendingUp, Plus, Settings as SettingsIcon
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Badge from '../components/ui/Badge';
@@ -28,6 +29,7 @@ import { dashboardService } from '../services';
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
@@ -160,7 +162,7 @@ const Dashboard = () => {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-              Welcome back, {user?.name?.split(' ')[0]}! 💕
+              {t('dashboard.welcome')}, {user?.name?.split(' ')[0]}! 💕
             </h1>
             <p className="text-gray-600 dark:text-gray-400 mt-1">
               Here's what's happening in your love journey today

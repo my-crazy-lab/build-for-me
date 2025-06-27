@@ -131,7 +131,15 @@ router.post('/login', [
     const { email, password } = req.body;
 
     // Check for demo credentials
-    if (email === process.env.DEMO_ADMIN_EMAIL && password === process.env.DEMO_ADMIN_PASSWORD) {
+    if (email === process.env.DEMO_ADMIN_EMAIL) {
+      // For demo login, check if password matches the expected demo password
+      if (password !== process.env.DEMO_ADMIN_PASSWORD) {
+        return res.status(401).json({
+          success: false,
+          error: 'Invalid credentials'
+        });
+      }
+
       // Find or create demo admin user
       let user = await User.findOne({ email: process.env.DEMO_ADMIN_EMAIL });
 

@@ -11,10 +11,10 @@
 const mongoose = require('mongoose');
 
 const LayoutPreferenceSchema = new mongoose.Schema({
-  relationshipId: {
+  userId: {
     type: mongoose.Schema.ObjectId,
-    ref: 'Relationship',
-    required: [true, 'Layout preference must belong to a relationship'],
+    ref: 'User',
+    required: [true, 'Layout preference must belong to a user'],
     unique: true
   },
   layoutConfig: {
@@ -344,6 +344,6 @@ LayoutPreferenceSchema.statics.getDefaultLayout = function() {
 };
 
 // Indexes for better query performance
-LayoutPreferenceSchema.index({ relationshipId: 1 }, { unique: true });
+LayoutPreferenceSchema.index({ userId: 1 }, { unique: true });
 
 module.exports = mongoose.model('LayoutPreference', LayoutPreferenceSchema);

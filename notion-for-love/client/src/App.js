@@ -17,6 +17,7 @@ import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { RelationshipProvider } from './context/RelationshipContext';
+import { LanguageProvider } from './context/LanguageContext';
 
 // Components
 import ProtectedRoute from './components/auth/ProtectedRoute';
@@ -121,11 +122,13 @@ function App() {
   return (
     <Router>
       <ThemeProvider>
-        <AuthProvider>
-          <RelationshipProvider>
-            <AppContent />
-          </RelationshipProvider>
-        </AuthProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <RelationshipProvider>
+              <AppContent />
+            </RelationshipProvider>
+          </AuthProvider>
+        </LanguageProvider>
       </ThemeProvider>
     </Router>
   );

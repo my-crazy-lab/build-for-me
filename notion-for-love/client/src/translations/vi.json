@@ -1,0 +1,166 @@
+{
+  "common": {
+    "loading": "Đang tải...",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "create": "Tạo",
+    "update": "Cập nhật",
+    "close": "Đóng",
+    "yes": "Có",
+    "no": "Không",
+    "search": "Tìm kiếm",
+    "filter": "Lọc",
+    "all": "Tất cả",
+    "none": "Không có",
+    "today": "Hôm nay",
+    "yesterday": "Hôm qua",
+    "tomorrow": "Ngày mai",
+    "week": "Tuần",
+    "month": "Tháng",
+    "year": "Năm"
+  },
+  "navigation": {
+    "dashboard": "Trang chủ",
+    "goals": "Mục tiêu",
+    "memories": "Kỷ niệm",
+    "timeline": "Dòng thời gian",
+    "calendar": "Lịch",
+    "emotions": "Cảm xúc",
+    "checkins": "Kiểm tra sức khỏe",
+    "planning": "Kế hoạch",
+    "insights": "Thông tin chi tiết",
+    "settings": "Cài đặt",
+    "logout": "Đăng xuất"
+  },
+  "auth": {
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "forgotPassword": "Quên mật khẩu?",
+    "rememberMe": "Ghi nhớ đăng nhập",
+    "loginSuccess": "Đăng nhập thành công! Chào mừng bạn trở lại.",
+    "loginFailed": "Đăng nhập thất bại. Vui lòng thử lại.",
+    "demoLogin": "Đăng nhập demo nhanh",
+    "demoCredentials": "Thông tin demo"
+  },
+  "dashboard": {
+    "welcome": "Chào mừng trở lại",
+    "recentMemories": "Kỷ niệm gần đây",
+    "upcomingEvents": "Sự kiện sắp tới",
+    "goalProgress": "Tiến độ mục tiêu",
+    "relationshipHealth": "Sức khỏe mối quan hệ",
+    "quickActions": "Hành động nhanh",
+    "addMemory": "Thêm kỷ niệm",
+    "createGoal": "Tạo mục tiêu",
+    "scheduleDate": "Lên lịch hẹn hò"
+  },
+  "goals": {
+    "title": "Mục tiêu",
+    "createGoal": "Tạo mục tiêu",
+    "editGoal": "Chỉnh sửa mục tiêu",
+    "goalTitle": "Tiêu đề mục tiêu",
+    "description": "Mô tả",
+    "category": "Danh mục",
+    "priority": "Độ ưu tiên",
+    "targetDate": "Ngày mục tiêu",
+    "progress": "Tiến độ",
+    "status": "Trạng thái",
+    "active": "Đang hoạt động",
+    "completed": "Hoàn thành",
+    "paused": "Tạm dừng",
+    "updateProgress": "Cập nhật tiến độ"
+  },
+  "memories": {
+    "title": "Kỷ niệm",
+    "addMemory": "Thêm kỷ niệm",
+    "uploadPhoto": "Tải lên ảnh",
+    "memoryTitle": "Tiêu đề kỷ niệm",
+    "description": "Mô tả",
+    "location": "Địa điểm",
+    "date": "Ngày",
+    "tags": "Thẻ",
+    "category": "Danh mục",
+    "favorite": "Yêu thích",
+    "private": "Riêng tư"
+  },
+  "timeline": {
+    "title": "Dòng thời gian",
+    "addMilestone": "Thêm cột mốc",
+    "milestoneTitle": "Tiêu đề cột mốc",
+    "description": "Mô tả",
+    "date": "Ngày",
+    "category": "Danh mục",
+    "emotions": "Cảm xúc",
+    "notes": "Ghi chú"
+  },
+  "calendar": {
+    "title": "Lịch",
+    "newEvent": "Sự kiện mới",
+    "eventTitle": "Tiêu đề sự kiện",
+    "description": "Mô tả",
+    "date": "Ngày",
+    "time": "Thời gian",
+    "location": "Địa điểm",
+    "allDay": "Cả ngày",
+    "recurring": "Lặp lại"
+  },
+  "emotions": {
+    "title": "Cảm xúc",
+    "logEmotion": "Ghi lại cảm xúc",
+    "mood": "Tâm trạng",
+    "great": "Tuyệt vời",
+    "good": "Tốt",
+    "okay": "Ổn",
+    "struggling": "Khó khăn",
+    "notes": "Ghi chú",
+    "gratitude": "Biết ơn",
+    "concerns": "Mối quan tâm"
+  },
+  "checkins": {
+    "title": "Kiểm tra sức khỏe mối quan hệ",
+    "submitCheckin": "Gửi báo cáo",
+    "communication": "Giao tiếp",
+    "intimacy": "Thân mật",
+    "sharedGoals": "Mục tiêu chung",
+    "overallSatisfaction": "Sự hài lòng tổng thể",
+    "analytics": "Xem phân tích"
+  },
+  "planning": {
+    "title": "Bảng kế hoạch",
+    "addPlan": "Thêm kế hoạch mới",
+    "dateNight": "Đêm hẹn hò",
+    "bucketList": "Danh sách mong muốn",
+    "upcomingPlans": "Kế hoạch sắp tới",
+    "dateIdeas": "Ý tưởng hẹn hò"
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "profile": "Hồ sơ",
+    "preferences": "Tùy chọn",
+    "notifications": "Thông báo",
+    "privacy": "Quyền riêng tư",
+    "language": "Ngôn ngữ",
+    "theme": "Giao diện",
+    "darkMode": "Chế độ tối",
+    "lightMode": "Chế độ sáng"
+  },
+  "messages": {
+    "success": {
+      "saved": "Lưu thành công!",
+      "updated": "Cập nhật thành công!",
+      "deleted": "Xóa thành công!",
+      "created": "Tạo thành công!"
+    },
+    "error": {
+      "general": "Có lỗi xảy ra. Vui lòng thử lại.",
+      "network": "Lỗi mạng. Vui lòng kiểm tra kết nối.",
+      "validation": "Vui lòng kiểm tra thông tin nhập và thử lại.",
+      "notFound": "Không tìm thấy mục này.",
+      "unauthorized": "Bạn không có quyền thực hiện hành động này."
+    }
+  }
+}

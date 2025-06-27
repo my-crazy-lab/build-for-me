@@ -23,6 +23,7 @@ import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import { memoriesService } from '../services';
+import { showToast, handleApiError, handleApiSuccess } from '../utils/toast';
 
 const MemoryVault = () => {
   const [memories, setMemories] = useState([]);
@@ -67,13 +68,17 @@ const MemoryVault = () => {
 
       const response = await memoriesService.getMemories(filters);
       if (response.success) {
-        setMemories(response.data);
+        setMemories(response.data || []);
       } else {
-        setError(response.error);
+        const errorMsg = response.error || 'Failed to load memories';
+        setError(errorMsg);
+        handleApiError({ message: errorMsg });
       }
     } catch (error) {
       console.error('Error loading memories:', error);
-      setError('Failed to load memories');
+      const errorMsg = 'Failed to load memories';
+      setError(errorMsg);
+      handleApiError(error, errorMsg);
     } finally {
       setLoading(false);
     }

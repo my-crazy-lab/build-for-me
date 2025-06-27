@@ -22,6 +22,7 @@ import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import { emotionsService } from '../services';
+import { showToast, handleApiError, handleApiSuccess } from '../utils/toast';
 
 const EmotionTracker = () => {
   const [emotions, setEmotions] = useState([]);
@@ -116,13 +117,17 @@ const EmotionTracker = () => {
 
       const response = await emotionsService.getEmotions({ days });
       if (response.success) {
-        setEmotions(response.data);
+        setEmotions(response.data || []);
       } else {
-        setError(response.error);
+        const errorMsg = response.error || 'Failed to load emotions';
+        setError(errorMsg);
+        handleApiError({ message: errorMsg });
       }
     } catch (error) {
       console.error('Error loading emotions:', error);
-      setError('Failed to load emotions');
+      const errorMsg = 'Failed to load emotions';
+      setError(errorMsg);
+      handleApiError(error, errorMsg);
     } finally {
       setLoading(false);
     }

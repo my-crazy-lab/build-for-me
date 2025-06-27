@@ -101,11 +101,14 @@ router.get('/:id', async (req, res) => {
 // @route   POST /api/checkins
 // @access  Private
 router.post('/', [
-  body('prompt').trim().isLength({ min: 1, max: 500 }).withMessage('Prompt is required and must be less than 500 characters'),
-  body('response').trim().isLength({ min: 1, max: 2000 }).withMessage('Response is required and must be less than 2000 characters'),
-  body('category').isIn(['gratitude', 'communication', 'intimacy', 'goals', 'challenges', 'appreciation', 'growth', 'fun', 'support', 'future', 'reflection']).withMessage('Invalid category'),
-  body('mood').isIn(['amazing', 'great', 'good', 'okay', 'meh', 'concerned', 'frustrated']).withMessage('Invalid mood'),
-  body('rating').isInt({ min: 1, max: 10 }).withMessage('Rating must be between 1 and 10')
+  body('mood').optional().isString().withMessage('Mood must be a string'),
+  body('communication').optional().isInt({ min: 1, max: 10 }).withMessage('Communication rating must be between 1 and 10'),
+  body('intimacy').optional().isInt({ min: 1, max: 10 }).withMessage('Intimacy rating must be between 1 and 10'),
+  body('sharedGoals').optional().isInt({ min: 1, max: 10 }).withMessage('Shared goals rating must be between 1 and 10'),
+  body('overallSatisfaction').optional().isInt({ min: 1, max: 10 }).withMessage('Overall satisfaction rating must be between 1 and 10'),
+  body('notes').optional().isLength({ max: 2000 }).withMessage('Notes must be less than 2000 characters'),
+  body('gratitude').optional().isLength({ max: 1000 }).withMessage('Gratitude must be less than 1000 characters'),
+  body('concerns').optional().isLength({ max: 1000 }).withMessage('Concerns must be less than 1000 characters')
 ], async (req, res) => {
   try {
     // Check for validation errors
@@ -118,10 +121,44 @@ router.post('/', [
       });
     }
 
-    const checkinData = {
-      ...req.body,
+    const {
+      mood,
+      communication,
+      intimacy,
+      sharedGoals,
+      overallSatisfaction,
+      notes,
+      gratitude,
+      concerns,
+      date
+    } = req.body;
 
-      userId: req.user._id
+    // Transform health check-in data to fit the existing model
+    const prompt = "Daily Relationship Health Check-in";
+    const response = [
+      gratitude ? `Gratitude: ${gratitude}` : '',
+      concerns ? `Concerns: ${concerns}` : '',
+      notes ? `Notes: ${notes}` : ''
+    ].filter(Boolean).join('\n\n') || 'Health check-in completed';
+
+    const category = 'communication'; // Default category for health check-ins
+    const rating = overallSatisfaction || 5;
+
+    const checkinData = {
+      userId: req.user._id,
+      date: date ? new Date(date) : new Date(),
+      prompt,
+      response,
+      category,
+      mood: mood || 'okay',
+      rating,
+      // Store additional health metrics as metadata
+      metadata: {
+        communication,
+        intimacy,
+        sharedGoals,
+        overallSatisfaction
+      }
     };
 
     const checkin = await Checkin.create(checkinData);

@@ -22,6 +22,7 @@ import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import { timeCapsulesService } from '../services';
+import { showToast, handleApiError, handleApiSuccess } from '../utils/toast';
 
 const TimeCapsule = () => {
   const [capsules, setCapsules] = useState([]);
@@ -425,6 +426,7 @@ const TimeCapsule = () => {
             try {
               const response = await timeCapsulesService.createTimeCapsule(capsuleData);
               if (response.success) {
+                handleApiSuccess('Time capsule created successfully');
                 // Refresh capsules list
                 const capsulesResponse = await timeCapsulesService.getTimeCapsules();
                 if (capsulesResponse.success) {
@@ -432,12 +434,11 @@ const TimeCapsule = () => {
                 }
                 setShowCreateModal(false);
               } else {
-                console.error('Failed to create time capsule:', response.error);
-                alert('Failed to create time capsule. Please try again.');
+                handleApiError({ message: response.error });
               }
             } catch (error) {
               console.error('Error creating time capsule:', error);
-              alert('Failed to create time capsule. Please try again.');
+              handleApiError(error, 'Failed to create time capsule');
             }
           }}
         />

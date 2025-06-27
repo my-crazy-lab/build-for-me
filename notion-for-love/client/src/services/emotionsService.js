@@ -15,7 +15,7 @@ class EmotionsService {
   async getEmotions(filters = {}) {
     try {
       const params = new URLSearchParams();
-      
+
       if (filters.userId) {
         params.append('userId', filters.userId);
       }
@@ -26,18 +26,26 @@ class EmotionsService {
         params.append('mood', filters.mood);
       }
 
-      const response = await api.get(`/emotions?${params.toString()}`);
-      
+      // Add cache-busting parameter to avoid 304 responses
+      params.append('_t', Date.now().toString());
+
+      const response = await api.get(`/emotions?${params.toString()}`, {
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      });
+
       if (response.data.success) {
         return { success: true, data: response.data.data };
       }
-      
+
       return { success: false, error: 'Failed to fetch emotions' };
     } catch (error) {
       console.error('Get emotions error:', error);
       return {
         success: false,
-        error: error.response?.data?.error || 'Failed to fetch emotions',
+        error: error.response?.data?.error || error.message || 'Failed to fetch emotions',
       };
     }
   }

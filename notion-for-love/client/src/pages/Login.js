@@ -17,6 +17,7 @@ import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
+import { showToast, handleApiError, handleApiSuccess } from '../utils/toast';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -66,23 +67,53 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
     setLoading(true);
+    setErrors({}); // Clear previous errors
+
     try {
       const response = await login(formData.email, formData.password);
       if (response.success) {
+        handleApiSuccess('Login successful! Welcome back.');
         navigate('/dashboard');
       } else {
-        setErrors({
-          submit: response.error || 'Login failed. Please try again.'
-        });
+        const errorMsg = response.error || 'Login failed. Please try again.';
+        setErrors({ submit: errorMsg });
+        handleApiError({ message: errorMsg });
       }
     } catch (error) {
-      setErrors({
-        submit: error.message || 'Login failed. Please try again.'
-      });
+      console.error('Login error:', error);
+      const errorMsg = error.message || 'Login failed. Please try again.';
+      setErrors({ submit: errorMsg });
+      handleApiError(error, 'Login failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Quick demo login function
+  const handleDemoLogin = async () => {
+    setLoading(true);
+    setErrors({}); // Clear previous errors
+
+    try {
+      const response = await login('admin@lovejourney.com', '123456');
+
+      if (response.success) {
+        handleApiSuccess('Demo login successful! Welcome to Love Journey.');
+        navigate('/dashboard');
+      } else {
+        const errorMsg = response.error || 'Demo login failed. Please try again.';
+        setErrors({ submit: errorMsg });
+        handleApiError({ message: errorMsg });
+      }
+    } catch (error) {
+      console.error('Demo login error:', error);
+      const errorMsg = error.message || 'Demo login failed. Please try again.';
+      setErrors({ submit: errorMsg });
+      handleApiError(error, 'Demo login failed');
     } finally {
       setLoading(false);
     }
@@ -220,13 +251,22 @@ const Login = () => {
         <motion.div variants={itemVariants} className="mt-8">
           <Card className="bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
             <div className="text-center">
-              <h3 className="text-sm font-semibold text-blue-800 dark:text-blue-200 mb-2">
-                Demo Credentials
+              <h3 className="text-sm font-semibold text-blue-800 dark:text-blue-200 mb-3">
+                Try the Demo
               </h3>
-              <div className="text-xs text-blue-600 dark:text-blue-300 space-y-1">
+              <div className="text-xs text-blue-600 dark:text-blue-300 space-y-1 mb-4">
                 <p>Email: admin@lovejourney.com</p>
                 <p>Password: 123456</p>
               </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleDemoLogin}
+                disabled={loading}
+                className="border-blue-300 text-blue-700 hover:bg-blue-100 dark:border-blue-600 dark:text-blue-300 dark:hover:bg-blue-800"
+              >
+                {loading ? 'Logging in...' : 'Quick Demo Login'}
+              </Button>
             </div>
           </Card>
         </motion.div>

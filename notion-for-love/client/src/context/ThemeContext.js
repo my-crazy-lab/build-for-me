@@ -132,7 +132,47 @@ export const ThemeProvider = ({ children }) => {
     } else {
       document.documentElement.classList.remove('dark');
     }
-  }, [theme, colorScheme]);
+
+    // Apply color scheme to CSS variables
+    const currentScheme = colorSchemes[colorScheme];
+    if (currentScheme) {
+      const root = document.documentElement;
+
+      // Convert hex to RGB values for CSS variables
+      const hexToRgb = (hex) => {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16)
+        } : null;
+      };
+
+      // Apply primary color
+      const primaryRgb = hexToRgb(currentScheme.colors.primary);
+      if (primaryRgb) {
+        root.style.setProperty('--color-primary', `${primaryRgb.r} ${primaryRgb.g} ${primaryRgb.b}`);
+      }
+
+      // Apply secondary color
+      const secondaryRgb = hexToRgb(currentScheme.colors.secondary);
+      if (secondaryRgb) {
+        root.style.setProperty('--color-secondary', `${secondaryRgb.r} ${secondaryRgb.g} ${secondaryRgb.b}`);
+      }
+
+      // Apply neutral color
+      const neutralRgb = hexToRgb(currentScheme.colors.neutral);
+      if (neutralRgb) {
+        root.style.setProperty('--color-neutral', `${neutralRgb.r} ${neutralRgb.g} ${neutralRgb.b}`);
+      }
+
+      // Apply accent color
+      const accentRgb = hexToRgb(currentScheme.colors.accent);
+      if (accentRgb) {
+        root.style.setProperty('--color-accent', `${accentRgb.r} ${accentRgb.g} ${accentRgb.b}`);
+      }
+    }
+  }, [theme, colorScheme, colorSchemes]);
 
   const toggleTheme = () => {
     const newTheme = isDark ? 'light' : 'dark';

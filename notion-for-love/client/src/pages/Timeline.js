@@ -22,6 +22,7 @@ import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import { milestonesService } from '../services';
+import { showToast, handleApiError, handleApiSuccess } from '../utils/toast';
 
 const Timeline = () => {
   const [milestones, setMilestones] = useState([]);
@@ -31,7 +32,9 @@ const Timeline = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [selectedMilestone, setSelectedMilestone] = useState(null);
+  const [editingMilestone, setEditingMilestone] = useState(null);
 
 
 
@@ -42,11 +45,42 @@ const Timeline = () => {
       const response = await milestonesService.getMilestones();
       if (response.success) {
         setMilestones(response.data);
+      } else {
+        handleApiError({ message: response.error });
       }
     } catch (error) {
       console.error('Error loading milestones:', error);
+      handleApiError(error, 'Failed to load milestones');
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Handle edit milestone
+  const handleEditMilestone = (milestone) => {
+    setEditingMilestone(milestone);
+    setShowEditModal(true);
+    setSelectedMilestone(null);
+  };
+
+  // Handle delete milestone
+  const handleDeleteMilestone = async (milestoneId) => {
+    if (!window.confirm('Are you sure you want to delete this milestone? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      const response = await milestonesService.deleteMilestone(milestoneId);
+      if (response.success) {
+        handleApiSuccess('Milestone deleted successfully');
+        loadMilestones(); // Refresh the list
+        setSelectedMilestone(null);
+      } else {
+        handleApiError({ message: response.error });
+      }
+    } catch (error) {
+      console.error('Error deleting milestone:', error);
+      handleApiError(error, 'Failed to delete milestone');
     }
   };
 
@@ -257,19 +291,50 @@ const Timeline = () => {
             try {
               const response = await milestonesService.createMilestone(milestoneData);
               if (response.success) {
-                // Refresh milestones list
-                const milestonesResponse = await milestonesService.getMilestones();
-                if (milestonesResponse.success) {
-                  setMilestones(milestonesResponse.data);
-                }
+                handleApiSuccess('Milestone created successfully');
+                loadMilestones(); // Refresh the list
                 setShowAddModal(false);
               } else {
-                console.error('Failed to create milestone:', response.error);
-                alert('Failed to create milestone. Please try again.');
+                handleApiError({ message: response.error });
               }
             } catch (error) {
               console.error('Error creating milestone:', error);
-              alert('Failed to create milestone. Please try again.');
+              handleApiError(error, 'Failed to create milestone');
+            }
+          }}
+        />
+      </Modal>
+
+      {/* Edit Milestone Modal */}
+      <Modal
+        isOpen={showEditModal}
+        onClose={() => {
+          setShowEditModal(false);
+          setEditingMilestone(null);
+        }}
+        title="Edit Milestone"
+        size="lg"
+      >
+        <MilestoneForm
+          milestone={editingMilestone}
+          onClose={() => {
+            setShowEditModal(false);
+            setEditingMilestone(null);
+          }}
+          onSave={async (milestoneData) => {
+            try {
+              const response = await milestonesService.updateMilestone(editingMilestone._id, milestoneData);
+              if (response.success) {
+                handleApiSuccess('Milestone updated successfully');
+                loadMilestones(); // Refresh the list
+                setShowEditModal(false);
+                setEditingMilestone(null);
+              } else {
+                handleApiError({ message: response.error });
+              }
+            } catch (error) {
+              console.error('Error updating milestone:', error);
+              handleApiError(error, 'Failed to update milestone');
             }
           }}
         />
@@ -280,6 +345,8 @@ const Timeline = () => {
         <MilestoneDetailModal
           milestone={selectedMilestone}
           onClose={() => setSelectedMilestone(null)}
+          onEdit={() => handleEditMilestone(selectedMilestone)}
+          onDelete={() => handleDeleteMilestone(selectedMilestone._id)}
           getEmotionColor={getEmotionColor}
           formatDate={formatDate}
         />
@@ -510,7 +577,7 @@ const GridView = ({ milestones, onMilestoneClick, getEmotionColor, getCategoryIc
 };
 
 // Milestone Detail Modal Component
-const MilestoneDetailModal = ({ milestone, onClose, getEmotionColor, formatDate }) => {
+const MilestoneDetailModal = ({ milestone, onClose, onEdit, onDelete, getEmotionColor, formatDate }) => {
   const dateInfo = formatDate(milestone.date);
 
   return (
@@ -519,6 +586,16 @@ const MilestoneDetailModal = ({ milestone, onClose, getEmotionColor, formatDate 
       onClose={onClose}
       title={milestone.title}
       size="xl"
+      actions={
+        <div className="flex space-x-3">
+          <Button variant="outline" onClick={onEdit}>
+            Edit
+          </Button>
+          <Button variant="danger" onClick={onDelete}>
+            Delete
+          </Button>
+        </div>
+      }
     >
       <div className="space-y-6">
         {/* Header Info */}
@@ -635,21 +712,22 @@ const MilestoneDetailModal = ({ milestone, onClose, getEmotionColor, formatDate 
 };
 
 // Milestone Form Component
-const MilestoneForm = ({ onClose, onSave }) => {
+const MilestoneForm = ({ milestone, onClose, onSave }) => {
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    date: '',
-    location: '',
-    category: 'other',
-    emotions: [],
-    tags: '',
-    notes: '',
-    isPrivate: false,
-    isFavorite: false
+    title: milestone?.title || '',
+    description: milestone?.description || '',
+    date: milestone?.date ? new Date(milestone.date).toISOString().split('T')[0] : '',
+    location: milestone?.location || '',
+    category: milestone?.category || 'other',
+    emotions: milestone?.emotions || [],
+    tags: milestone?.tags ? milestone.tags.join(', ') : '',
+    notes: milestone?.notes || '',
+    isPrivate: milestone?.isPrivate || false,
+    isFavorite: milestone?.isFavorite || false
   });
 
   const [loading, setLoading] = useState(false);
+  const isEditing = !!milestone;
 
   const categories = [
     { value: 'first-meeting', label: 'First Meeting' },
@@ -824,7 +902,7 @@ const MilestoneForm = ({ onClose, onSave }) => {
           Cancel
         </Button>
         <Button variant="primary" type="submit" disabled={loading}>
-          {loading ? 'Creating...' : 'Create Milestone'}
+          {loading ? (isEditing ? 'Updating...' : 'Creating...') : (isEditing ? 'Update Milestone' : 'Create Milestone')}
         </Button>
       </div>
     </form>

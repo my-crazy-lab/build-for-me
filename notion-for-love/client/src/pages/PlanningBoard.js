@@ -19,6 +19,7 @@ import Button from '../components/ui/Button';
 import Modal from '../components/ui/Modal';
 import Input from '../components/ui/Input';
 import eventsService from '../services/eventsService';
+import { showToast, handleApiError, handleApiSuccess } from '../utils/toast';
 
 const PlanningBoard = () => {
   const [activeTab, setActiveTab] = useState('upcoming');
@@ -28,6 +29,9 @@ const PlanningBoard = () => {
   const [bucketList, setBucketList] = useState([]);
   const [showPlanModal, setShowPlanModal] = useState(false);
   const [showBucketListModal, setShowBucketListModal] = useState(false);
+  const [showEditPlanModal, setShowEditPlanModal] = useState(false);
+  const [editingPlan, setEditingPlan] = useState(null);
+  const [showDateIdeaModal, setShowDateIdeaModal] = useState(false);
 
   const tabs = [
     { id: 'upcoming', label: 'Upcoming Plans', icon: Calendar },
@@ -64,6 +68,12 @@ const PlanningBoard = () => {
 
     loadPlanningData();
   }, []);
+
+  // Handle edit plan
+  const handleEditPlan = (plan) => {
+    setEditingPlan(plan);
+    setShowEditPlanModal(true);
+  };
 
   // Helper function to get icon for event type
   const getEventIcon = (type) => {
@@ -147,7 +157,10 @@ const PlanningBoard = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
                     >
-                      <Card className="p-6 hover:shadow-lg transition-shadow">
+                      <Card
+                        className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
+                        onClick={() => handleEditPlan(plan)}
+                      >
                         <div className="flex items-start justify-between mb-4">
                           <div className="flex items-center space-x-3">
                             <div className="p-2 bg-primary-100 dark:bg-primary-900 rounded-lg">
@@ -273,6 +286,31 @@ const PlanningBoard = () => {
                   );
                 })
               )}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <Card className="p-6 border-2 border-dashed border-gray-300 dark:border-gray-600 hover:border-secondary-400 dark:hover:border-secondary-500 transition-colors">
+                  <div className="text-center">
+                    <Heart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                      Add Date Idea
+                    </h3>
+                    <p className="text-gray-500 dark:text-gray-400 mb-4">
+                      Save creative ideas for future dates
+                    </p>
+                    <Button
+                      size="sm"
+                      className="w-full"
+                      onClick={() => setShowDateIdeaModal(true)}
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add Idea
+                    </Button>
+                  </div>
+                </Card>
+              </motion.div>
             </>
           )}
 
@@ -386,6 +424,7 @@ const PlanningBoard = () => {
               try {
                 const response = await eventsService.createEvent(planData);
                 if (response.success) {
+                  handleApiSuccess('Plan created successfully');
                   // Refresh plans list
                   const plansResponse = await eventsService.getUpcomingPlans();
                   if (plansResponse.success) {
@@ -393,12 +432,11 @@ const PlanningBoard = () => {
                   }
                   setShowPlanModal(false);
                 } else {
-                  console.error('Failed to create plan:', response.error);
-                  alert('Failed to create plan. Please try again.');
+                  handleApiError({ message: response.error });
                 }
               } catch (error) {
                 console.error('Error creating plan:', error);
-                alert('Failed to create plan. Please try again.');
+                handleApiError(error, 'Failed to create plan');
               }
             }}
           />
@@ -417,6 +455,7 @@ const PlanningBoard = () => {
               try {
                 const response = await eventsService.createEvent(bucketListData);
                 if (response.success) {
+                  handleApiSuccess('Bucket list item added successfully');
                   // Refresh bucket list
                   const bucketListResponse = await eventsService.getBucketList();
                   if (bucketListResponse.success) {
@@ -424,12 +463,81 @@ const PlanningBoard = () => {
                   }
                   setShowBucketListModal(false);
                 } else {
-                  console.error('Failed to create bucket list item:', response.error);
-                  alert('Failed to create bucket list item. Please try again.');
+                  handleApiError({ message: response.error });
                 }
               } catch (error) {
                 console.error('Error creating bucket list item:', error);
-                alert('Failed to create bucket list item. Please try again.');
+                handleApiError(error, 'Failed to create bucket list item');
+              }
+            }}
+          />
+        </Modal>
+
+        {/* Edit Plan Modal */}
+        <Modal
+          isOpen={showEditPlanModal}
+          onClose={() => {
+            setShowEditPlanModal(false);
+            setEditingPlan(null);
+          }}
+          title="Edit Plan"
+          size="lg"
+        >
+          <PlanForm
+            plan={editingPlan}
+            onClose={() => {
+              setShowEditPlanModal(false);
+              setEditingPlan(null);
+            }}
+            onSave={async (planData) => {
+              try {
+                const response = await eventsService.updateEvent(editingPlan._id, planData);
+                if (response.success) {
+                  handleApiSuccess('Plan updated successfully');
+                  // Refresh plans list
+                  const plansResponse = await eventsService.getUpcomingPlans();
+                  if (plansResponse.success) {
+                    setUpcomingPlans(plansResponse.data);
+                  }
+                  setShowEditPlanModal(false);
+                  setEditingPlan(null);
+                } else {
+                  handleApiError({ message: response.error });
+                }
+              } catch (error) {
+                console.error('Error updating plan:', error);
+                handleApiError(error, 'Failed to update plan');
+              }
+            }}
+          />
+        </Modal>
+
+        {/* Date Idea Modal */}
+        <Modal
+          isOpen={showDateIdeaModal}
+          onClose={() => setShowDateIdeaModal(false)}
+          title="Add Date Idea"
+          size="lg"
+        >
+          <DateIdeaForm
+            onClose={() => setShowDateIdeaModal(false)}
+            onSave={async (ideaData) => {
+              try {
+                const response = await eventsService.createDateIdea(ideaData);
+                if (response.success) {
+                  handleApiSuccess('Date idea added successfully');
+                  // Refresh date ideas list
+                  const ideasResponse = await eventsService.getDateIdeas();
+                  if (ideasResponse.success) {
+                    setDateIdeas(ideasResponse.data);
+                  }
+                  setShowDateIdeaModal(false);
+                } else {
+                  handleApiError({ message: response.error });
+                }
+              } catch (error) {
+                console.error('Error creating date idea:', error);
+                handleApiError(error, 'Failed to create date idea');
               }
             }}
           />
@@ -440,18 +548,20 @@ const PlanningBoard = () => {
 };
 
 // Plan Form Component
-const PlanForm = ({ onClose, onSave }) => {
+const PlanForm = ({ plan, onClose, onSave }) => {
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    date: new Date().toISOString().split('T')[0],
-    time: '19:00',
-    type: 'date-night',
-    location: '',
-    notes: '',
-    estimatedCost: 0,
-    duration: 2
+    title: plan?.title || '',
+    description: plan?.description || '',
+    date: plan?.date ? new Date(plan.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+    time: plan?.date ? new Date(plan.date).toTimeString().slice(0, 5) : '19:00',
+    type: plan?.type || 'date-night',
+    location: plan?.location?.name || '',
+    notes: plan?.notes || '',
+    estimatedCost: plan?.estimatedCost || 0,
+    duration: plan?.duration || 2
   });
+
+  const isEditing = !!plan;
 
   const planTypes = [
     { value: 'date-night', label: 'Date Night' },
@@ -587,7 +697,7 @@ const PlanForm = ({ onClose, onSave }) => {
           Cancel
         </Button>
         <Button type="submit" variant="primary">
-          Create Plan
+          {isEditing ? 'Update Plan' : 'Create Plan'}
         </Button>
       </div>
     </form>
@@ -739,6 +849,133 @@ const BucketListForm = ({ onClose, onSave }) => {
         </Button>
         <Button type="submit" variant="primary">
           Add to Bucket List
+        </Button>
+      </div>
+    </form>
+  );
+};
+
+// Date Idea Form Component
+const DateIdeaForm = ({ onClose, onSave }) => {
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    type: 'romantic',
+    tags: '',
+    estimatedCost: 0,
+    duration: 2,
+    notes: ''
+  });
+
+  const ideaTypes = [
+    { value: 'romantic', label: 'Romantic' },
+    { value: 'adventure', label: 'Adventure' },
+    { value: 'fun', label: 'Fun Activity' },
+    { value: 'dinner', label: 'Dinner' },
+    { value: 'entertainment', label: 'Entertainment' },
+    { value: 'outdoor', label: 'Outdoor' },
+    { value: 'indoor', label: 'Indoor' },
+    { value: 'creative', label: 'Creative' },
+    { value: 'other', label: 'Other' }
+  ];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.title) return;
+
+    const ideaData = {
+      ...formData,
+      tags: formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag),
+      category: 'date-idea'
+    };
+
+    onSave(ideaData);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <Input
+        label="Idea Title"
+        value={formData.title}
+        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+        placeholder="e.g., Sunset picnic in the park"
+        required
+      />
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Description
+        </label>
+        <textarea
+          value={formData.description}
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+          placeholder="Describe your date idea..."
+          rows={3}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Type
+        </label>
+        <select
+          value={formData.type}
+          onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+        >
+          {ideaTypes.map((type) => (
+            <option key={type.value} value={type.value}>
+              {type.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <Input
+        label="Tags (comma-separated)"
+        value={formData.tags}
+        onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+        placeholder="e.g., outdoor, romantic, sunset"
+      />
+
+      <div className="grid grid-cols-2 gap-4">
+        <Input
+          label="Estimated Cost ($)"
+          type="number"
+          value={formData.estimatedCost}
+          onChange={(e) => setFormData({ ...formData, estimatedCost: parseInt(e.target.value) || 0 })}
+          min="0"
+        />
+        <Input
+          label="Duration (hours)"
+          type="number"
+          value={formData.duration}
+          onChange={(e) => setFormData({ ...formData, duration: parseInt(e.target.value) || 1 })}
+          min="0.5"
+          step="0.5"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Notes
+        </label>
+        <textarea
+          value={formData.notes}
+          onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+          placeholder="Any additional notes or requirements..."
+          rows={2}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+        />
+      </div>
+
+      <div className="flex justify-end space-x-3">
+        <Button variant="ghost" onClick={onClose}>
+          Cancel
+        </Button>
+        <Button type="submit" variant="primary">
+          Add Date Idea
         </Button>
       </div>
     </form>

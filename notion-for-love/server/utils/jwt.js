@@ -54,7 +54,6 @@ const sendTokenResponse = (user, statusCode, res) => {
     email: user.email,
     avatar: user.avatar,
     role: user.role,
-    relationshipId: user.relationshipId,
     joinedAt: user.joinedAt
   };
 

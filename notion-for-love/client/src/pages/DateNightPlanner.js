@@ -23,6 +23,7 @@ import Input from '../components/ui/Input';
 import Modal from '../components/ui/Modal';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
 import { eventsService } from '../services';
+import { showToast, handleApiError, handleApiSuccess } from '../utils/toast';
 
 const DateNightPlanner = () => {
   const [datePlans, setDatePlans] = useState([]);
@@ -449,14 +450,14 @@ const DateNightPlanner = () => {
                 if (plansResponse.success) {
                   setDatePlans(plansResponse.data);
                 }
+                handleApiSuccess('Date plan created successfully');
                 setShowPlanModal(false);
               } else {
-                console.error('Failed to create date plan:', response.error);
-                alert('Failed to create date plan. Please try again.');
+                handleApiError({ message: response.error });
               }
             } catch (error) {
               console.error('Error creating date plan:', error);
-              alert('Failed to create date plan. Please try again.');
+              handleApiError(error, 'Failed to create date plan');
             }
           }}
         />

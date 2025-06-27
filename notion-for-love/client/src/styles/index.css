@@ -14,49 +14,69 @@
 
 /* CSS Custom Properties for Theme Support */
 :root {
-  /* Light theme colors */
-  --color-primary: 165 123 91; /* #A57B5B */
-  --color-secondary: 106 123 83; /* #6A7B53 */
-  --color-neutral: 229 213 197; /* #E5D5C5 */
-  --color-accent: 229 88 15; /* #e5580f */
-  
-  /* Background colors */
+  /* Dynamic theme colors - updated by ThemeContext */
+  --color-primary: 165 123 91; /* Default: Terracotta */
+  --color-secondary: 106 123 83; /* Default: Olive Green */
+  --color-neutral: 229 213 197; /* Default: Cream Beige */
+  --color-accent: 212 165 116; /* Default: Warm Sand */
+
+  /* Background colors - Light theme */
   --bg-primary: 255 255 255;
   --bg-secondary: 249 246 243;
   --bg-tertiary: 245 241 236;
-  
-  /* Text colors */
+  --bg-card: 255 255 255;
+  --bg-overlay: 255 255 255 / 0.8;
+
+  /* Text colors - Light theme */
   --text-primary: 41 37 36;
   --text-secondary: 68 64 60;
   --text-muted: 120 113 108;
-  
-  /* Border colors */
+  --text-inverse: 255 255 255;
+
+  /* Border colors - Light theme */
   --border: 214 211 209;
   --border-primary: 231 229 228;
   --border-secondary: 214 211 209;
-  
+  --border-focus: rgb(var(--color-primary));
+
   /* Shadow colors */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+
+  /* Status colors */
+  --color-success: 34 197 94;
+  --color-warning: 245 158 11;
+  --color-error: 239 68 68;
+  --color-info: 59 130 246;
 }
 
 /* Dark theme colors */
 .dark {
-  --bg-primary: 23 23 23;
-  --bg-secondary: 38 38 38;
-  --bg-tertiary: 51 51 51;
-  
-  --text-primary: 245 245 245;
-  --text-secondary: 212 212 212;
-  --text-muted: 163 163 163;
-  
-  --border-primary: 64 64 64;
-  --border-secondary: 82 82 82;
-  
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  /* Background colors - Dark theme */
+  --bg-primary: 17 24 39; /* slate-900 */
+  --bg-secondary: 30 41 59; /* slate-800 */
+  --bg-tertiary: 51 65 85; /* slate-700 */
+  --bg-card: 30 41 59; /* slate-800 */
+  --bg-overlay: 17 24 39 / 0.8;
+
+  /* Text colors - Dark theme */
+  --text-primary: 248 250 252; /* slate-50 */
+  --text-secondary: 203 213 225; /* slate-300 */
+  --text-muted: 148 163 184; /* slate-400 */
+  --text-inverse: 15 23 42; /* slate-900 */
+
+  /* Border colors - Dark theme */
+  --border: 71 85 105; /* slate-600 */
+  --border-primary: 51 65 85; /* slate-700 */
+  --border-secondary: 71 85 105; /* slate-600 */
+
+  /* Enhanced shadows for dark theme */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 10px 10px -5px rgb(0 0 0 / 0.2);
 }
 
 /* Base styles */
@@ -95,64 +115,144 @@
 
 /* Component styles */
 @layer components {
-  /* Button variants */
+  /* Button variants using CSS variables */
   .btn-primary {
-    @apply bg-primary-500 hover:bg-primary-600 text-white font-medium px-4 py-2 rounded-lg;
+    background-color: rgb(var(--color-primary));
+    color: rgb(var(--text-inverse));
+    @apply font-medium px-4 py-2 rounded-lg;
     @apply transition-all duration-200 ease-in-out;
-    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
     @apply active:scale-95;
+    box-shadow: var(--shadow-sm);
   }
-  
+
+  .btn-primary:hover {
+    background-color: rgb(var(--color-primary) / 0.9);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-primary:focus {
+    --tw-ring-color: rgb(var(--color-primary) / 0.5);
+  }
+
   .btn-secondary {
-    @apply bg-secondary-500 hover:bg-secondary-600 text-white font-medium px-4 py-2 rounded-lg;
+    background-color: rgb(var(--color-secondary));
+    color: rgb(var(--text-inverse));
+    @apply font-medium px-4 py-2 rounded-lg;
     @apply transition-all duration-200 ease-in-out;
-    @apply focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
     @apply active:scale-95;
+    box-shadow: var(--shadow-sm);
   }
-  
+
+  .btn-secondary:hover {
+    background-color: rgb(var(--color-secondary) / 0.9);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-secondary:focus {
+    --tw-ring-color: rgb(var(--color-secondary) / 0.5);
+  }
+
   .btn-outline {
-    @apply border border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white;
+    border: 1px solid rgb(var(--color-primary));
+    color: rgb(var(--color-primary));
+    background-color: transparent;
     @apply font-medium px-4 py-2 rounded-lg;
     @apply transition-all duration-200 ease-in-out;
-    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
     @apply active:scale-95;
   }
-  
+
+  .btn-outline:hover {
+    background-color: rgb(var(--color-primary));
+    color: rgb(var(--text-inverse));
+  }
+
+  .btn-outline:focus {
+    --tw-ring-color: rgb(var(--color-primary) / 0.5);
+  }
+
   .btn-ghost {
-    @apply text-gray-600 hover:text-gray-900 hover:bg-gray-100;
-    @apply dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800;
+    color: rgb(var(--text-secondary));
+    background-color: transparent;
     @apply font-medium px-4 py-2 rounded-lg;
     @apply transition-all duration-200 ease-in-out;
-    @apply focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
     @apply active:scale-95;
   }
+
+  .btn-ghost:hover {
+    color: rgb(var(--text-primary));
+    background-color: rgb(var(--bg-secondary));
+  }
   
-  /* Card styles */
+  /* Card styles using CSS variables */
   .card {
-    @apply bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700;
-    @apply transition-all duration-200 ease-in-out;
+    background-color: rgb(var(--bg-card));
+    border: 1px solid rgb(var(--border-primary));
+    @apply rounded-xl transition-all duration-200 ease-in-out;
+    box-shadow: var(--shadow-md);
   }
-  
+
   .card-hover {
-    @apply hover:shadow-lg hover:-translate-y-1;
+    @apply hover:-translate-y-1;
   }
-  
-  /* Input styles */
+
+  .card-hover:hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Input styles using CSS variables */
   .input {
-    @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600;
-    @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100;
-    @apply rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+    @apply w-full px-3 py-2 rounded-lg;
+    background-color: rgb(var(--bg-primary));
+    border: 1px solid rgb(var(--border));
+    color: rgb(var(--text-primary));
+    @apply focus:outline-none focus:ring-2 focus:border-transparent;
     @apply transition-all duration-200 ease-in-out;
-    @apply placeholder-gray-500 dark:placeholder-gray-400;
   }
-  
+
+  .input:focus {
+    --tw-ring-color: rgb(var(--color-primary) / 0.5);
+    border-color: rgb(var(--color-primary));
+  }
+
+  .input::placeholder {
+    color: rgb(var(--text-muted));
+  }
+
   .input-error {
-    @apply border-error-500 focus:ring-error-500;
+    border-color: rgb(var(--color-error));
+  }
+
+  .input-error:focus {
+    --tw-ring-color: rgb(var(--color-error) / 0.5);
   }
   
-  /* Text styles */
+  /* Text styles using CSS variables */
   .text-gradient {
-    @apply bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent;
+    background: linear-gradient(to right, rgb(var(--color-primary)), rgb(var(--color-secondary)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .text-primary {
+    color: rgb(var(--text-primary));
+  }
+
+  .text-secondary {
+    color: rgb(var(--text-secondary));
+  }
+
+  .text-muted {
+    color: rgb(var(--text-muted));
+  }
+
+  .text-accent {
+    color: rgb(var(--color-accent));
   }
   
   /* Animation utilities */
@@ -173,22 +273,80 @@
     50% { transform: scale(1.1); }
   }
   
-  /* Glass morphism effect */
+  /* Glass morphism effect using CSS variables */
   .glass {
-    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-white/20 dark:border-gray-700/20;
+    background-color: rgb(var(--bg-overlay));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgb(var(--border) / 0.2);
   }
-  
-  /* Romantic gradient backgrounds */
+
+  /* Romantic gradient backgrounds using CSS variables */
   .bg-romantic {
-    @apply bg-gradient-to-br from-primary-100 via-neutral-100 to-secondary-100;
-    @apply dark:from-primary-900/20 dark:via-neutral-900/20 dark:to-secondary-900/20;
+    background: linear-gradient(135deg,
+      rgb(var(--color-primary) / 0.1) 0%,
+      rgb(var(--color-neutral) / 0.1) 50%,
+      rgb(var(--color-secondary) / 0.1) 100%);
   }
-  
+
   .bg-romantic-radial {
-    background: radial-gradient(circle at center, 
-      rgb(var(--color-primary) / 0.1) 0%, 
-      rgb(var(--color-neutral) / 0.05) 50%, 
+    background: radial-gradient(circle at center,
+      rgb(var(--color-primary) / 0.1) 0%,
+      rgb(var(--color-neutral) / 0.05) 50%,
       transparent 100%);
+  }
+
+  /* Background utilities */
+  .bg-primary {
+    background-color: rgb(var(--bg-primary));
+  }
+
+  .bg-secondary {
+    background-color: rgb(var(--bg-secondary));
+  }
+
+  .bg-card {
+    background-color: rgb(var(--bg-card));
+  }
+
+  /* Border utilities */
+  .border-primary {
+    border-color: rgb(var(--border-primary));
+  }
+
+  .border-secondary {
+    border-color: rgb(var(--border-secondary));
+  }
+
+  /* Toast animations */
+  @keyframes enter {
+    0% {
+      transform: translate3d(0, -200%, 0) scale(0.6);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes leave {
+    0% {
+      transform: translate3d(0, 0, -1px) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate3d(0, -150%, -1px) scale(0.6);
+      opacity: 0;
+    }
+  }
+
+  .animate-enter {
+    animation: enter 0.35s cubic-bezier(0.21, 1.02, 0.73, 1) forwards;
+  }
+
+  .animate-leave {
+    animation: leave 0.4s cubic-bezier(0.06, 0.71, 0.55, 1) forwards;
   }
 }
 

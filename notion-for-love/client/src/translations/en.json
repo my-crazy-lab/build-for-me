@@ -1,0 +1,166 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "none": "None",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "tomorrow": "Tomorrow",
+    "week": "Week",
+    "month": "Month",
+    "year": "Year"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "goals": "Goals",
+    "memories": "Memories",
+    "timeline": "Timeline",
+    "calendar": "Calendar",
+    "emotions": "Emotions",
+    "checkins": "Check-ins",
+    "planning": "Planning",
+    "insights": "Insights",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember me",
+    "loginSuccess": "Login successful! Welcome back.",
+    "loginFailed": "Login failed. Please try again.",
+    "demoLogin": "Quick Demo Login",
+    "demoCredentials": "Demo Credentials"
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "recentMemories": "Recent Memories",
+    "upcomingEvents": "Upcoming Events",
+    "goalProgress": "Goal Progress",
+    "relationshipHealth": "Relationship Health",
+    "quickActions": "Quick Actions",
+    "addMemory": "Add Memory",
+    "createGoal": "Create Goal",
+    "scheduleDate": "Schedule Date"
+  },
+  "goals": {
+    "title": "Goals",
+    "createGoal": "Create Goal",
+    "editGoal": "Edit Goal",
+    "goalTitle": "Goal Title",
+    "description": "Description",
+    "category": "Category",
+    "priority": "Priority",
+    "targetDate": "Target Date",
+    "progress": "Progress",
+    "status": "Status",
+    "active": "Active",
+    "completed": "Completed",
+    "paused": "Paused",
+    "updateProgress": "Update Progress"
+  },
+  "memories": {
+    "title": "Memories",
+    "addMemory": "Add Memory",
+    "uploadPhoto": "Upload Photo",
+    "memoryTitle": "Memory Title",
+    "description": "Description",
+    "location": "Location",
+    "date": "Date",
+    "tags": "Tags",
+    "category": "Category",
+    "favorite": "Favorite",
+    "private": "Private"
+  },
+  "timeline": {
+    "title": "Timeline",
+    "addMilestone": "Add Milestone",
+    "milestoneTitle": "Milestone Title",
+    "description": "Description",
+    "date": "Date",
+    "category": "Category",
+    "emotions": "Emotions",
+    "notes": "Notes"
+  },
+  "calendar": {
+    "title": "Calendar",
+    "newEvent": "New Event",
+    "eventTitle": "Event Title",
+    "description": "Description",
+    "date": "Date",
+    "time": "Time",
+    "location": "Location",
+    "allDay": "All Day",
+    "recurring": "Recurring"
+  },
+  "emotions": {
+    "title": "Emotions",
+    "logEmotion": "Log Emotion",
+    "mood": "Mood",
+    "great": "Great",
+    "good": "Good",
+    "okay": "Okay",
+    "struggling": "Struggling",
+    "notes": "Notes",
+    "gratitude": "Gratitude",
+    "concerns": "Concerns"
+  },
+  "checkins": {
+    "title": "Health Check-ins",
+    "submitCheckin": "Submit Check-in",
+    "communication": "Communication",
+    "intimacy": "Intimacy",
+    "sharedGoals": "Shared Goals",
+    "overallSatisfaction": "Overall Satisfaction",
+    "analytics": "View Analytics"
+  },
+  "planning": {
+    "title": "Planning Board",
+    "addPlan": "Add New Plan",
+    "dateNight": "Date Night",
+    "bucketList": "Bucket List",
+    "upcomingPlans": "Upcoming Plans",
+    "dateIdeas": "Date Ideas"
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": "Profile",
+    "preferences": "Preferences",
+    "notifications": "Notifications",
+    "privacy": "Privacy",
+    "language": "Language",
+    "theme": "Theme",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode"
+  },
+  "messages": {
+    "success": {
+      "saved": "Successfully saved!",
+      "updated": "Successfully updated!",
+      "deleted": "Successfully deleted!",
+      "created": "Successfully created!"
+    },
+    "error": {
+      "general": "Something went wrong. Please try again.",
+      "network": "Network error. Please check your connection.",
+      "validation": "Please check your input and try again.",
+      "notFound": "Item not found.",
+      "unauthorized": "You are not authorized to perform this action."
+    }
+  }
+}

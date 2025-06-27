@@ -20,6 +20,7 @@ import Button from '../components/ui/Button';
 import Modal from '../components/ui/Modal';
 import Input from '../components/ui/Input';
 import { eventsService } from '../services';
+import { showToast, handleApiError, handleApiSuccess } from '../utils/toast';
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -342,14 +343,14 @@ const Calendar = () => {
                     }));
                     setEvents(calendarEvents);
                   }
+                  handleApiSuccess('Event created successfully');
                   setShowEventModal(false);
                 } else {
-                  console.error('Failed to create event:', response.error);
-                  alert('Failed to create event. Please try again.');
+                  handleApiError({ message: response.error });
                 }
               } catch (error) {
                 console.error('Error creating event:', error);
-                alert('Failed to create event. Please try again.');
+                handleApiError(error, 'Failed to create event');
               }
             }}
           />

@@ -16,7 +16,13 @@ const timeCapsulesService = {
    */
   async getTimeCapsules() {
     try {
-      const response = await api.get('/time-capsules');
+      const response = await api.get('/time-capsules', {
+        params: { _t: Date.now() },
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      });
       return {
         success: true,
         data: response.data.data || []
@@ -25,7 +31,7 @@ const timeCapsulesService = {
       console.error('Error fetching time capsules:', error);
       return {
         success: false,
-        error: error.response?.data?.message || 'Failed to fetch time capsules'
+        error: error.response?.data?.message || error.message || 'Failed to fetch time capsules'
       };
     }
   },

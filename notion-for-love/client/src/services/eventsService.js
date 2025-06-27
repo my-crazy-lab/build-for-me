@@ -32,18 +32,26 @@ class EventsService {
         params.append('upcoming', 'true');
       }
 
-      const response = await api.get(`/events?${params.toString()}`);
-      
+      // Add cache-busting parameter to avoid 304 responses
+      params.append('_t', Date.now().toString());
+
+      const response = await api.get(`/events?${params.toString()}`, {
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      });
+
       if (response.data.success) {
         return { success: true, data: response.data.data };
       }
-      
+
       return { success: false, error: 'Failed to fetch events' };
     } catch (error) {
       console.error('Get events error:', error);
       return {
         success: false,
-        error: error.response?.data?.error || 'Failed to fetch events',
+        error: error.response?.data?.error || error.message || 'Failed to fetch events',
       };
     }
   }
@@ -237,6 +245,25 @@ class EventsService {
       return {
         success: false,
         error: error.response?.data?.error || 'Failed to fetch date ideas',
+      };
+    }
+  }
+
+  // Create date idea
+  async createDateIdea(ideaData) {
+    try {
+      const response = await api.post('/events/date-ideas', ideaData);
+
+      if (response.data.success) {
+        return { success: true, data: response.data.data };
+      }
+
+      return { success: false, error: 'Failed to create date idea' };
+    } catch (error) {
+      console.error('Create date idea error:', error);
+      return {
+        success: false,
+        error: error.response?.data?.error || error.message || 'Failed to create date idea',
       };
     }
   }

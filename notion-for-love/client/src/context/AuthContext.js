@@ -55,11 +55,20 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       setLoading(true);
+
+      // Ensure any previous state is cleared
+      setUser(null);
+      setIsAuthenticated(false);
+
       const response = await authService.login(email, password);
 
       if (response.success) {
         setUser(response.user);
         setIsAuthenticated(true);
+
+        // Small delay to ensure state is properly set
+        await new Promise(resolve => setTimeout(resolve, 50));
+
         return { success: true };
       } else {
         return { success: false, error: response.error };
@@ -78,6 +87,9 @@ export const AuthProvider = ({ children }) => {
       await authService.logout();
       setUser(null);
       setIsAuthenticated(false);
+
+      // Force a small delay to ensure state is cleared
+      await new Promise(resolve => setTimeout(resolve, 100));
     } catch (error) {
       console.error('Logout error:', error);
     } finally {

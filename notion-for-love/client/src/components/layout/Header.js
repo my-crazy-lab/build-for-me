@@ -20,6 +20,7 @@ import Avatar from '../ui/Avatar';
 import Button from '../ui/Button';
 import Badge from '../ui/Badge';
 import Tooltip from '../ui/Tooltip';
+import ThemeToggle from '../ui/ThemeToggle';
 import GlobalSearch from '../search/GlobalSearch';
 
 const Header = ({ onToggleSidebar, onToggleSidebarCollapse, sidebarCollapsed }) => {
@@ -108,6 +109,11 @@ const Header = ({ onToggleSidebar, onToggleSidebarCollapse, sidebarCollapsed }) 
                 />
               </Tooltip>
             </div>
+
+            {/* Theme toggle */}
+            <Tooltip content="Toggle theme">
+              <ThemeToggle size="sm" />
+            </Tooltip>
 
             {/* Notifications */}
             <div className="relative">

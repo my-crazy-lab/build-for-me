@@ -39,10 +39,12 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Token expired or invalid
+      // Token expired or invalid - only redirect if not already on login page
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = '/login';
+      if (!window.location.pathname.includes('/login')) {
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }
@@ -74,6 +76,10 @@ class AuthService {
   // Login with email and password (demo mode)
   async login(email, password) {
     try {
+      // Clear any existing auth data first
+      this.clearAuth();
+      delete api.defaults.headers.common['Authorization'];
+
       const response = await api.post('/auth/login', {
         email,
         password,
@@ -81,17 +87,23 @@ class AuthService {
 
       if (response.data.success) {
         const { token, user } = response.data;
+
+        // Store token and user data
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
+
+        // Set authorization header for future requests
+        api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
         return { success: true, user, token };
       }
 
-      return { success: false, error: 'Login failed' };
+      return { success: false, error: response.data.error || 'Login failed' };
     } catch (error) {
       console.error('Login error:', error);
       return {
         success: false,
-        error: error.response?.data?.error || 'Login failed',
+        error: error.response?.data?.error || error.message || 'Login failed',
       };
     }
   }
@@ -137,13 +149,18 @@ class AuthService {
   // Logout
   async logout() {
     try {
+      // Try to call server logout endpoint
       await api.post('/auth/logout');
     } catch (error) {
       console.error('Logout error:', error);
+      // Continue with cleanup even if server call fails
     } finally {
-      // Always clear local storage
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      // Always clear local storage and auth state
+      this.clearAuth();
+      // Clear authorization header
+      delete api.defaults.headers.common['Authorization'];
+      // Clear any axios cached requests
+      api.defaults.headers.Authorization = undefined;
     }
   }
 
