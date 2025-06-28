@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Merriweather:wght@300;400;700&display=swap');
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+    background-color: #ffffff;
+    color: #374151;
+  }
+}
+
+@layer components {
+  .btn-corporate {
+    @apply bg-corporate-navy hover:bg-blue-800 text-white font-medium py-3 px-8 rounded transition-colors duration-200 inline-flex items-center gap-2;
+  }
+  
+  .btn-outline-corporate {
+    @apply border-2 border-corporate-navy text-corporate-navy hover:bg-corporate-navy hover:text-white font-medium py-3 px-8 rounded transition-all duration-200 inline-flex items-center gap-2;
+  }
+  
+  .section-padding {
+    @apply py-20 md:py-28;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .corporate-card {
+    @apply bg-white rounded-lg shadow-corporate border border-gray-100 p-8 transition-all duration-300 hover:shadow-professional;
+  }
+  
+  .professional-heading {
+    @apply font-serif text-corporate-navy;
+  }
+  
+  .text-corporate {
+    @apply text-corporate-darkgray;
+  }
+  
+  .divider {
+    @apply w-20 h-1 bg-corporate-gold mx-auto;
+  }
+}

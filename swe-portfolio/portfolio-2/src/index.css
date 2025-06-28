@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #0a0a0f;
+    color: #e2e8f0;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #1a1a2e;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #00d4ff;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0099cc;
+  }
+}
+
+@layer components {
+  .btn-neon {
+    @apply bg-transparent border-2 border-neon-blue text-neon-blue font-mono font-medium py-3 px-6 rounded-lg transition-all duration-300 inline-flex items-center gap-2 hover:bg-neon-blue hover:text-cyber-bg hover:shadow-lg;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+  }
+  
+  .btn-neon:hover {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+  }
+  
+  .btn-ghost {
+    @apply border border-cyber-border text-cyber-text font-mono font-medium py-3 px-6 rounded-lg transition-all duration-300 inline-flex items-center gap-2 hover:border-neon-blue hover:text-neon-blue;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+  
+  .container-custom {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .terminal-window {
+    @apply bg-cyber-card border border-cyber-border rounded-lg overflow-hidden;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+  }
+  
+  .terminal-header {
+    @apply bg-cyber-border px-4 py-2 flex items-center gap-2;
+  }
+  
+  .terminal-dot {
+    @apply w-3 h-3 rounded-full;
+  }
+  
+  .terminal-content {
+    @apply p-4 font-mono text-sm;
+  }
+  
+  .neon-text {
+    color: #00d4ff;
+    text-shadow: 0 0 5px #00d4ff, 0 0 10px #00d4ff, 0 0 15px #00d4ff;
+  }
+  
+  .cyber-card {
+    @apply bg-cyber-card border border-cyber-border rounded-lg p-6 transition-all duration-300;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  .cyber-card:hover {
+    @apply border-neon-blue;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+  }
+  
+  .grid-bg {
+    background-image: linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px), 
+                      linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  
+  .matrix-bg {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .matrix-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+    opacity: 0.9;
+    z-index: 1;
+  }
+  
+  .matrix-bg > * {
+    position: relative;
+    z-index: 2;
+  }
+}

@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+    color: #e2e8f0;
+    overflow-x: hidden;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .btn-interactive {
+    @apply bg-gradient-to-r from-interactive-primary to-interactive-secondary text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 inline-flex items-center gap-3 hover:scale-105 transform;
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+  }
+  
+  .btn-interactive:hover {
+    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+  
+  .btn-holographic {
+    @apply border-2 border-interactive-neon text-interactive-neon font-futuristic font-bold py-4 px-8 rounded-full transition-all duration-300 inline-flex items-center gap-3 hover:bg-interactive-neon hover:text-dark-bg transform hover:scale-105;
+    background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 255, 0.1) 50%, transparent 70%);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  }
+  
+  .section-padding {
+    @apply py-20 md:py-32;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .interactive-card {
+    @apply bg-dark-card/80 backdrop-blur-lg rounded-2xl p-8 border border-dark-border transition-all duration-500 hover:scale-105 transform;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  
+  .interactive-card:hover {
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2), 0 0 30px rgba(139, 92, 246, 0.1);
+    border-color: rgba(99, 102, 241, 0.5);
+  }
+  
+  .holographic-text {
+    @apply font-futuristic bg-gradient-to-r from-interactive-neon via-interactive-purple to-interactive-pink bg-clip-text text-transparent;
+    background-size: 200% 200%;
+    animation: holographic 3s ease-in-out infinite;
+  }
+  
+  .neural-bg {
+    background: radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.2) 0%, transparent 50%);
+  }
+  
+  .particle-system {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: linear-gradient(45deg, #6366f1, #8b5cf6);
+    border-radius: 50%;
+    animation: particle 3s ease-in-out infinite;
+  }
+  
+  .glitch-effect {
+    position: relative;
+  }
+  
+  .glitch-effect::before,
+  .glitch-effect::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .glitch-effect::before {
+    animation: glitch 2s infinite;
+    color: #ff0080;
+    z-index: -1;
+  }
+  
+  .glitch-effect::after {
+    animation: glitch 2s infinite reverse;
+    color: #00ffff;
+    z-index: -2;
+  }
+  
+  .morphing-shape {
+    background: linear-gradient(45deg, #6366f1, #8b5cf6, #06b6d4);
+    background-size: 400% 400%;
+    animation: morph 8s ease-in-out infinite, holographic 4s ease-in-out infinite;
+  }
+  
+  .floating-3d {
+    transform-style: preserve-3d;
+    animation: float-3d 6s ease-in-out infinite;
+  }
+  
+  .perspective-container {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+}

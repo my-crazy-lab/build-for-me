@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .btn-creative {
+    @apply bg-gradient-to-r from-creative-purple to-creative-pink text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 inline-flex items-center gap-2 hover:scale-105 hover:shadow-lg transform;
+  }
+  
+  .btn-outline-creative {
+    @apply border-2 border-creative-purple text-creative-purple font-semibold py-3 px-8 rounded-full transition-all duration-300 inline-flex items-center gap-2 hover:bg-creative-purple hover:text-white hover:scale-105 transform;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+  
+  .container-custom {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .creative-card {
+    @apply bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-creative-purple via-creative-pink to-creative-orange bg-clip-text text-transparent;
+  }
+  
+  .blob-bg {
+    @apply absolute rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob;
+  }
+  
+  .floating-shape {
+    @apply absolute rounded-full opacity-20 animate-float;
+  }
+  
+  .creative-shadow {
+    box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.1), 0 10px 10px -5px rgba(236, 72, 153, 0.04);
+  }
+  
+  .rainbow-border {
+    background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+    background-size: 400% 400%;
+    animation: gradient 3s ease infinite;
+  }
+  
+  .glass-effect {
+    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  }
+}
