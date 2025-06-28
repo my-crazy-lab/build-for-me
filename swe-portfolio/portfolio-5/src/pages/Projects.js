@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaExternalLinkAlt, FaGithub, FaCube, FaVr, FaGamepad } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaGithub, FaCube, FaGamepad } from 'react-icons/fa';
+import { MdHeadset } from 'react-icons/md';
 
 const Projects = () => {
   const projects = [
@@ -23,7 +24,7 @@ const Projects = () => {
       liveUrl: 'https://quantum-portfolio-demo.com',
       githubUrl: 'https://github.com/zara/quantum-portfolio',
       image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&h=400&fit=crop',
-      icon: FaVr,
+      icon: MdHeadset,
       color: 'from-interactive-secondary to-interactive-accent',
     },
     {

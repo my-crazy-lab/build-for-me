@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { HiMenu, HiX, FaAtom } from 'react-icons/fa';
+import { HiX, HiMenu } from 'react-icons/hi';
+import { FaAtom } from 'react-icons/fa'; 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
