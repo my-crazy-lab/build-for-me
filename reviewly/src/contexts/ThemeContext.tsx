@@ -47,36 +47,36 @@ interface ThemeContextType extends ThemeState {
   updateConfig: (config: Partial<ThemeConfig>) => void;
 }
 
-// Light theme color palette
+// Light theme color palette - Classic Design
 const lightColors: ColorPalette = {
-  primary: '#667eea',
-  secondary: '#764ba2',
-  success: '#10b981',
-  warning: '#f59e0b',
-  error: '#ef4444',
-  info: '#3b82f6',
-  background: '#f8fafc',
-  surface: '#ffffff',
-  text: '#1f2937',
-  textSecondary: '#6b7280',
-  border: '#e5e7eb',
+  primary: '#2563eb',      // Classic blue
+  secondary: '#7c3aed',    // Classic purple
+  success: '#059669',      // Classic green
+  warning: '#d97706',      // Classic orange
+  error: '#dc2626',        // Classic red
+  info: '#0284c7',         // Classic sky blue
+  background: '#ffffff',   // Pure white
+  surface: '#f8fafc',      // Light gray
+  text: '#111827',         // Dark gray
+  textSecondary: '#6b7280', // Medium gray
+  border: '#d1d5db',       // Light border
   shadow: 'rgba(0, 0, 0, 0.1)',
 };
 
-// Dark theme color palette
+// Dark theme color palette - Classic Design
 const darkColors: ColorPalette = {
-  primary: '#818cf8',
-  secondary: '#a78bfa',
-  success: '#34d399',
-  warning: '#fbbf24',
-  error: '#f87171',
-  info: '#60a5fa',
-  background: '#0f172a',
-  surface: '#1e293b',
-  text: '#f1f5f9',
-  textSecondary: '#cbd5e1',
-  border: '#334155',
-  shadow: 'rgba(0, 0, 0, 0.3)',
+  primary: '#3b82f6',      // Bright blue
+  secondary: '#8b5cf6',    // Bright purple
+  success: '#10b981',      // Bright green
+  warning: '#f59e0b',      // Bright amber
+  error: '#ef4444',        // Bright red
+  info: '#06b6d4',         // Bright cyan
+  background: '#111827',   // Dark gray
+  surface: '#1f2937',      // Lighter dark gray
+  text: '#f9fafb',         // Light gray
+  textSecondary: '#d1d5db', // Medium light gray
+  border: '#374151',       // Dark border
+  shadow: 'rgba(0, 0, 0, 0.25)',
 };
 
 // Default theme configuration

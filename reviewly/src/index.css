@@ -1,69 +1,69 @@
 /**
  * Global Styles and CSS Variables for Reviewly Application
  *
- * Comprehensive styling system with Earthy Neutrals design palette,
- * warm natural tones, responsive design, and accessibility features.
+ * Comprehensive styling system with Classic design palette,
+ * clean modern colors, responsive design, and accessibility features.
  *
  * Created: 2025-06-24
- * Version: 2.0.0 - Earthy Neutrals Theme
+ * Version: 3.0.0 - Classic Theme
  * Author: Reviewly Development Team
  */
 
-/* CSS Variables for Earthy Neutrals Design System */
+/* CSS Variables for Classic Design System */
 :root {
-  /* Primary Colors - Earthy Neutrals Palette */
-  --color-primary: #A57B5B; /* Terracotta */
-  --color-primary-light: #B8906F;
-  --color-primary-dark: #926647;
-  --color-primary-alpha: rgba(165, 123, 91, 0.1);
+  /* Primary Colors - Classic Blue Palette */
+  --color-primary: #2563eb; /* Classic Blue */
+  --color-primary-light: #3b82f6;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-alpha: rgba(37, 99, 235, 0.1);
 
   /* Secondary Colors */
-  --color-secondary: #6A7B53; /* Olive Green */
-  --color-secondary-light: #7E8F67;
-  --color-secondary-dark: #56673F;
+  --color-secondary: #7c3aed; /* Classic Purple */
+  --color-secondary-light: #8b5cf6;
+  --color-secondary-dark: #6d28d9;
 
-  /* Accent Colors - Warm Earth Tones */
-  --color-accent: #8D6B4B; /* Rich Clay */
-  --color-accent-light: #A1805F;
-  --color-accent-dark: #795637;
+  /* Accent Colors - Modern Tones */
+  --color-accent: #0284c7; /* Sky Blue */
+  --color-accent-light: #0ea5e9;
+  --color-accent-dark: #0369a1;
 
-  /* Success, Warning, Error - Earth-toned variants */
-  --color-success: #6A7B53; /* Olive Green for success */
-  --color-success-light: #7E8F67;
-  --color-success-dark: #56673F;
+  /* Success, Warning, Error - Standard variants */
+  --color-success: #059669; /* Emerald Green */
+  --color-success-light: #10b981;
+  --color-success-dark: #047857;
 
-  --color-warning: #D2BA8C; /* Warm Taupe for warnings */
-  --color-warning-light: #DCC7A0;
-  --color-warning-dark: #C8AD78;
+  --color-warning: #d97706; /* Classic Orange */
+  --color-warning-light: #f59e0b;
+  --color-warning-dark: #b45309;
 
-  --color-danger: #A57B5B; /* Terracotta for errors (softer) */
-  --color-danger-light: #B8906F;
-  --color-danger-dark: #926647;
+  --color-danger: #dc2626; /* Classic Red */
+  --color-danger-light: #ef4444;
+  --color-danger-dark: #b91c1c;
 
-  --color-info: #C5B299; /* Warm Taupe for info */
-  --color-info-light: #D1BEAD;
-  --color-info-dark: #B9A685;
+  --color-info: #0284c7; /* Classic Sky Blue */
+  --color-info-light: #0ea5e9;
+  --color-info-dark: #0369a1;
 
-  /* Neutral Colors - Earthy Base */
-  --color-background: #F3EDE4; /* Creamy Beige */
-  --color-surface: #E5D5C5; /* Cream Beige */
-  --color-surface-elevated: #E5D5C5;
-  --color-surface-hover: #DCC7A0;
+  /* Neutral Colors - Clean Base */
+  --color-background: #ffffff; /* Pure White */
+  --color-surface: #f8fafc; /* Light Gray */
+  --color-surface-elevated: #f1f5f9;
+  --color-surface-hover: #e2e8f0;
 
   /* Text Colors */
-  --color-text: #3C2E26; /* Dark Brown */
-  --color-text-secondary: #5D4E42; /* Medium Brown */
-  --color-text-muted: #8D7B6B; /* Light Brown */
-  --color-text-inverse: #F3EDE4; /* Light text on dark backgrounds */
+  --color-text: #111827; /* Dark Gray */
+  --color-text-secondary: #6b7280; /* Medium Gray */
+  --color-text-muted: #9ca3af; /* Light Gray */
+  --color-text-inverse: #ffffff; /* White text on dark backgrounds */
 
   /* Border Colors */
-  --color-border: #D2BA8C; /* Warm Taupe */
-  --color-border-light: #E5D5C5;
-  --color-border-dark: #C5B299;
+  --color-border: #d1d5db; /* Light Border */
+  --color-border-light: #e5e7eb;
+  --color-border-dark: #9ca3af;
 
-  /* Shadow Colors - Warm earth tones */
-  --shadow-color: rgba(165, 123, 91, 0.15);
-  --shadow-color-dark: rgba(140, 107, 75, 0.25);
+  /* Shadow Colors - Clean shadows */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color-dark: rgba(0, 0, 0, 0.15);
 
   /* Typography */
   --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
@@ -470,73 +470,73 @@ img {
   }
 }
 
-/* Dark Mode Theme - Earthy Neutrals Dark Variant */
+/* Dark Mode Theme - Classic Dark Variant */
 [data-theme="dark"] {
-  /* Primary Colors - Darker earth tones */
-  --color-primary: #B8906F; /* Lighter terracotta for dark mode */
-  --color-primary-light: #C5A085;
-  --color-primary-dark: #A57B5B;
-  --color-primary-alpha: rgba(184, 144, 111, 0.1);
+  /* Primary Colors - Classic blue for dark mode */
+  --color-primary: #3b82f6; /* Bright blue for dark mode */
+  --color-primary-light: #60a5fa;
+  --color-primary-dark: #2563eb;
+  --color-primary-alpha: rgba(59, 130, 246, 0.1);
 
   /* Secondary Colors */
-  --color-secondary: #7E8F67; /* Lighter olive green */
-  --color-secondary-light: #92A37B;
-  --color-secondary-dark: #6A7B53;
+  --color-secondary: #8b5cf6; /* Bright purple */
+  --color-secondary-light: #a78bfa;
+  --color-secondary-dark: #7c3aed;
 
   /* Accent Colors */
-  --color-accent: #A1805F; /* Lighter rich clay */
-  --color-accent-light: #B59473;
-  --color-accent-dark: #8D6B4B;
+  --color-accent: #06b6d4; /* Bright cyan */
+  --color-accent-light: #22d3ee;
+  --color-accent-dark: #0891b2;
 
-  /* Status Colors - Earth-toned variants for dark mode */
-  --color-success: #7E8F67; /* Lighter olive green */
-  --color-success-light: #92A37B;
-  --color-success-dark: #6A7B53;
+  /* Status Colors - Classic variants for dark mode */
+  --color-success: #10b981; /* Bright green */
+  --color-success-light: #34d399;
+  --color-success-dark: #059669;
 
-  --color-warning: #DCC7A0; /* Lighter warm taupe */
-  --color-warning-light: #E6D1B4;
-  --color-warning-dark: #D2BA8C;
+  --color-warning: #f59e0b; /* Bright amber */
+  --color-warning-light: #fbbf24;
+  --color-warning-dark: #d97706;
 
-  --color-danger: #B8906F; /* Lighter terracotta */
-  --color-danger-light: #C5A085;
-  --color-danger-dark: #A57B5B;
+  --color-danger: #ef4444; /* Bright red */
+  --color-danger-light: #f87171;
+  --color-danger-dark: #dc2626;
 
-  --color-info: #D1BEAD; /* Lighter warm taupe */
-  --color-info-light: #DBC8C1;
-  --color-info-dark: #C5B299;
+  --color-info: #06b6d4; /* Bright cyan */
+  --color-info-light: #22d3ee;
+  --color-info-dark: #0891b2;
 
-  /* Background Colors - Dark earth tones */
-  --color-background: #2C1F1A; /* Dark earth */
-  --color-surface: #3C2E26; /* Dark brown */
-  --color-surface-elevated: #4A3B32;
-  --color-surface-hover: #5D4E42;
+  /* Background Colors - Classic dark */
+  --color-background: #111827; /* Dark gray */
+  --color-surface: #1f2937; /* Lighter dark gray */
+  --color-surface-elevated: #374151;
+  --color-surface-hover: #4b5563;
 
   /* Text Colors - Light on dark */
-  --color-text: #F3EDE4; /* Light cream */
-  --color-text-secondary: #D2BA8C; /* Warm taupe */
-  --color-text-muted: #C5B299; /* Light brown */
-  --color-text-inverse: #2C1F1A; /* Dark text for light backgrounds */
+  --color-text: #f9fafb; /* Light gray */
+  --color-text-secondary: #d1d5db; /* Medium light gray */
+  --color-text-muted: #9ca3af; /* Medium gray */
+  --color-text-inverse: #111827; /* Dark text for light backgrounds */
 
-  /* Border Colors - Medium earth tones */
-  --color-border: #5D4E42; /* Medium brown */
-  --color-border-light: #6B5A4F;
-  --color-border-dark: #4A3B32;
+  /* Border Colors - Dark grays */
+  --color-border: #374151; /* Dark border */
+  --color-border-light: #4b5563;
+  --color-border-dark: #1f2937;
 
-  /* Shadow Colors - Dark earth tones */
-  --shadow-color: rgba(0, 0, 0, 0.4);
-  --shadow-color-dark: rgba(0, 0, 0, 0.6);
+  /* Shadow Colors - Classic dark shadows */
+  --shadow-color: rgba(0, 0, 0, 0.25);
+  --shadow-color-dark: rgba(0, 0, 0, 0.4);
 }
 
 /* Auto dark mode based on system preference */
 @media (prefers-color-scheme: dark) {
   :root {
     /* Apply dark mode colors when system prefers dark and no explicit theme is set */
-    --color-background: #2C1F1A;
-    --color-surface: #3C2E26;
-    --color-text: #F3EDE4;
-    --color-text-secondary: #D2BA8C;
-    --color-border: #5D4E42;
-    --shadow-color: rgba(0, 0, 0, 0.4);
+    --color-background: #111827;
+    --color-surface: #1f2937;
+    --color-text: #f9fafb;
+    --color-text-secondary: #d1d5db;
+    --color-border: #374151;
+    --shadow-color: rgba(0, 0, 0, 0.25);
   }
 }
 

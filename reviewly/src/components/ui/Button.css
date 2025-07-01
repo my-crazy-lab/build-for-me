@@ -102,15 +102,15 @@
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   color: white;
   border-color: var(--color-primary);
-  box-shadow: 
+  box-shadow:
     var(--neu-shadow-dark),
-    0 4px 12px rgba(102, 126, 234, 0.4);
+    0 4px 12px rgba(37, 99, 235, 0.4);
 }
 
 .btn-primary:hover:not(.btn-disabled) {
-  box-shadow: 
+  box-shadow:
     var(--shadow-lg),
-    0 6px 20px rgba(102, 126, 234, 0.6);
+    0 6px 20px rgba(37, 99, 235, 0.6);
   transform: translateY(-1px);
 }
 

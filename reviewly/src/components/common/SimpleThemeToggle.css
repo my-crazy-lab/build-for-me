@@ -225,7 +225,7 @@
 }
 
 [data-theme="dark"] .theme-option.active {
-  background: linear-gradient(135deg, var(--color-primary-alpha) 0%, rgba(184, 144, 111, 0.05) 100%);
+  background: linear-gradient(135deg, var(--color-primary-alpha) 0%, rgba(59, 130, 246, 0.05) 100%);
   color: var(--color-primary);
 }
 
