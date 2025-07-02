@@ -1,0 +1,289 @@
+/**
+ * Simple Theme Toggle Styles for Reviewly Application
+ *
+ * CSS styles for the simplified theme toggle component with
+ * clean flat design and smooth transitions.
+ *
+ * Created: 2025-06-24
+ * Version: 2.0.0 - Clean Flat Design
+ * Author: Reviewly Development Team
+ */
+
+/* Theme Toggle Container */
+.simple-theme-toggle-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Button Variant */
+.simple-theme-toggle-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.simple-theme-toggle-button:hover {
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-surface-hover) 0%, var(--color-surface) 100%);
+  transform: translateY(-2px);
+}
+
+.simple-theme-toggle-button:active {
+  border-color: var(--color-primary-dark);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
+  transform: translateY(0);
+}
+
+/* Button Sizes */
+.simple-theme-toggle-button.small {
+  padding: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.simple-theme-toggle-button.medium {
+  padding: 0.75rem;
+  font-size: 1rem;
+}
+
+.simple-theme-toggle-button.large {
+  padding: 1rem;
+  font-size: 1.125rem;
+}
+
+/* Theme Icon */
+.theme-icon {
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.theme-label {
+  font-size: 0.875em;
+  white-space: nowrap;
+}
+
+/* Dropdown Variant */
+.simple-theme-dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.simple-theme-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%);
+  border: 2px solid var(--color-secondary);
+  border-radius: var(--border-radius-lg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--color-text);
+  font-weight: 500;
+  min-width: 120px;
+}
+
+.simple-theme-dropdown-trigger:hover {
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-surface-hover) 0%, var(--color-surface) 100%);
+  transform: translateY(-2px);
+}
+
+.simple-theme-dropdown-trigger.small {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  min-width: 100px;
+}
+
+.simple-theme-dropdown-trigger.large {
+  padding: 1rem 1.25rem;
+  font-size: 1.125rem;
+  min-width: 140px;
+}
+
+.current-theme-icon {
+  font-size: 1.2em;
+}
+
+.current-theme-label {
+  flex: 1;
+  text-align: left;
+}
+
+.dropdown-arrow {
+  font-size: 0.75em;
+  color: var(--color-text-secondary);
+  transition: transform 0.2s ease;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Backdrop */
+.dropdown-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+/* Dropdown Menu */
+.simple-theme-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  background: var(--color-surface);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--border-radius-lg);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--color-text);
+  font-weight: 500;
+  text-align: left;
+}
+
+.theme-option:hover {
+  background: var(--color-background);
+}
+
+.theme-option.active {
+  background: linear-gradient(135deg, var(--color-primary-alpha) 0%, var(--color-primary-alpha) 100%);
+  color: var(--color-primary);
+}
+
+.option-icon {
+  font-size: 1.1em;
+  width: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.option-label {
+  flex: 1;
+}
+
+.option-check {
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.875em;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .simple-theme-dropdown-trigger {
+    min-width: 100px;
+  }
+
+  .simple-theme-dropdown-trigger.small {
+    min-width: 80px;
+  }
+
+  .simple-theme-dropdown-trigger.large {
+    min-width: 120px;
+  }
+}
+
+/* Light Mode Specific Adjustments */
+[data-theme="light"] .simple-theme-toggle-button,
+[data-theme="light"] .simple-theme-dropdown-trigger,
+[data-theme="light"] .simple-theme-dropdown-menu {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+[data-theme="light"] .theme-option:hover {
+  background: var(--color-background);
+}
+
+[data-theme="light"] .theme-option.active {
+  background: linear-gradient(135deg, var(--color-primary-alpha) 0%, var(--color-primary-alpha) 100%);
+  color: var(--color-primary);
+}
+
+/* Dark Mode Specific Adjustments */
+[data-theme="dark"] .simple-theme-toggle-button,
+[data-theme="dark"] .simple-theme-dropdown-trigger,
+[data-theme="dark"] .simple-theme-dropdown-menu {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .theme-option:hover {
+  background: var(--color-background);
+}
+
+[data-theme="dark"] .theme-option.active {
+  background: linear-gradient(135deg, var(--color-primary-alpha) 0%, var(--color-primary-alpha) 100%);
+  color: var(--color-primary);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .simple-theme-toggle-button,
+  .simple-theme-dropdown-trigger {
+    border-width: 2px;
+  }
+
+  .simple-theme-dropdown-menu {
+    border-width: 2px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .simple-theme-toggle-button,
+  .simple-theme-dropdown-trigger,
+  .dropdown-arrow,
+  .theme-option {
+    transition: none;
+  }
+
+  .simple-theme-toggle-button:hover,
+  .simple-theme-dropdown-trigger:hover {
+    transform: none;
+  }
+}
+
+/* Focus Styles for Accessibility */
+.simple-theme-toggle-button:focus,
+.simple-theme-dropdown-trigger:focus,
+.theme-option:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.simple-theme-toggle-button:focus:not(:focus-visible),
+.simple-theme-dropdown-trigger:focus:not(:focus-visible),
+.theme-option:focus:not(:focus-visible) {
+  outline: none;
+}

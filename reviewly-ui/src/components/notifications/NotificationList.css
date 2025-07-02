@@ -1,0 +1,427 @@
+/**
+ * Notification List Styles for Reviewly Application
+ * 
+ * Styling for notification items with status indicators and actions.
+ * 
+ * Created: 2025-06-24
+ * Version: 1.0.0
+ * Author: Reviewly Development Team
+ */
+
+.notification-list {
+  background: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--neu-shadow-dark);
+  border: 1px solid var(--color-border);
+}
+
+.notification-list.loading,
+.notification-list.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  padding: 2rem;
+}
+
+/* Loading State */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--color-border);
+  border-top: 3px solid var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner p {
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  color: var(--color-text);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 0.5rem 0;
+}
+
+.empty-state p {
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Notifications Container */
+.notifications-container {
+  padding: 1.5rem;
+}
+
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.notification-item:last-child {
+  margin-bottom: 0;
+}
+
+.notification-item:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.notification-item.unread {
+  background: rgba(102, 126, 234, 0.02);
+  border-left: 4px solid var(--color-primary);
+}
+
+.notification-item.archived {
+  opacity: 0.6;
+}
+
+/* Notification Indicator */
+.notification-indicator {
+  position: relative;
+  min-width: 8px;
+}
+
+.unread-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+}
+
+/* Notification Icon */
+.notification-icon {
+  position: relative;
+  min-width: 3rem;
+  text-align: center;
+}
+
+.type-icon {
+  font-size: 1.5rem;
+}
+
+.priority-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  font-size: 0.75rem;
+  background: var(--color-danger);
+  color: white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Notification Content */
+.notification-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.notification-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.type-label {
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius-sm);
+}
+
+.type-label.warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--color-warning);
+}
+
+.type-label.info {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--color-info);
+}
+
+.type-label.success {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--color-success);
+}
+
+.type-label.neutral {
+  background: rgba(107, 114, 128, 0.1);
+  color: var(--color-text-secondary);
+}
+
+.time-ago {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.sender-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sender-avatar {
+  font-size: 1rem;
+}
+
+.sender-name {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.notification-title {
+  color: var(--color-text);
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.4;
+}
+
+.notification-message {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0 0 0.75rem 0;
+}
+
+.deadline-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.deadline-icon {
+  font-size: 0.875rem;
+}
+
+.deadline-text {
+  color: var(--color-warning);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.notification-action {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-primary);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.action-arrow {
+  font-size: 0.75rem;
+}
+
+/* Notification Actions */
+.notification-actions {
+  display: flex;
+  align-items: flex-start;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.notification-item:hover .action-buttons {
+  opacity: 1;
+}
+
+.action-buttons .btn {
+  padding: 0.5rem;
+  min-width: auto;
+  font-size: 0.875rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .notifications-container {
+    padding: 1rem;
+  }
+
+  .notification-item {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .notification-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .notification-meta {
+    gap: 0.5rem;
+  }
+
+  .action-buttons {
+    opacity: 1;
+  }
+
+  .notification-actions {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .notifications-container {
+    padding: 0.75rem;
+  }
+
+  .notification-item {
+    padding: 0.75rem;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .notification-indicator {
+    display: none;
+  }
+
+  .notification-icon {
+    align-self: flex-start;
+  }
+
+  .notification-title {
+    font-size: 0.875rem;
+  }
+
+  .notification-message {
+    font-size: 0.8125rem;
+  }
+
+  .action-buttons {
+    align-self: flex-end;
+  }
+}
+
+/* Light Mode Adjustments */
+[data-theme="light"] .notification-list {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="light"] .notification-item {
+  border-color: var(--color-border);
+}
+
+[data-theme="light"] .notification-item.unread {
+  background: var(--color-primary-alpha);
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .notification-list {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .notification-item {
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .notification-item.unread {
+  background: var(--color-primary-alpha);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .notification-list,
+  .notification-item {
+    border-width: 2px;
+  }
+
+  .type-label {
+    border: 1px solid currentColor;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .notification-item,
+  .action-buttons {
+    transition: none;
+  }
+
+  .notification-item:hover {
+    transform: none;
+  }
+
+  .spinner {
+    animation: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .notification-list {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .notification-item {
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+
+  .notification-actions {
+    display: none;
+  }
+}
